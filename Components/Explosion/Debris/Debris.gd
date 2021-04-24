@@ -60,10 +60,6 @@ func _physics_process(delta):
 			$Grabber.enable()
 			spawn_time = 0
 
-func _input(event):
-	if Input.is_key_pressed(KEY_F6):
-		get_tree().reload_current_scene()
-
 #TODO: Add some nice UI to appear/Update a score
 func _on_Grabber_collected():
 	print("debris collected")
