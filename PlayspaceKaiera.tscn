@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Sprites/tilemap-base.tres" type="TileSet" id=1]
 [ext_resource path="res://Sprites/chara-pal.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://Sprites/tilemap-water.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/blank-white.png" type="Texture" id=4]
+[ext_resource path="res://testbrink.png" type="Texture" id=5]
 
 [node name="Node2D" type="Node2D"]
 
@@ -9,7 +12,33 @@
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 8, 8 )
 format = 1
-tile_data = PoolIntArray( 262166, 0, 196608 )
+tile_data = PoolIntArray( 1048599, 0, 8, 1048600, 0, 9, 1048601, 0, 9, 1048602, 0, 11, 1114135, 0, 131076, 1114136, 0, 196618, 1114137, 0, 196618, 1114138, 0, 131082, 1114139, 0, 11, 1179658, 0, 8, 1179659, 0, 9, 1179660, 0, 6, 1179661, 0, 196611, 1179670, 0, 8, 1179671, 0, 65543, 1179674, 0, 65544, 1179675, 0, 65542, 1179676, 0, 11, 1245194, 0, 65544, 1245195, 0, 65546, 1245196, 0, 131083, 1245200, 0, 196609, 1245201, 0, 5, 1245202, 0, 11, 1245204, 0, 8, 1245205, 0, 9, 1245206, 0, 65541, 1245207, 0, 65542, 1245208, 0, 9, 1245209, 0, 9, 1245210, 0, 65541, 1245211, 0, 65546, 1245212, 0, 65542, 1245213, 0, 11, 1310730, 0, 65544, 1310731, 0, 65546, 1310732, 0, 65542, 1310733, 0, 9, 1310734, 0, 11, 1310737, 0, 65544, 1310738, 0, 65542, 1310739, 0, 9, 1310740, 0, 65541, 1310741, 0, 65546, 1310742, 0, 65548, 1310743, 0, 196620, 1310744, 0, 65546, 1310745, 0, 131084, 1310746, 0, 65546, 1310747, 0, 12, 1310748, 0, 12, 1310749, 0, 131083, 1376266, 0, 65544, 1376267, 0, 12, 1376268, 0, 12, 1376269, 0, 65546, 1376270, 0, 65542, 1376271, 0, 9, 1376272, 0, 9, 1376273, 0, 65541, 1376274, 0, 65546, 1376275, 0, 65546, 1376276, 0, 65546, 1376277, 0, 65546, 1376278, 0, 65546, 1376279, 0, 65546, 1376280, 0, 65546, 1376281, 0, 65546, 1376282, 0, 196620, 1376283, 0, 65546, 1376284, 0, 65546, 1376285, 0, 131083, 1441802, 0, 196616, 1441803, 0, 196618, 1441804, 0, 196618, 1441805, 0, 196618, 1441806, 0, 196618, 1441807, 0, 196618, 1441808, 0, 196618, 1441809, 0, 196618, 1441810, 0, 196618, 1441811, 0, 196618, 1441812, 0, 196618, 1441813, 0, 196618, 1441814, 0, 196618, 1441815, 0, 196618, 1441816, 0, 196618, 1441817, 0, 196618, 1441818, 0, 196618, 1441819, 0, 196618, 1441820, 0, 196618, 1441821, 0, 196619 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 144, 56 )
 frames = ExtResource( 2 )
+
+[node name="Water" type="Sprite" parent="."]
+position = Vector2( 160, 40 )
+scale = Vector2( 20, 1 )
+z_index = -1
+texture = ExtResource( 3 )
+
+[node name="Liquid" type="Sprite" parent="Water"]
+self_modulate = Color( 0.980392, 0.956863, 0.772549, 1 )
+position = Vector2( -4, 8 )
+scale = Vector2( 1, 17 )
+texture = ExtResource( 4 )
+offset = Vector2( 4, 4 )
+
+[node name="testbrink6" type="Sprite" parent="."]
+self_modulate = Color( 0.0235294, 0.266667, 0.458824, 1 )
+position = Vector2( 40, 88 )
+scale = Vector2( 2.5, 5.5 )
+texture = ExtResource( 5 )
+
+[node name="testbrink7" type="Sprite" parent="."]
+self_modulate = Color( 0.0235294, 0.266667, 0.458824, 1 )
+position = Vector2( 280, 88 )
+scale = Vector2( 2.5, 5.5 )
+texture = ExtResource( 5 )
