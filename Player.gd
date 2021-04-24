@@ -19,6 +19,8 @@ func _process(delta):
 		$AnimatedSprite.play("up")
 		
 	#Flip the sprite for direction moved
+	# if sign(velocity.x) != 0:
+	#	$AnimatedSprite.flip_h = velocity.x > 0
 	if sign(velocity.x) > 0:
 		$AnimatedSprite.flip_h = true
 	elif sign(velocity.x) < 0:
@@ -66,7 +68,7 @@ func _physics_process(delta):
 			print("deleting ", tilePos, collision.position)
 			#From Kaiera: set_cellv uses local position for world_to_map
 			tileMap.set_cellv(tilePos,-1)
-			#Make it look nice :3
+			#Make it look nice :3 (or cheese happens...)
 			tileMap.update_bitmask_area(tilePos)
 
 	#Apply friction
