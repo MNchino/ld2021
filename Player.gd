@@ -61,8 +61,13 @@ func _physics_process(delta):
 			#TODO: handle from tilemap
 			tileMap.add_child(explode)
 			explode.global_position = collision.position
-			print("deleting ", tileMap.world_to_map(collision.position), collision.position)
-			tileMap.set_cellv(tileMap.world_to_map(collision.position),-1)
+			
+			var tilePos = tileMap.world_to_map(tileMap.to_local(collision.position))
+			print("deleting ", tilePos, collision.position)
+			#From Kaiera: set_cellv uses local position for world_to_map
+			tileMap.set_cellv(tilePos,-1)
+			#Make it look nice :3
+			tileMap.update_bitmask_area(tilePos)
 
 	#Apply friction
 	velocity = velocity - delta*EXPECTED_FPS*velocity/friction_divider

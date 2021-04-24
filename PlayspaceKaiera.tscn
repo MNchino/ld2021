@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Sprites/tilemap-base.tres" type="TileSet" id=1]
 [ext_resource path="res://Sprites/chara-pal.tres" type="SpriteFrames" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Sprites/tilemap-wall.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/debris-candy.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/debris-cookie.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/chara-spoon.png" type="Texture" id=9]
 
 [node name="Node2D" type="Node2D"]
 
@@ -77,6 +78,11 @@ texture = ExtResource( 8 )
 hframes = 5
 
 [node name="DebrisCandy" type="Sprite" parent="."]
-position = Vector2( 128, 112 )
+position = Vector2( 120, 112 )
 texture = ExtResource( 7 )
 hframes = 3
+
+[node name="chara-spoon" type="Sprite" parent="."]
+position = Vector2( 128, 136 )
+rotation = 2.53771
+texture = ExtResource( 9 )
