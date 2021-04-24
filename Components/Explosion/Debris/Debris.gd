@@ -30,12 +30,17 @@ func _ready():
 	rotation_start = rand_range(-360, 360)
 	rotation_end = rand_range(-360, 360)
 	$Sprite.rotation_degrees = rotation_start
+	$Grabber.disable()
 
 	
 func _physics_process(delta):
 	var delta_move = EXPECTED_FPS * delta
 	
 	# Spawning movement
+	# Kai I know you love to do this in GM
+	# But Godot makes this so much easier with 
+	# animation players >:(
+	# But we keep it dw
 	if spawn_time > 0:
 		spawn_time -= delta_move
 		
@@ -52,8 +57,14 @@ func _physics_process(delta):
 			
 		else:
 			$Sprite.rotation_degrees = rotation_end
+			$Grabber.enable()
 			spawn_time = 0
 
 func _input(event):
 	if Input.is_key_pressed(KEY_F6):
 		get_tree().reload_current_scene()
+
+#TODO: Add some nice UI to appear/Update a score
+func _on_Grabber_collected():
+	print("debris collected")
+	queue_free()

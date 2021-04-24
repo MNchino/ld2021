@@ -1,14 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Sprites/debris-cookie.png" type="Texture" id=1]
-[ext_resource path="res://Debris.gd" type="Script" id=2]
+[ext_resource path="res://Components/Explosion/Debris/Debris.gd" type="Script" id=2]
+[ext_resource path="res://Components/Explosion/Debris/Grabber.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 4 )
 
 [node name="DebrisCookie" type="KinematicBody2D"]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 1038
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
@@ -20,3 +21,7 @@ hframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="Grabber" parent="." instance=ExtResource( 3 )]
+
+[connection signal="collected" from="Grabber" to="." method="_on_Grabber_collected"]

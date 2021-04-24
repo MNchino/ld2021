@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Components/Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Components/Dirt/CookieDirt.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Sprites/tilemap-wall.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 15.8055 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 70.4, 15.8055 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 80, 32 )
+
+[node name="Playspace" type="Node2D"]
+position = Vector2( 0, 144 )
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PoolVector2Array( 72, -88, 272, -88 )
+default_color = Color( 1, 0.4, 0.4, 1 )
+
+[node name="WallLeft" type="StaticBody2D" parent="."]
+collision_layer = 8
+
+[node name="tilemap-wall" type="Sprite" parent="WallLeft"]
+position = Vector2( 40, -56 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+position = Vector2( 40, -48 )
+scale = Vector2( 2.5, 6.58 )
+shape = SubResource( 1 )
+
+[node name="Ceiling" type="StaticBody2D" parent="."]
+position = Vector2( 80, -200 )
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ceiling"]
+position = Vector2( 80, -56 )
+scale = Vector2( 2.5, 6.58 )
+shape = SubResource( 2 )
+
+[node name="tilemap-wall" type="Sprite" parent="Ceiling"]
+position = Vector2( 200, 144 )
+texture = ExtResource( 3 )
+flip_h = true
+
+[node name="WallRight" type="StaticBody2D" parent="."]
+position = Vector2( 240, 0 )
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
+position = Vector2( 40, -48 )
+scale = Vector2( 2.5, 6.58 )
+shape = SubResource( 1 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 144, -128 )
+
+[node name="CookieDirt" parent="." instance=ExtResource( 2 )]
+
+[node name="CanGrappleArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanGrappleArea"]
+position = Vector2( 160, -120 )
+shape = SubResource( 3 )

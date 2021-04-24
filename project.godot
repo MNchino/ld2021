@@ -8,10 +8,20 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Area2D",
+"class": "Grabber",
+"language": "GDScript",
+"path": "res://Components/Explosion/Debris/Grabber.gd"
+} ]
+_global_script_class_icons={
+"Grabber": ""
+}
+
 [application]
 
 config/name="puddingbutminecraft"
-run/main_scene="res://Playspace.tscn"
+run/main_scene="res://Maps/Playspace.tscn"
 config/icon="res://icon.png"
 
 [display]
@@ -67,6 +77,15 @@ ui_click={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Dirt"
+2d_physics/layer_3="Debris"
+2d_physics/layer_4="Wall"
+2d_physics/layer_11="Items"
+2d_physics/layer_12="Explosions"
 
 [physics]
 
