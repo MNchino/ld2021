@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Components/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Components/Dirt/CookieDirt.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Sprites/tilemap-wall.png" type="Texture" id=3]
 [ext_resource path="res://Components/Interface/Interface.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Maps/Playspace.gd" type="Script" id=5]
+[ext_resource path="res://Sprites/tilemap-water.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/blank-white.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 64, 4.86322 )
@@ -18,54 +20,75 @@ extents = Vector2( 80, 32 )
 [node name="Playspace" type="Node"]
 script = ExtResource( 5 )
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Interface" parent="CanvasLayer" instance=ExtResource( 4 )]
+
 [node name="Line2D" type="Line2D" parent="."]
+visible = false
 position = Vector2( 0, 152 )
-points = PoolVector2Array( 72, -88, 272, -88 )
+points = PoolVector2Array( 72, -88, 248, -88 )
 default_color = Color( 1, 0.4, 0.4, 1 )
 
-[node name="Ceiling" type="StaticBody2D" parent="."]
-position = Vector2( 80, -56 )
-collision_layer = 8
+[node name="Water" type="Sprite" parent="."]
+position = Vector2( 160, 72 )
+scale = Vector2( 20, 1 )
+z_index = -1
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ceiling"]
-position = Vector2( 80, 24 )
+[node name="Liquid" type="Sprite" parent="Water"]
+self_modulate = Color( 0.980392, 0.956863, 0.772549, 1 )
+position = Vector2( -4, 8 )
+scale = Vector2( 1, 17 )
+texture = ExtResource( 7 )
+offset = Vector2( 4, 4 )
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 8
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CollisionCeiling" type="CollisionShape2D" parent="Walls"]
+visible = false
+position = Vector2( 160, -32 )
 scale = Vector2( 2.5, 6.58 )
 shape = SubResource( 1 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Ceiling"]
-position = Vector2( 80, 272 )
+[node name="CollisionGround" type="CollisionShape2D" parent="Walls"]
+visible = false
+position = Vector2( 160, 216 )
 scale = Vector2( 2.5, 6.58 )
 shape = SubResource( 1 )
 
-[node name="WallLeft" type="StaticBody2D" parent="."]
-collision_layer = 8
-
-[node name="tilemap-wall" type="Sprite" parent="WallLeft"]
+[node name="WallLeft" type="Sprite" parent="Walls"]
 position = Vector2( 40, 96 )
 z_index = 1000
 z_as_relative = false
 texture = ExtResource( 3 )
 offset = Vector2( 0, -4 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+[node name="CollisionLeft" type="CollisionShape2D" parent="Walls"]
+visible = false
 position = Vector2( 40, 104 )
 scale = Vector2( 2.5, 6.58 )
 shape = SubResource( 2 )
 
-[node name="WallRight" type="StaticBody2D" parent="."]
-position = Vector2( 240, 152 )
-collision_layer = 8
-
-[node name="tilemap-wall" type="Sprite" parent="WallRight"]
-position = Vector2( 40, -56 )
+[node name="WallRight" type="Sprite" parent="Walls"]
+position = Vector2( 280, 96 )
 z_index = 1000
 z_as_relative = false
 texture = ExtResource( 3 )
 offset = Vector2( 0, -4 )
 flip_h = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
-position = Vector2( 40, -48 )
+[node name="CollisionRight" type="CollisionShape2D" parent="Walls"]
+visible = false
+position = Vector2( 280, 104 )
 scale = Vector2( 2.5, 6.58 )
 shape = SubResource( 2 )
 
@@ -75,16 +98,27 @@ position = Vector2( 144, 24 )
 [node name="CookieDirt" parent="." instance=ExtResource( 2 )]
 position = Vector2( 80, 64 )
 
+[node name="CookieTiles" parent="CookieDirt" index="0"]
+tile_data = PoolIntArray( 524288, 0, 8, 524289, 0, 9, 524290, 0, 9, 524291, 0, 9, 524292, 0, 9, 524293, 0, 9, 524294, 0, 9, 524295, 0, 9, 524296, 0, 9, 524297, 0, 9, 524298, 0, 9, 524299, 0, 9, 524300, 0, 9, 524301, 0, 9, 524302, 0, 9, 524303, 0, 9, 524304, 0, 9, 524305, 0, 9, 524306, 0, 9, 524307, 0, 11, 589824, 0, 65544, 589825, 0, 65548, 589826, 0, 12, 589827, 0, 196620, 589828, 0, 131084, 589829, 0, 65546, 589830, 0, 65546, 589831, 0, 65546, 589832, 0, 65546, 589833, 0, 65548, 589834, 0, 65546, 589835, 0, 65546, 589836, 0, 65546, 589837, 0, 65546, 589838, 0, 12, 589839, 0, 65546, 589840, 0, 65546, 589841, 0, 65546, 589842, 0, 65546, 589843, 0, 131083, 655360, 0, 65544, 655361, 0, 196620, 655362, 0, 131084, 655363, 0, 65546, 655364, 0, 65546, 655365, 0, 65546, 655366, 0, 65546, 655367, 0, 65546, 655368, 0, 65546, 655369, 0, 65546, 655370, 0, 65546, 655371, 0, 196620, 655372, 0, 196620, 655373, 0, 65546, 655374, 0, 65546, 655375, 0, 65546, 655376, 0, 65546, 655377, 0, 65546, 655378, 0, 65546, 655379, 0, 131083, 720896, 0, 65544, 720897, 0, 65546, 720898, 0, 65546, 720899, 0, 196620, 720900, 0, 65546, 720901, 0, 196620, 720902, 0, 12, 720903, 0, 131084, 720904, 0, 65546, 720905, 0, 65546, 720906, 0, 196620, 720907, 0, 196620, 720908, 0, 65546, 720909, 0, 65546, 720910, 0, 65546, 720911, 0, 65546, 720912, 0, 12, 720913, 0, 196620, 720914, 0, 65546, 720915, 0, 131083, 786432, 0, 65544, 786433, 0, 65546, 786434, 0, 12, 786435, 0, 65548, 786436, 0, 196620, 786437, 0, 65546, 786438, 0, 65546, 786439, 0, 65548, 786440, 0, 65546, 786441, 0, 65546, 786442, 0, 12, 786443, 0, 196620, 786444, 0, 65548, 786445, 0, 65546, 786446, 0, 65546, 786447, 0, 131084, 786448, 0, 65546, 786449, 0, 131084, 786450, 0, 65546, 786451, 0, 131083, 851968, 0, 65544, 851969, 0, 65548, 851970, 0, 65548, 851971, 0, 131084, 851972, 0, 12, 851973, 0, 65546, 851974, 0, 65546, 851975, 0, 65546, 851976, 0, 65546, 851977, 0, 196620, 851978, 0, 65548, 851979, 0, 65546, 851980, 0, 65546, 851981, 0, 65546, 851982, 0, 65546, 851983, 0, 65548, 851984, 0, 65546, 851985, 0, 65546, 851986, 0, 65546, 851987, 0, 131083, 917504, 0, 196616, 917505, 0, 196618, 917506, 0, 196618, 917507, 0, 196618, 917508, 0, 196618, 917509, 0, 196618, 917510, 0, 196618, 917511, 0, 196618, 917512, 0, 196618, 917513, 0, 196618, 917514, 0, 196618, 917515, 0, 196618, 917516, 0, 196618, 917517, 0, 196618, 917518, 0, 196618, 917519, 0, 196618, 917520, 0, 196618, 917521, 0, 196618, 917522, 0, 196618, 917523, 0, 196619 )
+
 [node name="CanGrappleArea" type="Area2D" parent="."]
+visible = false
 position = Vector2( 0, 152 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CanGrappleArea"]
 position = Vector2( 160, -120 )
 shape = SubResource( 3 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
 
-[node name="Interface" parent="CanvasLayer" instance=ExtResource( 4 )]
+[node name="ColorRect" type="ColorRect" parent="Background"]
+margin_right = 320.0
+margin_bottom = 184.0
+color = Color( 1, 0.792157, 0.988235, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="depth_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_depth_changed"]
 [connection signal="power_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_power_changed"]
@@ -93,3 +127,5 @@ shape = SubResource( 3 )
 [connection signal="power_reset" from="Player" to="." method="_on_Player_power_reset"]
 [connection signal="score_changed" from="Player" to="." method="_on_Player_score_changed"]
 [connection signal="next_dirt" from="CookieDirt" to="." method="_on_CookieDirt_next_dirt"]
+
+[editable path="CookieDirt"]

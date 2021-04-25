@@ -23,9 +23,8 @@ func _on_Player_power_reset():
 	global.power = 0
 	emit_signal("power_changed", global.power)
 
-
 func _on_CookieDirt_next_dirt():
 	print("calling next dirt")
-	$CookieDirt.position.y -= 48
-	$Player.position.y -= 48
-	pass # Replace with function body.
+	$CookieDirt.generate_tiles()
+	$CookieDirt.position.y -= $CookieDirt.TILES_TALL_PER_ITERATION * 8
+	$Player.position.y -= $CookieDirt.TILES_TALL_PER_ITERATION * 8

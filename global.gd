@@ -2,7 +2,7 @@ extends Node
 
 var points : int = 0
 var depth : int = 0
-var power : int = 0
+var power : int = 1
 const max_power : int = 10
 var life : int = 3
 

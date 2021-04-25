@@ -7,7 +7,7 @@ var ui_points : int = 0
 
 func _ready():
 	ui_life_set(3)
-	ui_power_set(0)
+	ui_power_set(1)
 	ui_depth_set(0)
 	ui_points_set(0)
 
@@ -16,15 +16,15 @@ func ui_life_set(amount : int):
 	$TopLeft/LifeRect/LifeRectOn.rect_size = $TopLeft/LifeRect/LifeRectOn.rect_min_size * amount
 
 func ui_power_set(amount : int):
-	ui_power = amount
+	#ui_power = amount
 	$TopRight/PowerBar.value = amount
 
 func ui_depth_set(amount : int):
-	ui_depth = amount
+	#ui_depth = amount
 	$TopRight/DepthCount.text = String(amount) + " m"
 
 func ui_points_set(amount : int):
-	ui_points = amount
+	#ui_points = amount
 	$BottomRight/PointsCount.text = String(amount)
 
 func _on_Playspace_score_changed(new_score : int):
