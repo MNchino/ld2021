@@ -1,14 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Sprites/theme.tres" type="Theme" id=1]
 [ext_resource path="res://Sprites/font-dogicapixelbold.tres" type="DynamicFont" id=2]
-[ext_resource path="res://Sprites/theme-hearts.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/theme-hearts-on.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/theme-hearts-off.png" type="Texture" id=4]
+[ext_resource path="res://Components/Interface/Interface.gd" type="Script" id=5]
 
 [node name="Interface" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -29,12 +31,12 @@ custom_fonts/font = ExtResource( 2 )
 text = "Life"
 uppercase = true
 
-[node name="Control" type="Control" parent="TopLeft"]
+[node name="LifeRect" type="Control" parent="TopLeft"]
 margin_top = 10.0
 margin_right = 64.0
 margin_bottom = 10.0
 
-[node name="LifeRectOff" type="TextureRect" parent="TopLeft/Control"]
+[node name="LifeRectOff" type="TextureRect" parent="TopLeft/LifeRect"]
 margin_right = 64.0
 margin_bottom = 11.0
 rect_min_size = Vector2( 13, 0 )
@@ -44,7 +46,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LifeRectOn" type="TextureRect" parent="TopLeft/Control"]
+[node name="LifeRectOn" type="TextureRect" parent="TopLeft/LifeRect"]
 margin_right = 13.0
 margin_bottom = 11.0
 rect_min_size = Vector2( 13, 0 )
@@ -72,7 +74,7 @@ custom_fonts/font = ExtResource( 2 )
 text = "Power"
 uppercase = true
 
-[node name="ProgressBar" type="ProgressBar" parent="TopRight"]
+[node name="PowerBar" type="ProgressBar" parent="TopRight"]
 margin_top = 10.0
 margin_right = 64.0
 margin_bottom = 18.0
@@ -122,7 +124,7 @@ margin_bottom = 6.0
 custom_fonts/font = ExtResource( 2 )
 text = "pts"
 
-[node name="PointsCount2" type="Label" parent="BottomRight"]
+[node name="PointsCount" type="Label" parent="BottomRight"]
 margin_top = 10.0
 margin_right = 63.0
 margin_bottom = 16.0
