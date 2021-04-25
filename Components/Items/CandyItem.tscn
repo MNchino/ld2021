@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Sprites/debris-candy.png" type="Texture" id=1]
 [ext_resource path="res://Components/Items/Item.gd" type="Script" id=2]
 [ext_resource path="res://Components/Explosion/Debris/DebrisCandy.tscn" type="PackedScene" id=3]
 
@@ -18,8 +17,6 @@ collision_mask = 2048
 [node name="Shape" type="CollisionShape2D" parent="ExplosionSensor"]
 shape = SubResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 1 )
-hframes = 3
+[node name="DebrisCandy" parent="." instance=ExtResource( 3 )]
 
 [connection signal="area_entered" from="ExplosionSensor" to="." method="_on_ExplosionSensor_area_entered"]

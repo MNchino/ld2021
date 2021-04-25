@@ -67,7 +67,7 @@ func _on_Player_grapple_called():
 	$Player/GrappleLine.visible = true
 
 func _on_Grapple_collided(collider : Node2D):
-	if collider.has_node("Grabber"):
+	if collider.has_node("Grabber") && collider.active:
 		grapple_item_object = collider
 		grapple_item = true
 		$Grapple.is_retracting = true

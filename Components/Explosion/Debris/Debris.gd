@@ -4,6 +4,7 @@ class_name Debris
 
 signal debris_deleted
 export(int) var sprite_frame = -1
+export(bool) var active = true
 
 const EXPECTED_FPS = 60
 const spawn_time_min = 20
@@ -23,11 +24,21 @@ var rotation_end = 0
 var move_rotation = 0
 
 func _ready():
-	if sprite_frame > -1:
+	$Grabber.disable()
+	if sprite_frame < 0:
 		$Sprite.frame = randi() % (($Sprite.hframes * $Sprite.vframes))
 	else:
 		$Sprite.frame = sprite_frame
 	
+	if (active):
+		start()
+	
+
+func activate():
+	active = true
+	start()
+	
+func start():
 	spawn_time_start = rand_range(spawn_time_min, spawn_time_max)
 	spawn_time = spawn_time_start
 	
@@ -38,7 +49,6 @@ func _ready():
 	rotation_start = rand_range(-360, 360)
 	rotation_end = rand_range(-360, 360)
 	$Sprite.rotation_degrees = rotation_start
-	$Grabber.disable()
 	
 func set_sprite_frame (frame : int):
 	$Sprite.frame = frame

@@ -18,23 +18,27 @@ const NOISE_PERIOD = 4
 #The amount between -1 to -1 of noise we want to keep
 #Note any noise > .5 is very rare
 const NOISE_THRESHOLD = 0.4
-const MAX_CANDIES_PER_LEVEL = 100000 # The amount of candy we spawn at a time
+const MAX_CANDIES_PER_LEVEL = 15 # The amount of candy we spawn at a time
 #Set the number above to a really big num to spawn for all the noise coords
-
+const MIN_CANDIES_PER_LEVEL = 10
 
 func _ready():
 	total_tile_num = TILES_WIDE*TILES_TALL_PER_ITERATION
 	tiles_remaining = total_tile_num
 	percent_remaining = 100
 	
+	#Configure item spawning mechanics
 	noise.seed = randi()
 	noise.period = NOISE_PERIOD
+	spawn_items_over_tiles($CookieTiles.get_used_cells())
+
+func spawn_items_over_tiles(tiles : Array):
 	var candy_targets = []
-	for tile in $CookieTiles.get_used_cells():
+	for tile in tiles:
 		if noise.get_noise_2dv(tile) > NOISE_THRESHOLD:
 			candy_targets.push_back(tile)
 	
-	for i in randi()%MAX_CANDIES_PER_LEVEL:
+	for i in MIN_CANDIES_PER_LEVEL + randi()%(MAX_CANDIES_PER_LEVEL - MIN_CANDIES_PER_LEVEL):
 		var num_potential_targets = candy_targets.size()
 		if !!num_potential_targets:
 			var target_tile = candy_targets[randi()%num_potential_targets]
@@ -49,7 +53,6 @@ func _ready():
 		else:
 			break
 
-	
 func _on_CookieTiles_exploded(pos : Vector2):
 	#Create explosion instance
 	var explode = explosionResource.instance()
@@ -74,6 +77,14 @@ func remove_tile():
 		total_tile_num = tiles_remaining + (TILES_WIDE * TILES_TALL_PER_ITERATION)
 		tiles_remaining = total_tile_num
 
+#Assumes there are cells defined at every integer coord in between
+func get_cells_in_region(start,end):
+	var cells = []
+	for x in range(end.x - start.x):
+		for y in range(end.y - start.y):
+			cells.push_back(Vector2(start.x + x,start.y + y))
+	return cells
+	
 func generate_tiles():
 	for i in range(TILES_WIDE):
 		for j in range(TILES_TALL_PER_ITERATION):
@@ -83,5 +94,6 @@ func generate_tiles():
 	var start = Vector2(0, tiles_floor)
 	var end = Vector2(TILES_WIDE-1, tiles_floor + TILES_TALL_PER_ITERATION)
 	
+	spawn_items_over_tiles(get_cells_in_region(start,end))
 	$CookieTiles.update_bitmask_region(start, end)
 	tiles_floor += TILES_TALL_PER_ITERATION

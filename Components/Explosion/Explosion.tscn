@@ -4,7 +4,7 @@
 [ext_resource path="res://Sprites/explosion.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=1]
-length = 0.3
+length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("explosion:self_modulate")
 tracks/0/interp = 1
@@ -27,6 +27,7 @@ z_as_relative = false
 script = ExtResource( 2 )
 
 [node name="explosion" type="Sprite" parent="."]
+self_modulate = Color( 1, 1, 1, 0 )
 z_index = -1
 texture = ExtResource( 3 )
 
