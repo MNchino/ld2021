@@ -36,7 +36,11 @@ func _ready():
 
 func activate():
 	active = true
+	call_deferred("enable_collision")
 	start()
+	
+func enable_collision():
+	$CollisionShape2D.disabled = false
 	
 func start():
 	spawn_time_start = rand_range(spawn_time_min, spawn_time_max)

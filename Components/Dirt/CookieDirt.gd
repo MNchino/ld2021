@@ -43,8 +43,7 @@ func spawn_items_over_tiles(tiles : Array):
 		if !!num_potential_targets:
 			var target_tile = candy_targets[randi()%num_potential_targets]
 			var new_candy = item_candy_resource.instance()
-			add_child(new_candy)
-			new_candy.position = $CookieTiles.map_to_world(target_tile) + Vector2(4,4)
+			call_deferred("add_child_at_location", new_candy, $CookieTiles.map_to_world(target_tile) + Vector2(4,4))
 			candy_targets.erase(target_tile)
 			
 			#Erase Ground under tile
@@ -52,6 +51,10 @@ func spawn_items_over_tiles(tiles : Array):
 #			$CookieTiles.update_bitmask_area(target_tile)
 		else:
 			break
+			
+func add_child_at_location(child, location):
+	add_child(child)
+	child.position = location
 
 func _on_CookieTiles_exploded(pos : Vector2):
 	#Create explosion instance

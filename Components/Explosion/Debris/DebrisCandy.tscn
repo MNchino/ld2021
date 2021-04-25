@@ -22,6 +22,7 @@ hframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+disabled = true
 
 [node name="Grabber" parent="." instance=ExtResource( 3 )]
 num_points = 300
