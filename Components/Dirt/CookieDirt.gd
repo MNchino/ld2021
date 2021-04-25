@@ -38,9 +38,6 @@ func remove_tile():
 	tiles_remaining -= 1
 	percent_remaining = 100 * tiles_remaining / total_tile_num
 	
-	if tiles_remaining % 5 == 0:
-		print("tiles remaining ", tiles_remaining, " ", total_tile_num, " ", percent_remaining)
-	
 	if percent_remaining <= min_cookie_until_next:
 		emit_signal("next_dirt")
 		percent_remaining = 100

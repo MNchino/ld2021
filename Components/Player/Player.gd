@@ -3,9 +3,10 @@ extends KinematicBody2D
 signal score_changed
 signal power_changed
 signal power_reset
+signal grapple_called
 
 const EXPECTED_FPS = 60
-const move_incr = 1
+const move_incr = 0.2
 const move_speed = 3
 const LAUNCH_SPEED = 10
 const gravity_in_grapple_mult = 0.25
@@ -46,11 +47,11 @@ func _physics_process(delta):
 	var delta_move_speed = move_speed*delta_move 
 	#UNCOMMENT this out if you want to slow movement speed in air while grappling
 	#*(velocity_grappling_mult if grapple_started else 1)
-	var gravity_speed = gravity*delta_move
+	var gravity_speed = gravity * delta_move
 	
 	# Show Aiming line while launching downwards
 	if Input.is_action_pressed("ui_click"):
-		$GrappleLine.points[1] = $GrappleLine.points[0]
+		#$GrappleLine.points[1] = $GrappleLine.points[0]
 		if can_grapple && Input.is_action_just_pressed("ui_click"):
 			grapple_started = true
 			velocity = velocity*velocity_grappling_mult
@@ -61,16 +62,20 @@ func _physics_process(delta):
 		if Input.is_action_just_released("ui_click"):
 			if grapple_started:
 				player_has_initial_touch = true
-				is_diving = true
-				var line = get_local_mouse_position()
-				grapple_target_pos = get_global_mouse_position()
-				$GrappleLine.visible = true
-				print("mouse", get_local_mouse_position(), position, line)
-				var line_dir = line.normalized()
-				var line_length = line.length()
-				velocity += LAUNCH_SPEED*delta_move*(line_dir)
+				#is_diving = true
+				
+				emit_signal("grapple_called")
+				$GrappleLine.points[1] = $GrappleLine.points[0]
+#				var line = get_local_mouse_position()
+#				grapple_target_pos = get_global_mouse_position()
+#				$GrappleLine.visible = true
+#				#print("mouse", get_local_mouse_position(), position, line)
+#				var line_dir = line.normalized()
+#				var line_length = line.length()
+#				velocity += LAUNCH_SPEED*delta_move*(line_dir)
+
 			grapple_started = false
-		$GrappleLine.points[1] = to_local(grapple_target_pos)
+		#$GrappleLine.points[1] = to_local(grapple_target_pos)
 
 	#Moving left/right
 	if Input.is_action_pressed("ui_left"):
@@ -93,39 +98,46 @@ func _physics_process(delta):
 		velocity = velocity.bounce(collision.normal)
 
 		if collision.collider.has_node("CookieTiles"):
-			collision.collider.get_node("CookieTiles").explode(collision.position)
+			if is_diving:
+				collision.collider.get_node("CookieTiles").explode(collision.position)
+				
+				#End of dive
+				is_diving = false
+				#Reset power
+				emit_signal("power_reset")
+				
+				#Launch up
+				velocity.y -= LAUNCH_SPEED
 			
-			#End of dive
-			is_diving = false
-			#Reset power
-			emit_signal("power_reset")
+			#Keep launching up (so you don't go up slow)
+			if velocity.y < 0:
+				velocity.y -= LAUNCH_SPEED
 			
 			#Explosition should propulse char in opposite direction
 			#velocity = 2*velocity
 			
 			#Erase Grapple target pos
-			$GrappleLine.visible = false
-			grapple_target_pos = $GrappleLine.points[0]
-			$GrappleLine.points[1] = $GrappleLine.points[0]
-	
+#			grapple_target_pos = $GrappleLine.points[0]
+#			$GrappleLine.points[1] = $GrappleLine.points[0]
 	
 	#Clamp velocity
 	velocity = Vector2(clamp(velocity.x, -delta_move_speed, delta_move_speed), 
 		clamp(velocity.y, -delta_move_speed, delta_move_speed))
 
 	#Apply friction
-#	velocity = velocity - delta_move*velocity/friction_divider
+	#velocity = velocity - delta_move*velocity/friction_divider
 
 
 func _on_GrappleDetector_area_entered(area):
-	can_grapple = true
+	if area.name == "CanGrappleArea":
+		can_grapple = true
 
 func _on_GrappleDetector_area_exited(area):
-	can_grapple = false
+	if area.name == "CanGrappleArea":
+		can_grapple = false
 
 func _on_ItemCollector_area_entered(item : Grabber):
 	if cur_state == "dive" || cur_state == "air" || cur_state == "down":
 		var collected_item = item.collect()
 		emit_signal("score_changed", collected_item.points)
 		emit_signal("power_changed", collected_item.power)
-	

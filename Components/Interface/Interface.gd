@@ -1,37 +1,28 @@
 extends Control
 
-var ui_life : int = 0
-var ui_power : int = 0
-var ui_depth : int = 0
-var ui_points : int = 0
+#var ui_life : int = 0
+#var ui_power : int = 0
+#var ui_depth : int = 0
+#var ui_points : int = 0
+const life_width = 13
 
 func _ready():
-	ui_life_set(3)
-	ui_power_set(1)
-	ui_depth_set(0)
-	ui_points_set(0)
-
-func ui_life_set(amount : int):
-	ui_life = amount
-	$TopLeft/LifeRect/LifeRectOn.rect_size = $TopLeft/LifeRect/LifeRectOn.rect_min_size * amount
-
-func ui_power_set(amount : int):
-	#ui_power = amount
-	$TopRight/PowerBar.value = amount
-
-func ui_depth_set(amount : int):
-	#ui_depth = amount
-	$TopRight/DepthCount.text = String(amount) + " m"
-
-func ui_points_set(amount : int):
-	#ui_points = amount
-	$BottomRight/PointsCount.text = String(amount)
-
+	_on_Playspace_score_changed(global.points)
+	_on_Playspace_depth_changed(global.depth)
+	_on_Playspace_power_changed(global.power)
+	_on_Playspace_life_changed(global.life)
+	
 func _on_Playspace_score_changed(new_score : int):
-	ui_points_set(new_score)
+	$BottomRight/PointsCount.text = String(new_score)
 
 func _on_Playspace_depth_changed(new_depth : int):
-	ui_depth_set(new_depth)
+	$TopRight/DepthCount.text = String(new_depth) + " m"
 
 func _on_Playspace_power_changed(new_power : int):
-	ui_power_set(new_power)
+	$TopRight/PowerBar.value = new_power
+
+func _on_Playspace_life_changed(new_life : int):
+	var has_life = new_life > 0
+	$TopLeft/LifeRect/LifeRectOn.visible = has_life
+	if has_life:
+		$TopLeft/LifeRect/LifeRectOn.rect_size.x = life_width * new_life

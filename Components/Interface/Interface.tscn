@@ -49,7 +49,6 @@ __meta__ = {
 [node name="LifeRectOn" type="TextureRect" parent="TopLeft/LifeRect"]
 margin_right = 13.0
 margin_bottom = 11.0
-rect_min_size = Vector2( 13, 0 )
 texture = ExtResource( 3 )
 stretch_mode = 2
 __meta__ = {
@@ -80,7 +79,7 @@ margin_right = 64.0
 margin_bottom = 18.0
 rect_pivot_offset = Vector2( 24, 34 )
 max_value = 10.0
-value = 10.0
+value = 1.0
 allow_greater = true
 allow_lesser = true
 percent_visible = false
