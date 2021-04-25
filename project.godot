@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "Dirt",
+"language": "GDScript",
+"path": "res://Components/Dirt/CookieDirt.gd"
+}, {
 "base": "Area2D",
 "class": "Grabber",
 "language": "GDScript",
 "path": "res://Components/Explosion/Debris/Grabber.gd"
 } ]
 _global_script_class_icons={
+"Dirt": "",
 "Grabber": ""
 }
 

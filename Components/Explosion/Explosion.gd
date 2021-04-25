@@ -25,3 +25,6 @@ func _on_Area2D_body_shape_entered(body_id, body, body_shape, local_shape):
 	
 	#Make it look nice :3 (or cheese happens...)
 	cookieTiles.update_bitmask_area(cell)
+	
+	#Update the stats of the dirt
+	body.update_stats()
