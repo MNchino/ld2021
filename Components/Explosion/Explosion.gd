@@ -2,8 +2,8 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#scale = 3.0*(float(global.power)/global.max_power)*Vector2(1,1)
-	scale = 2*Vector2(1,1)
+	scale = 3.0*(float(global.power)/global.max_power)*Vector2(1,1)
+	#scale = 2*Vector2(1,1)
 	
 	$AnimationPlayer.play("Explode")
 	pass # Replace with function body.
