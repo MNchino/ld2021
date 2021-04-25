@@ -1,5 +1,10 @@
 extends KinematicBody2D
 
+class_name Debris
+
+signal debris_deleted
+export(int) var sprite_frame = -1
+
 const EXPECTED_FPS = 60
 const spawn_time_min = 20
 const spawn_time_max = 80
@@ -18,7 +23,10 @@ var rotation_end = 0
 var move_rotation = 0
 
 func _ready():
-	$Sprite.frame = randi() % (($Sprite.hframes * $Sprite.vframes))
+	if sprite_frame > -1:
+		$Sprite.frame = randi() % (($Sprite.hframes * $Sprite.vframes))
+	else:
+		$Sprite.frame = sprite_frame
 	
 	spawn_time_start = rand_range(spawn_time_min, spawn_time_max)
 	spawn_time = spawn_time_start
@@ -31,7 +39,9 @@ func _ready():
 	rotation_end = rand_range(-360, 360)
 	$Sprite.rotation_degrees = rotation_start
 	$Grabber.disable()
-
+	
+func set_sprite_frame (frame : int):
+	$Sprite.frame = frame
 	
 func _physics_process(delta):
 	var delta_move = EXPECTED_FPS * delta
@@ -63,7 +73,9 @@ func _physics_process(delta):
 
 #TODO: Add some nice UI to appear/Update a score
 func _on_Grabber_collected():
+	emit_signal("debris_deleted")
 	queue_free()
 
 func _on_Despawn_timeout():
+	emit_signal("debris_deleted")
 	queue_free()

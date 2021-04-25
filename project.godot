@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Debris",
+"language": "GDScript",
+"path": "res://Components/Explosion/Debris/Debris.gd"
+}, {
 "base": "Node2D",
 "class": "Dirt",
 "language": "GDScript",
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://Components/Explosion/Debris/Grabber.gd"
 } ]
 _global_script_class_icons={
+"Debris": "",
 "Dirt": "",
 "Grabber": ""
 }
