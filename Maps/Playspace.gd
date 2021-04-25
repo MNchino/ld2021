@@ -4,6 +4,7 @@ signal depth_changed
 signal power_changed
 signal life_changed
 signal grapple_called
+signal game_over
 
 var grapple_item_object = null
 var grapple_item = false
@@ -53,6 +54,8 @@ func _on_Player_power_reset():
 	if global.power <= 0:
 		global.life -= 1
 		emit_signal("life_changed", global.life)
+		if (global.life <= 0):
+			emit_signal("game_over")
 	global.power = 0
 	emit_signal("power_changed", global.power)
 
@@ -89,4 +92,9 @@ func _on_Grapple_obtained():
 		# Snap to player if it fails to grab
 		if is_instance_valid(grapple_item_object):
 			grapple_item_object.position = grapple_item_object.get_parent().to_local($Player.position)
-		
+
+func _on_Interface_game_quit():
+	get_tree().change_scene("res://Maps/TitleScreen.tscn")
+
+func _on_Interface_game_restart():
+	get_tree().reload_current_scene()

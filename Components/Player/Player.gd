@@ -21,6 +21,7 @@ var can_grapple = false
 var grapple_started = false
 var grapple_target_pos : Vector2
 var is_diving = false
+var can_input = true
 	
 func _process(delta):
 	#Play sprite animation on state change
@@ -50,38 +51,43 @@ func _physics_process(delta):
 	var gravity_speed = gravity * delta_move
 	
 	# Show Aiming line while launching downwards
-	if Input.is_action_pressed("ui_click"):
-		#$GrappleLine.points[1] = $GrappleLine.points[0]
-		if can_grapple && Input.is_action_just_pressed("ui_click"):
-			grapple_started = true
-			velocity = velocity*velocity_grappling_mult
-		if grapple_started:
-			$AimLine.points[1] = get_local_mouse_position()
-	else:
-		$AimLine.points[1] = $AimLine.points[0]
-		if Input.is_action_just_released("ui_click"):
+	if can_input:
+		if Input.is_action_pressed("ui_click"):
+			#$GrappleLine.points[1] = $GrappleLine.points[0]
+			if can_grapple && Input.is_action_just_pressed("ui_click"):
+				grapple_started = true
+				velocity = velocity*velocity_grappling_mult
 			if grapple_started:
-				player_has_initial_touch = true
-				#is_diving = true
-				
-				emit_signal("grapple_called")
-				$GrappleLine.points[1] = $GrappleLine.points[0]
-#				var line = get_local_mouse_position()
-#				grapple_target_pos = get_global_mouse_position()
-#				$GrappleLine.visible = true
-#				#print("mouse", get_local_mouse_position(), position, line)
-#				var line_dir = line.normalized()
-#				var line_length = line.length()
-#				velocity += LAUNCH_SPEED*delta_move*(line_dir)
+				$AimLine.points[1] = get_local_mouse_position()
+		else:
+			$AimLine.points[1] = $AimLine.points[0]
+			if Input.is_action_just_released("ui_click"):
+				if grapple_started:
+					player_has_initial_touch = true
+					#is_diving = true
+					
+					emit_signal("grapple_called")
+					$GrappleLine.points[1] = $GrappleLine.points[0]
+	#				var line = get_local_mouse_position()
+	#				grapple_target_pos = get_global_mouse_position()
+	#				$GrappleLine.visible = true
+	#				#print("mouse", get_local_mouse_position(), position, line)
+	#				var line_dir = line.normalized()
+	#				var line_length = line.length()
+	#				velocity += LAUNCH_SPEED*delta_move*(line_dir)
 
-			grapple_started = false
-		#$GrappleLine.points[1] = to_local(grapple_target_pos)
-
-	#Moving left/right
-	if Input.is_action_pressed("ui_left"):
-			velocity.x = max(velocity.x - move_incr*delta_move, -delta_move_speed)
-	elif Input.is_action_pressed("ui_right"):
-			velocity.x = min(velocity.x + move_incr*delta_move, delta_move_speed)
+				grapple_started = false
+			#$GrappleLine.points[1] = to_local(grapple_target_pos)
+	else:
+		$AimLine.points[0] = $AimLine.points[0]
+		$GrappleLine.points[1] = $GrappleLine.points[0]
+	
+	if can_input:
+		#Moving left/right
+		if Input.is_action_pressed("ui_left"):
+				velocity.x = max(velocity.x - move_incr*delta_move, -delta_move_speed)
+		elif Input.is_action_pressed("ui_right"):
+				velocity.x = min(velocity.x + move_incr*delta_move, delta_move_speed)
 			
 	#Apply gravity
 	#no gravity if player hasn't touched the char just yet
@@ -141,3 +147,7 @@ func _on_ItemCollector_area_entered(item : Grabber):
 		var collected_item = item.collect()
 		emit_signal("score_changed", collected_item.points)
 		emit_signal("power_changed", collected_item.power)
+
+
+func _on_Playspace_game_over():
+	can_input = false

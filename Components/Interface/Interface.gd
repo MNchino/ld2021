@@ -1,9 +1,7 @@
 extends Control
 
-#var ui_life : int = 0
-#var ui_power : int = 0
-#var ui_depth : int = 0
-#var ui_points : int = 0
+signal game_restart
+signal game_quit
 const life_width = 13
 
 func _ready():
@@ -26,3 +24,12 @@ func _on_Playspace_life_changed(new_life : int):
 	$TopLeft/LifeRect/LifeRectOn.visible = has_life
 	if has_life:
 		$TopLeft/LifeRect/LifeRectOn.rect_size.x = life_width * new_life
+
+func _on_Playspace_game_over():
+	$GameOver.visible = true
+
+func _on_RestartButton_pressed():
+	emit_signal("game_restart")
+
+func _on_QuitButton_pressed():
+	emit_signal("game_quit")
