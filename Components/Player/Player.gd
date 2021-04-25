@@ -148,6 +148,9 @@ func _on_ItemCollector_area_entered(item : Grabber):
 		emit_signal("score_changed", collected_item.points)
 		emit_signal("power_changed", collected_item.power)
 
-
 func _on_Playspace_game_over():
 	can_input = false
+
+func _on_DamageDetector_area_entered(area):
+	print("PLAYER DAMAGED")
+	#TODO: PUT DEBUFFS HERE

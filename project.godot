@@ -109,6 +109,7 @@ ui_click={
 2d_physics/layer_4="Wall"
 2d_physics/layer_11="Items"
 2d_physics/layer_12="Explosions"
+2d_physics/layer_13="PlayerDamage"
 
 [physics]
 

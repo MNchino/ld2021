@@ -4,7 +4,13 @@ var points : int = 0
 var depth : int = 0
 var power : int = 1
 const max_power : int = 10
-var life : int = 1
+var life : int = 3
+
+func reset_stats():
+	points = 0
+	depth = 0
+	power = 1
+	life = 3
 
 #totally not copied pls dont' call the police kai
 func gaussian(mean, deviation):

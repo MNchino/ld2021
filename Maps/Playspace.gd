@@ -94,7 +94,9 @@ func _on_Grapple_obtained():
 			grapple_item_object.position = grapple_item_object.get_parent().to_local($Player.position)
 
 func _on_Interface_game_quit():
+	global.reset_stats()
 	get_tree().change_scene("res://Maps/TitleScreen.tscn")
 
 func _on_Interface_game_restart():
+	global.reset_stats()
 	get_tree().reload_current_scene()

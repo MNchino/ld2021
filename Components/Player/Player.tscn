@@ -45,6 +45,15 @@ collision_mask = 1024
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="ItemCollector"]
 shape = SubResource( 3 )
 
+[node name="DamageDetector" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 4096
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="DamageDetector"]
+shape = SubResource( 3 )
+
 [connection signal="area_entered" from="GrappleDetector" to="." method="_on_GrappleDetector_area_entered"]
 [connection signal="area_exited" from="GrappleDetector" to="." method="_on_GrappleDetector_area_exited"]
 [connection signal="area_entered" from="ItemCollector" to="." method="_on_ItemCollector_area_entered"]
+[connection signal="area_entered" from="DamageDetector" to="." method="_on_DamageDetector_area_entered"]

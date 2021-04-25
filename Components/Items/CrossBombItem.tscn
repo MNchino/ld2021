@@ -1,0 +1,173 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Sprites/blank-white.png" type="Texture" id=1]
+[ext_resource path="res://Components/Items/CrossBombItem.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4, 4 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "laser"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Laser:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 0.189464, 0.189464 ),
+"update": 0,
+"values": [ Rect2( 0, 0, 8, 0 ), Rect2( 0, 0, 8, 0 ), Rect2( 0, 0, 8, 320 ), Rect2( 0, 0, 8, 320 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("LaserPremonition:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.000961971, 0.1, 0.3, 0.399038, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Laser:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.85, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Hurtbox/CollisionShape2D:shape:extents")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.65, 0.75, 0.85 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 4, 40 ), Vector2( 4, 125 ), Vector2( 4, 160 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Hurtbox/CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.65, 0.75, 0.85 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 120 ), Vector2( 0, 40 ), Vector2( 0, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Hurtbox/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.65, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, false, true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("BombSprite:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.85, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("BombSprite:self_modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.501961, 0.117647, 0.117647, 1 ) ]
+}
+tracks/8/type = "method"
+tracks/8/path = NodePath(".")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 4, 40 )
+
+[node name="Bomb" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="ExplosionSensor" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2048
+
+[node name="Shape" type="CollisionShape2D" parent="ExplosionSensor"]
+shape = SubResource( 1 )
+
+[node name="BombSprite" type="Sprite" parent="."]
+self_modulate = Color( 0, 0, 0, 1 )
+texture = ExtResource( 1 )
+
+[node name="Laser" type="Sprite" parent="."]
+self_modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 0, -4 )
+rotation = 3.14159
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( -4, 0 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 8, 0 )
+
+[node name="LaserPremonition" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+self_modulate = Color( 0.65098, 0.490196, 0.490196, 1 )
+position = Vector2( 0, -4 )
+rotation = 3.14159
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( -4, 0 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 8, 320 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/laser = SubResource( 2 )
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2( 0, -160 )
+collision_layer = 4096
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2( 0, 120 )
+shape = SubResource( 3 )
+
+[connection signal="area_entered" from="ExplosionSensor" to="." method="_on_ExplosionSensor_area_entered"]
