@@ -1,16 +1,17 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Sprites/blank-white.png" type="Texture" id=1]
 [ext_resource path="res://Components/Explosion/Debris/DebrisCandy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Components/Explosion/Debris/DebrisCookie.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Sprites/chara-pal.tres" type="SpriteFrames" id=4]
-[ext_resource path="res://Sprites/tilemap-base.tres" type="TileSet" id=5]
+[ext_resource path="res://Components/Player/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Sprites/chara-spoon.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/tilemap-water.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/debris-candy.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/debris-candy-embed.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/tilemap-wall.png" type="Texture" id=10]
 [ext_resource path="res://Sprites/debris-cookie.png" type="Texture" id=11]
+[ext_resource path="res://Components/Interface/Interface.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Components/Dirt/CookieDirt.tscn" type="PackedScene" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 15.8055 )
@@ -19,18 +20,11 @@ extents = Vector2( 16, 15.8055 )
 offsets = PoolRealArray( 0.328859, 1 )
 colors = PoolColorArray( 1, 1, 1, 0.784314, 1, 1, 1, 0 )
 
-[node name="Node2D" type="Node2D"]
+[node name="Kaiera\'s Funhouse" type="Node"]
 
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource( 5 )
-cell_size = Vector2( 8, 8 )
-collision_layer = 2
-format = 1
-tile_data = PoolIntArray( 589844, 0, 196609, 589845, 0, 196610, 589846, 0, 196610, 589847, 0, 5, 589848, 0, 9, 589849, 0, 11, 655383, 0, 196616, 655384, 0, 196618, 655385, 0, 131079, 720921, 0, 65536, 786457, 0, 65536, 851993, 0, 65536, 917529, 0, 65536, 983065, 0, 65536, 1048601, 0, 65536, 1114136, 0, 196609, 1114137, 0, 196615, 1114138, 0, 11, 1114140, 0, 0, 1179658, 0, 0, 1179662, 0, 8, 1179663, 0, 9, 1179664, 0, 11, 1179668, 0, 8, 1179669, 0, 11, 1179673, 0, 65544, 1179674, 0, 65542, 1179675, 0, 9, 1179676, 0, 10, 1179677, 0, 11, 1245194, 0, 65540, 1245195, 0, 11, 1245197, 0, 8, 1245198, 0, 65541, 1245199, 0, 131084, 1245200, 0, 65542, 1245201, 0, 11, 1245203, 0, 8, 1245204, 0, 65541, 1245205, 0, 65542, 1245206, 0, 9, 1245207, 0, 9, 1245208, 0, 9, 1245209, 0, 65541, 1245210, 0, 65546, 1245211, 0, 65546, 1245212, 0, 65546, 1245213, 0, 131083, 1310730, 0, 65544, 1310731, 0, 65542, 1310732, 0, 9, 1310733, 0, 65541, 1310734, 0, 65546, 1310735, 0, 65546, 1310736, 0, 65546, 1310737, 0, 65542, 1310738, 0, 9, 1310739, 0, 65541, 1310740, 0, 131084, 1310741, 0, 65546, 1310742, 0, 65546, 1310743, 0, 131084, 1310744, 0, 12, 1310745, 0, 12, 1310746, 0, 131084, 1310747, 0, 196620, 1310748, 0, 131084, 1310749, 0, 131083, 1376266, 0, 65544, 1376267, 0, 65546, 1376268, 0, 131084, 1376269, 0, 65546, 1376270, 0, 131084, 1376271, 0, 65548, 1376272, 0, 65548, 1376273, 0, 65546, 1376274, 0, 196620, 1376275, 0, 65546, 1376276, 0, 65546, 1376277, 0, 131084, 1376278, 0, 65546, 1376279, 0, 65546, 1376280, 0, 65546, 1376281, 0, 65546, 1376282, 0, 65546, 1376283, 0, 65546, 1376284, 0, 65546, 1376285, 0, 131083, 1441802, 0, 65544, 1441803, 0, 65546, 1441804, 0, 65546, 1441805, 0, 131084, 1441806, 0, 65546, 1441807, 0, 65546, 1441808, 0, 131084, 1441809, 0, 131084, 1441810, 0, 65546, 1441811, 0, 65546, 1441812, 0, 12, 1441813, 0, 65546, 1441814, 0, 65546, 1441815, 0, 65548, 1441816, 0, 12, 1441817, 0, 65546, 1441818, 0, 196620, 1441819, 0, 65546, 1441820, 0, 65546, 1441821, 0, 131083, 1507338, 0, 196616, 1507339, 0, 196618, 1507340, 0, 196618, 1507341, 0, 196618, 1507342, 0, 196618, 1507343, 0, 196618, 1507344, 0, 196618, 1507345, 0, 196618, 1507346, 0, 196618, 1507347, 0, 196618, 1507348, 0, 196618, 1507349, 0, 196618, 1507350, 0, 196618, 1507351, 0, 196618, 1507352, 0, 196618, 1507353, 0, 196618, 1507354, 0, 196618, 1507355, 0, 196618, 1507356, 0, 196618, 1507357, 0, 196619 )
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 144, 56 )
-frames = ExtResource( 4 )
+[node name="Interface" parent="CanvasLayer" instance=ExtResource( 12 )]
 
 [node name="Water" type="Sprite" parent="."]
 position = Vector2( 160, 48 )
@@ -87,6 +81,20 @@ position = Vector2( 40, -48 )
 scale = Vector2( 2.5, 6.58 )
 shape = SubResource( 1 )
 
+[node name="CookieDirt" parent="." instance=ExtResource( 13 )]
+position = Vector2( 0, 152 )
+
+[node name="DebrisCandy" parent="." instance=ExtResource( 2 )]
+visible = false
+position = Vector2( 192, 104 )
+
+[node name="DebrisCookie" parent="." instance=ExtResource( 3 )]
+visible = false
+position = Vector2( 168, 104 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 144, 88 )
+
 [node name="Candy" type="Sprite" parent="."]
 position = Vector2( 128, 168 )
 texture = ExtResource( 9 )
@@ -105,13 +113,8 @@ rotation = 2.53771
 texture = ExtResource( 6 )
 offset = Vector2( -4, 4 )
 
-[node name="DebrisCandy" parent="." instance=ExtResource( 2 )]
-position = Vector2( 192, 104 )
-
-[node name="DebrisCookie" parent="." instance=ExtResource( 3 )]
-position = Vector2( 168, 104 )
-
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+visible = false
 position = Vector2( 160, 16 )
 scale = Vector2( 0.5, 0.5 )
 z_index = -1
