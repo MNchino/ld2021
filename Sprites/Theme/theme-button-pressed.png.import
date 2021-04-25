@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/theme-stylebox-fg.png-ace0b389a8ed454fcd5a3a6d4b90f939.stex"
+path="res://.import/theme-button-pressed.png-de6eff591263aea107b21a2d6241d2a5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/theme-stylebox-fg.png"
-dest_files=[ "res://.import/theme-stylebox-fg.png-ace0b389a8ed454fcd5a3a6d4b90f939.stex" ]
+source_file="res://Sprites/Theme/theme-button-pressed.png"
+dest_files=[ "res://.import/theme-button-pressed.png-de6eff591263aea107b21a2d6241d2a5.stex" ]
 
 [params]
 

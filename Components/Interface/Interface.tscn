@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Sprites/theme.tres" type="Theme" id=1]
+[ext_resource path="res://Sprites/Theme/theme.tres" type="Theme" id=1]
 [ext_resource path="res://Sprites/font-dogicapixelbold.tres" type="DynamicFont" id=2]
-[ext_resource path="res://Sprites/theme-hearts-on.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/theme-hearts-off.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Theme/theme-hearts-on.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Theme/theme-hearts-off.png" type="Texture" id=4]
 [ext_resource path="res://Components/Interface/Interface.gd" type="Script" id=5]
 
 [node name="Interface" type="Control"]
