@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/theme-hearts-off.png-8a055bf9f8276a31484ad9aaa889af72.stex"
+path="res://.import/theme-hearts-on.png-bfe01e445f8371c3c5ab0fd20db6c1dc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/theme-hearts-off.png"
-dest_files=[ "res://.import/theme-hearts-off.png-8a055bf9f8276a31484ad9aaa889af72.stex" ]
+source_file="res://Sprites/Theme/theme-hearts-on.png"
+dest_files=[ "res://.import/theme-hearts-on.png-bfe01e445f8371c3c5ab0fd20db6c1dc.stex" ]
 
 [params]
 

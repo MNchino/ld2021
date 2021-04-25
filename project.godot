@@ -20,8 +20,10 @@ _global_script_class_icons={
 
 [application]
 
-config/name="puddingbutminecraft"
+config/name="Sleepie Cookie Eatie"
+config/description="The cat is hungry in their dreams..."
 run/main_scene="res://Maps/Playspace.tscn"
+config/custom_user_dir_name="puddingbutminecraft"
 config/icon="res://icon.png"
 
 [display]
@@ -32,6 +34,11 @@ window/size/test_width=1280
 window/size/test_height=720
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
+
+[gui]
+
+theme/custom="res://Sprites/Theme/theme.tres"
+theme/custom_font="res://Sprites/font-dogicapixel.tres"
 
 [importer_defaults]
 

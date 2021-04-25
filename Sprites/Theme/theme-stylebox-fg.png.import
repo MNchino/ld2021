@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/theme-stylebox-bg.png-52536beec61c63a712862585ab937279.stex"
+path="res://.import/theme-stylebox-fg.png-1cb3a26bb779811fa2176802958b143b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/theme-stylebox-bg.png"
-dest_files=[ "res://.import/theme-stylebox-bg.png-52536beec61c63a712862585ab937279.stex" ]
+source_file="res://Sprites/Theme/theme-stylebox-fg.png"
+dest_files=[ "res://.import/theme-stylebox-fg.png-1cb3a26bb779811fa2176802958b143b.stex" ]
 
 [params]
 
