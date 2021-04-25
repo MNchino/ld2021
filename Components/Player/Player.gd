@@ -1,5 +1,9 @@
 extends KinematicBody2D
 
+signal score_changed
+signal power_changed
+signal power_reset
+
 const EXPECTED_FPS = 60
 const move_incr = 1
 const move_speed = 3
@@ -83,11 +87,13 @@ func _physics_process(delta):
 	if collision:
 		velocity = velocity.bounce(collision.normal)
 
-		if collision.collider.get_node("CookieTiles"):
+		if collision.collider.has_node("CookieTiles"):
 			collision.collider.get_node("CookieTiles").explode(collision.position)
 			
 			#End of dive
 			is_diving = false
+			#Reset power
+			emit_signal("power_reset")
 			
 			#Explosition should propulse char in opposite direction
 			#velocity = 2*velocity
@@ -99,7 +105,6 @@ func _physics_process(delta):
 
 	#Apply friction
 #	velocity = velocity - delta_move*velocity/friction_divider
-		
 
 
 func _on_GrappleDetector_area_entered(area):
@@ -109,4 +114,8 @@ func _on_GrappleDetector_area_exited(area):
 	can_grapple = false
 
 func _on_ItemCollector_area_entered(item : Grabber):
-	item.collect()
+	if cur_state == "dive" || cur_state == "air" || cur_state == "down":
+		var collected_item = item.collect()
+		emit_signal("score_changed", collected_item.points)
+		emit_signal("power_changed", collected_item.power)
+	

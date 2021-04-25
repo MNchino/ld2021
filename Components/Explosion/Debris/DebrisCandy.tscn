@@ -24,4 +24,7 @@ shape = SubResource( 1 )
 
 [node name="Grabber" parent="." instance=ExtResource( 3 )]
 
+[node name="Despawn" type="Timer" parent="."]
+
 [connection signal="collected" from="Grabber" to="." method="_on_Grabber_collected"]
+[connection signal="timeout" from="Despawn" to="." method="_on_Despawn_timeout"]

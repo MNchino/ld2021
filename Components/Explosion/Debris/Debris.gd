@@ -58,9 +58,12 @@ func _physics_process(delta):
 		else:
 			$Sprite.rotation_degrees = rotation_end
 			$Grabber.enable()
+			$Despawn.start()
 			spawn_time = 0
 
 #TODO: Add some nice UI to appear/Update a score
 func _on_Grabber_collected():
-	print("debris collected")
+	queue_free()
+
+func _on_Despawn_timeout():
 	queue_free()

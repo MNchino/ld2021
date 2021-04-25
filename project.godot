@@ -30,6 +30,10 @@ config/name="puddingbutminecraft"
 run/main_scene="res://Maps/Playspace.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+global="*res://global.gd"
+
 [display]
 
 window/size/width=320

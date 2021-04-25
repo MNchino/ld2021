@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Components/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Components/Dirt/CookieDirt.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Sprites/tilemap-wall.png" type="Texture" id=3]
+[ext_resource path="res://Components/Interface/Interface.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Maps/Playspace.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 64, 4.86322 )
@@ -14,6 +16,7 @@ extents = Vector2( 16, 15.8055 )
 extents = Vector2( 80, 32 )
 
 [node name="Playspace" type="Node"]
+script = ExtResource( 5 )
 
 [node name="Line2D" type="Line2D" parent="."]
 position = Vector2( 0, 152 )
@@ -70,7 +73,7 @@ shape = SubResource( 2 )
 position = Vector2( 144, 24 )
 
 [node name="CookieDirt" parent="." instance=ExtResource( 2 )]
-position = Vector2( 0, 152 )
+position = Vector2( 80, 64 )
 
 [node name="CanGrappleArea" type="Area2D" parent="."]
 position = Vector2( 0, 152 )
@@ -78,3 +81,15 @@ position = Vector2( 0, 152 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CanGrappleArea"]
 position = Vector2( 160, -120 )
 shape = SubResource( 3 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Interface" parent="CanvasLayer" instance=ExtResource( 4 )]
+
+[connection signal="depth_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_depth_changed"]
+[connection signal="power_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_power_changed"]
+[connection signal="score_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_score_changed"]
+[connection signal="power_changed" from="Player" to="." method="_on_Player_power_changed"]
+[connection signal="power_reset" from="Player" to="." method="_on_Player_power_reset"]
+[connection signal="score_changed" from="Player" to="." method="_on_Player_score_changed"]
+[connection signal="next_dirt" from="CookieDirt" to="." method="_on_CookieDirt_next_dirt"]
