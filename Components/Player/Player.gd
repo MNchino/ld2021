@@ -18,6 +18,7 @@ var cur_state = "default"
 var player_has_initial_touch = false
 var can_grapple = false
 var grapple_started = false
+var grapple_target_pos : Vector2
 var is_diving = false
 	
 func _process(delta):
@@ -49,6 +50,7 @@ func _physics_process(delta):
 	
 	# Show Aiming line while launching downwards
 	if Input.is_action_pressed("ui_click"):
+		$GrappleLine.points[1] = $GrappleLine.points[0]
 		if can_grapple && Input.is_action_just_pressed("ui_click"):
 			grapple_started = true
 			velocity = velocity*velocity_grappling_mult
@@ -61,11 +63,14 @@ func _physics_process(delta):
 				player_has_initial_touch = true
 				is_diving = true
 				var line = get_local_mouse_position()
+				grapple_target_pos = get_global_mouse_position()
+				$GrappleLine.visible = true
 				print("mouse", get_local_mouse_position(), position, line)
 				var line_dir = line.normalized()
 				var line_length = line.length()
 				velocity += LAUNCH_SPEED*delta_move*(line_dir)
 			grapple_started = false
+		$GrappleLine.points[1] = to_local(grapple_target_pos)
 
 	#Moving left/right
 	if Input.is_action_pressed("ui_left"):
@@ -97,6 +102,11 @@ func _physics_process(delta):
 			
 			#Explosition should propulse char in opposite direction
 			#velocity = 2*velocity
+			
+			#Erase Grapple target pos
+			$GrappleLine.visible = false
+			grapple_target_pos = $GrappleLine.points[0]
+			$GrappleLine.points[1] = $GrappleLine.points[0]
 	
 	
 	#Clamp velocity

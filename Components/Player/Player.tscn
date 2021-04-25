@@ -18,6 +18,11 @@ script = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
+[node name="GrappleLine" type="Line2D" parent="."]
+points = PoolVector2Array( 0, 0, 48, -24 )
+width = 2.0
+default_color = Color( 0.737255, 0.737255, 0.737255, 1 )
+
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
 
