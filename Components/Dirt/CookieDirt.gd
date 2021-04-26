@@ -124,7 +124,13 @@ func _on_CookieTiles_exploded(pos : Vector2):
 func remove_tile():
 	tiles_remaining -= 1
 	percent_remaining = 100 * tiles_remaining / total_tile_num
-	emit_signal("next_count", 100-percent_remaining)
+	
+	var min_percent = 0.01 * min_cookie_until_next
+	var tiles_until_next = total_tile_num * min_percent
+	var tiles_left_until_next = tiles_remaining - tiles_until_next
+	var percent_needed = 100 - ceil(100 * tiles_left_until_next / tiles_until_next)
+	
+	emit_signal("next_count", percent_needed)
 	
 	if percent_remaining <= min_cookie_until_next:
 		emit_signal("next_dirt")
