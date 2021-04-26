@@ -3,6 +3,7 @@ signal score_changed
 signal depth_changed
 signal power_changed
 signal life_changed
+signal next_changed
 signal grapple_called
 signal game_over
 
@@ -55,6 +56,9 @@ func _physics_process(delta):
 func _on_Player_power_changed(new_power : int):
 	global.power = global.power + new_power
 	emit_signal("power_changed", global.power)
+
+func _on_CookieDirt_next_count(new_next : int):
+	emit_signal("next_changed", new_next)
 
 func _on_Player_power_reset():
 	if global.power <= 0:

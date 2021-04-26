@@ -129,6 +129,7 @@ __meta__ = {
 [connection signal="game_over" from="." to="CanvasLayer/Interface" method="_on_Playspace_game_over"]
 [connection signal="grapple_called" from="." to="Grapple" method="_on_Playspace_grapple_called"]
 [connection signal="life_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_life_changed"]
+[connection signal="next_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_next_changed"]
 [connection signal="power_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_power_changed"]
 [connection signal="score_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_score_changed"]
 [connection signal="game_quit" from="CanvasLayer/Interface" to="." method="_on_Interface_game_quit"]
@@ -140,4 +141,5 @@ __meta__ = {
 [connection signal="score_changed" from="Player" to="." method="_on_Player_score_changed"]
 [connection signal="collided" from="Grapple" to="." method="_on_Grapple_collided"]
 [connection signal="obtained" from="Grapple" to="." method="_on_Grapple_obtained"]
+[connection signal="next_count" from="CookieDirt" to="." method="_on_CookieDirt_next_count"]
 [connection signal="next_dirt" from="CookieDirt" to="." method="_on_CookieDirt_next_dirt"]

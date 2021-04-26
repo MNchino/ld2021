@@ -51,17 +51,20 @@ func _physics_process(delta):
 	
 	# Show Aiming line while launching downwards
 	if can_input:
-		if Input.is_action_pressed("ui_click"):
+		if Input.is_action_pressed("aim"):
 			#$GrappleLine.points[1] = $GrappleLine.points[0]
-			if can_grapple && Input.is_action_just_pressed("ui_click"):
+			if can_grapple && Input.is_action_just_pressed("aim"):
 				grapple_started = true
 				velocity = velocity*velocity_grappling_mult
 			if grapple_started:
 				$AimLine.points[1] = get_local_mouse_position()
 		else:
 			$AimLine.points[1] = $AimLine.points[0]
-			if Input.is_action_just_released("ui_click"):
+			if Input.is_action_just_released("aim"):
 				if grapple_started:
+					
+					is_grabbing_debris = Input.is_action_just_released("aim_left")
+					
 					player_has_initial_touch = true
 					#is_diving = true
 					
@@ -88,20 +91,22 @@ func _physics_process(delta):
 				if dir.y < 0:
 					if velocity.y > (delta_move * velocity_grappling_mult) and can_grapple:
 						velocity.y = velocity.y - (move_incr * delta_move)
-						is_grabbing_debris = true
 				else:
 					velocity.y = velocity.y + (move_incr * delta_move)
-		else:
-			is_grabbing_debris = false
 			
 	#Apply gravity
 	#no gravity if player hasn't touched the char just yet
 	if (player_has_initial_touch && can_grapple):
 		#Reduced gravity in air while grappling
 		if (grapple_started):
-			velocity.y = velocity.y + gravity_in_grapple_mult*gravity
+			velocity.y = velocity.y + gravity_in_grapple_mult * gravity
 		#Full gravity
 		else:
+			velocity.y = velocity.y + gravity
+	
+	# Go down faster when outside of grapple area
+	elif not can_grapple:
+		if velocity.y > 0:
 			velocity.y = velocity.y + gravity
 	
 	var collision = move_and_collide(velocity)
@@ -132,7 +137,7 @@ func _physics_process(delta):
 	
 	#Clamp velocity
 	velocity = Vector2(clamp(velocity.x, -delta_move_speed, delta_move_speed), 
-		clamp(velocity.y, -delta_move_speed, delta_move_speed))
+		clamp(velocity.y, -delta_move_speed, delta_move_speed * 2))
 
 	#Apply friction
 	#velocity = velocity - delta_move*velocity/friction_divider

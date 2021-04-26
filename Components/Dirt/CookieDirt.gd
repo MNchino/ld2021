@@ -2,6 +2,7 @@ extends Node2D
 class_name Dirt
 
 signal next_dirt
+signal next_count
 var explosionResource = preload("res://Components/Explosion/Explosion.tscn")
 var debrisCookieResource = preload("res://Components/Explosion/Debris/DebrisCookie.tscn")
 var item_candy_resource = preload("res://Components/Items/CandyItem.tscn")
@@ -76,6 +77,7 @@ func _on_CookieTiles_exploded(pos : Vector2):
 func remove_tile():
 	tiles_remaining -= 1
 	percent_remaining = 100 * tiles_remaining / total_tile_num
+	emit_signal("next_count", 100-percent_remaining)
 	
 	if percent_remaining <= min_cookie_until_next:
 		emit_signal("next_dirt")
