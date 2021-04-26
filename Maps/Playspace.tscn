@@ -130,8 +130,8 @@ __meta__ = {
 }
 
 [connection signal="depth_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_depth_changed"]
-[connection signal="game_over" from="." to="CanvasLayer/Interface" method="_on_Playspace_game_over"]
 [connection signal="game_over" from="." to="Player" method="_on_Playspace_game_over"]
+[connection signal="game_over" from="." to="CanvasLayer/Interface" method="_on_Playspace_game_over"]
 [connection signal="grapple_called" from="." to="Grapple" method="_on_Playspace_grapple_called"]
 [connection signal="life_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_life_changed"]
 [connection signal="next_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_next_changed"]

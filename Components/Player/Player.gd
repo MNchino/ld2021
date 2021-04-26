@@ -119,7 +119,12 @@ func _physics_process(delta):
 	
 	var collision = move_and_collide(velocity)
 	if collision:
+		var last_vel = velocity
+		var did_bounce = false
 		velocity = velocity.bounce(collision.normal)
+		
+		#Check if we did bounce against the wall
+		did_bounce = abs(last_vel.x - velocity.x) > abs(last_vel.y - velocity.y)
 
 		if collision.collider.has_node("CookieTiles"):
 			if is_diving:
@@ -140,8 +145,9 @@ func _physics_process(delta):
 			#Release key
 			Input.action_release("ui_down")
 			
-			#Explosition should propulse char in opposite direction
-			#velocity = 2*velocity
+		#Damp the x value
+		if did_bounce:
+			velocity.x = 0.25*velocity.x
 	
 	#Clamp velocity
 	velocity = Vector2(clamp(velocity.x, -delta_move_speed, delta_move_speed), 
@@ -160,10 +166,9 @@ func _on_GrappleDetector_area_exited(area):
 		can_grapple = false
 
 func _on_ItemCollector_area_entered(item : Grabber):
-	if cur_state == "dive" || cur_state == "air" || cur_state == "down":
-		var collected_item = item.collect()
-		emit_signal("score_changed", collected_item.points)
-		emit_signal("power_changed", collected_item.power)
+	var collected_item = item.collect()
+	emit_signal("score_changed", collected_item.points)
+	emit_signal("power_changed", collected_item.power)
 
 func _on_Playspace_game_over():
 	can_input = false

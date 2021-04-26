@@ -43,6 +43,8 @@ func enable_collision():
 	$CollisionShape2D.disabled = false
 	
 func start():
+	modulate.a = .5
+	
 	spawn_time_start = rand_range(spawn_time_min, spawn_time_max)
 	spawn_time = spawn_time_start
 	
@@ -80,6 +82,7 @@ func _physics_process(delta):
 				spawn_direction = spawn_direction.bounce(collision.normal)
 			
 		else:
+			modulate.a = 1
 			$Sprite.rotation_degrees = rotation_end
 			$Grabber.enable()
 			$Despawn.start()
