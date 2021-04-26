@@ -65,6 +65,8 @@ func _on_Player_power_changed(new_power : int):
 	emit_signal("power_changed", global.power)
 
 func _on_Player_life_changed(new_life : int):
+	if new_life > 0:
+		$CanvasLayer/ColorOverlay/AnimationPlayer.play("heal")
 	global.life = int(min(global.life + new_life, global.max_life))
 	emit_signal("life_changed", global.life)
 
@@ -72,6 +74,7 @@ func _on_CookieDirt_next_count(new_next : int):
 	emit_signal("next_changed", new_next)
 
 func _on_Player_power_reset():
+	$Camera.shake_start_power()
 	if global.power <= 0:
 		player_damaged()
 	global.power = 0
@@ -139,8 +142,10 @@ func _on_Player_player_damaged():
 	player_damaged()
 	
 func player_damaged():
+	$CanvasLayer/ColorOverlay/AnimationPlayer.play("damage")
 	global.life -= 1
-	$Camera.shake_start()
+	$Camera.shake_start_damage()
 	emit_signal("life_changed", global.life)
 	if (global.life <= 0):
+		$Player.visible = false
 		emit_signal("game_over")

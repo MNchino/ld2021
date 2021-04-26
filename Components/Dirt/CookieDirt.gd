@@ -11,38 +11,57 @@ var cross_bomb_resource = preload("res://Components/Items/CrossBombItem.tscn")
 var item_resources = [item_candy_resource, item_health_resource, cross_bomb_resource]
 var percent_remaining = 100
 var tiles_remaining = 0
-var min_cookie_until_next = 50
+var min_cookie_until_next = 60
 var total_tile_num
 var tiles_floor = 15
 var next_floor_to_clear = []
 const TILES_WIDE = 20
 const TILES_TALL_PER_ITERATION = 6
 const TILES_TOP_WIPE = 23
+const TILES_TO_NEXT_LEVEL = TILES_TALL_PER_ITERATION * 4
 var noise = OpenSimplexNoise.new() # For generating candy spawns
 const NOISE_PERIOD = 4
 #The amount between -1 to -1 of noise we want to keep
 #Note any noise > .5 is very rare
-var INIT_NOISE_THRESHOLD = 0.4
+var INIT_NOISE_THRESHOLD = .3
 var noise_threshold = INIT_NOISE_THRESHOLD
-var max_items_per_level = 15 # The amount of candy we spawn at a time
+var max_items_per_level = 20 # The amount of candy we spawn at a time
 #Set the number above to a really big num to spawn for all the noise coords
 var min_items_per_level = 10
 const LEVEL_RARITIES = [
 	#Candy, health, bomb
 	#Shufflebag
 	#UNCOMMENT to use levels
-#	[100,3,0],
-#	[110,3,0],
-#	[110,3,2],
-#	[110,3,6],
-	[120,3,16],
-#	[120,3,32],
-#	[120,3,64],
-#	[120,6,128],
-#	[120,6,256],
-#	[120,6,512],
-#	[120,36,1024],
-#	[0,0,1],
+	#[100,3,0],
+	#[110,3,0],
+	#[110,3,2],
+	#[110,3,6],
+	#[120,3,16],
+	#[120,3,32],
+	#[120,3,64],
+	#[120,6,128],
+	#[120,6,256],
+	#[120,6,512],
+	#[120,36,1024],
+	#[0,0,1],
+	[100,3,0],
+	[100,3,10],
+	[100,3,20],
+	[100,3,40],
+	[100,3,60],
+	[100,3,100],
+	[100,6,150],
+	[100,6,200],
+	[100,10,250],
+	[100,10,300],
+	[100,10,400],
+	[100,10,500],
+	[100,30,600],
+	[100,30,800],
+	[100,30,1000],
+	[90,30,1000],
+	[80,30,1000],
+	[50,12,1000],
 ]
 
 func _ready():
@@ -59,7 +78,8 @@ func _ready():
 func spawn_items_over_tiles(tiles : Array):
 	
 	#Adjust difficulty based on depth
-	var level = (global.depth%12)
+	#var level = (global.depth%12)
+	var level = int(global.depth / TILES_TO_NEXT_LEVEL)
 	#noise_threshold = max(-1, INIT_NOISE_THRESHOLD - level*0.02)
 	
 	var item_targets = []

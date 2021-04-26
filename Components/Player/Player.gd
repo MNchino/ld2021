@@ -13,9 +13,11 @@ const move_speed = 3
 const LAUNCH_SPEED = 10
 const gravity_in_grapple_mult = 0.25
 const velocity_grappling_mult = 0.1
-const AIM_COLOR = "66ff70"
+const AIM_COLOR = "915AD5"
 const AIM_BAD_COLOR = "ff6666"
 const COLLECT_COLOR = "6680ff"
+const AIM_SIZE = 2
+const COLLECT_SIZE = 1
 var velocity = Vector2(0,0)
 var gravity = .1
 var friction_divider = 5
@@ -49,8 +51,10 @@ func _process(_delta):
 	#Change color of line depending on mode
 	if Input.is_action_pressed("aim_left"):
 		$AimLine.default_color = COLLECT_COLOR
+		$AimLine.width = COLLECT_SIZE
 	elif Input.is_action_pressed("aim_right"):
 		$AimLine.default_color = AIM_COLOR if global.power > 0 else AIM_BAD_COLOR
+		$AimLine.width = AIM_SIZE
 	
 func _physics_process(delta):
 	var delta_move = EXPECTED_FPS * delta
@@ -157,12 +161,15 @@ func _physics_process(delta):
 
 	#Apply friction
 	#velocity = velocity - delta_move*velocity/friction_divider
+	
+	if invulnerable:
+		self_modulate.a = rand_range(0.7,0.9)
 
 func _on_GrappleDetector_area_entered(area):
 	if area.name == "CanGrappleArea":
 		can_grapple = true
 		invulnerable = false
-		emit_signal("splashing", position)
+		self_modulate.a = 1
 		
 		if player_has_initial_touch:
 			$Particles/Splash.restart()
@@ -183,6 +190,7 @@ func _on_ItemCollector_area_entered(item : Grabber):
 	emit_signal("power_changed", collected_item.power)
 	if collected_item.life != 0:
 		emit_signal("life_changed", collected_item.life)
+		$Particles/Hearts.emitting = true
 
 func _on_Playspace_game_over():
 	can_input = false

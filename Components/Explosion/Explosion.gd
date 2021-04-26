@@ -23,8 +23,6 @@ func _ready():
 
 func _on_AnimationPlayer_animation_finished(_anim_name):
 	queue_free()
-<<<<<<< HEAD
-=======
 	pass # Replace with function body.
 	
 #Deletes all tiles at once so physics doesn't get confused
@@ -36,13 +34,12 @@ func process_tiles_to_remove():
 		cookieTiles.update_bitmask_area(cell)
 		#Update the stats of the dirt
 		target_body.remove_tile()
->>>>>>> aed31b8c0d1373438b9637825ba7817b5e86c322
 
 func overlap_tile(body, body_shape):
 	if !target_body:
 		target_body = body
 		
-	var cookieTiles = body.get_node("CookieTiles")
+	var _cookieTiles = body.get_node("CookieTiles")
 	#HACK to set the cookie tiles that overlapped correctly
 	#https://github.com/godotengine/godot-proposals/issues/2543
 	var cell = Physics2DServer.body_get_shape_metadata(body.get_rid(), body_shape)

@@ -28,10 +28,10 @@ disabled = true
 [node name="Grabber" parent="." instance=ExtResource( 3 )]
 visible = false
 num_points = 300
-num_power = 5
+num_power = 2
 
 [node name="Despawn" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 2.3
 
 [connection signal="collected" from="Grabber" to="." method="_on_Grabber_collected"]
 [connection signal="timeout" from="Despawn" to="." method="_on_Despawn_timeout"]

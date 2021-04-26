@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Sprites/chara-pal.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Components/Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/Particle/part-bubble.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Particle/part-heart.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -32,11 +33,11 @@ shape = SubResource( 1 )
 visible = false
 points = PoolVector2Array( 0, 0, 48, -24 )
 width = 2.0
-default_color = Color( 0.737255, 0.737255, 0.737255, 1 )
+default_color = Color( 1, 1, 1, 1 )
 
 [node name="AimLine" type="Line2D" parent="."]
 points = PoolVector2Array( 0, 0, 48, -24 )
-width = 1.0
+width = 3.0
 default_color = Color( 0.4, 1, 0.439216, 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -77,6 +78,23 @@ direction = Vector2( 0, -1 )
 spread = 25.0
 gravity = Vector2( 0, -98 )
 initial_velocity = 10.0
+scale_amount = 0.7
+color_ramp = SubResource( 4 )
+
+[node name="Hearts" type="CPUParticles2D" parent="Particles"]
+z_index = -1
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+local_coords = false
+texture = ExtResource( 4 )
+direction = Vector2( 0, -1 )
+spread = 180.0
+gravity = Vector2( 0, -180 )
+initial_velocity = 90.0
+initial_velocity_random = 0.5
 scale_amount = 0.7
 color_ramp = SubResource( 4 )
 

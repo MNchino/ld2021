@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Components/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Components/Dirt/CookieDirt.tscn" type="PackedScene" id=2]
@@ -9,14 +9,51 @@
 [ext_resource path="res://Sprites/blank-white.png" type="Texture" id=7]
 [ext_resource path="res://Components/Player/Grapple.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Maps/Camera.gd" type="Script" id=9]
+[ext_resource path="res://Sprites/parallax-2.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/parallax-1.png" type="Texture" id=11]
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="Animation" id=6]
+resource_name = "damage"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0.301961, 0.301961, 0.501961 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "heal"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.964706, 0.666667, 1, 0.392157 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 84, 32 )
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="Gradient" id=7]
+colors = PoolColorArray( 1, 1, 1, 0.392157, 1, 1, 1, 0 )
+
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 64, 4.86322 )
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 16, 15.8055 )
 
 [sub_resource type="Animation" id=4]
@@ -61,6 +98,7 @@ script = ExtResource( 5 )
 
 [node name="Camera" type="Node2D" parent="."]
 visible = false
+position = Vector2( 0, 2.23504 )
 script = ExtResource( 9 )
 __meta__ = {
 "_edit_group_": true,
@@ -77,6 +115,20 @@ one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="ColorOverlay" type="ColorRect" parent="CanvasLayer"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = 80.0
+margin_right = 240.0
+margin_bottom = 184.0
+input_pass_on_modal_close_click = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/ColorOverlay"]
+anims/damage = SubResource( 6 )
+anims/heal = SubResource( 5 )
+
 [node name="Interface" parent="CanvasLayer" instance=ExtResource( 4 )]
 
 [node name="Line2D" type="Line2D" parent="."]
@@ -86,6 +138,7 @@ points = PoolVector2Array( 72, -88, 248, -88 )
 default_color = Color( 1, 0.4, 0.4, 1 )
 
 [node name="Walls" type="StaticBody2D" parent="."]
+position = Vector2( 0, 2.23504 )
 collision_layer = 8
 __meta__ = {
 "_edit_group_": true,
@@ -102,39 +155,60 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/CanGrappleArea"]
 position = Vector2( 156, -120 )
-shape = SubResource( 5 )
+shape = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="Fizz" type="CPUParticles2D" parent="Walls"]
+position = Vector2( 160, 177.765 )
+z_index = 1
+z_as_relative = false
+amount = 10
+lifetime = 2.0
+randomness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 2
+emission_rect_extents = Vector2( 80, 1 )
+direction = Vector2( 0, -1 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 100.0
+scale_amount = 3.0
+scale_amount_random = 0.5
+color_ramp = SubResource( 7 )
 
 [node name="Water" type="Sprite" parent="Walls"]
 position = Vector2( 160, 72 )
 scale = Vector2( 20, 1 )
-z_index = -1
+z_index = 10
+z_as_relative = false
 texture = ExtResource( 6 )
 __meta__ = {
-"_edit_group_": true,
 "_edit_lock_": true
 }
 
-[node name="Liquid" type="Sprite" parent="Walls/Water"]
-self_modulate = Color( 0.980392, 0.956863, 0.772549, 1 )
-position = Vector2( -4, 8 )
-scale = Vector2( 1, 13 )
+[node name="Liquid" type="Sprite" parent="Walls"]
+self_modulate = Color( 1, 1, 1, 0.235294 )
+position = Vector2( 80, 64 )
+scale = Vector2( 20, 15 )
 texture = ExtResource( 7 )
 offset = Vector2( 4, 4 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionCeiling" type="CollisionShape2D" parent="Walls"]
 visible = false
 position = Vector2( 160, -32 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 6 )
+shape = SubResource( 2 )
 
 [node name="CollisionGround" type="CollisionShape2D" parent="Walls"]
 visible = false
 position = Vector2( 160, 216 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 6 )
+shape = SubResource( 2 )
 
 [node name="WallLeft" type="Sprite" parent="Walls"]
 position = Vector2( 40, 96 )
@@ -147,7 +221,7 @@ offset = Vector2( 0, -4 )
 visible = false
 position = Vector2( 40, 104 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 7 )
+shape = SubResource( 3 )
 
 [node name="WallRight" type="Sprite" parent="Walls"]
 position = Vector2( 280, 96 )
@@ -161,7 +235,7 @@ flip_h = true
 visible = false
 position = Vector2( 280, 104 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 7 )
+shape = SubResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 144, 24 )
@@ -175,6 +249,29 @@ position = Vector2( 80, 64 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/MoveCameraDown = SubResource( 4 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 160, 0 )
+motion_scale = Vector2( 1, 0.5 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( -80, 0 )
+texture = ExtResource( 11 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 160, 10000 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 80, 0 )
+motion_scale = Vector2( 1, 0.25 )
+
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+texture = ExtResource( 10 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 160, 10000 )
 
 [connection signal="best_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_best_changed"]
 [connection signal="depth_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_depth_changed"]
