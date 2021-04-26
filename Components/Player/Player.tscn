@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Sprites/chara-pal.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Components/Player/Player.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Sound/damage.wav" type="AudioStream" id=7]
 [ext_resource path="res://Sound/item-cookie-max.wav" type="AudioStream" id=8]
 [ext_resource path="res://Sound/splash.wav" type="AudioStream" id=9]
+[ext_resource path="res://Sound/game-over.wav" type="AudioStream" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -122,6 +123,9 @@ color_ramp = SubResource( 5 )
 [node name="AudioDamage" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 volume_db = -5.0
+
+[node name="AudioGameOver" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
 
 [node name="AudioCollect" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
