@@ -7,8 +7,8 @@ signal gaster_blaster_time
 
 func _on_ExplosionSensor_area_entered(_area):
 	if !debuff_enabled:
-		connect("gaster_blaster_charge", get_parent(), "gaster_blaster_charge")
-		connect("gaster_blaster_time", get_parent(), "gaster_blaster_time")
+		var _charge = connect("gaster_blaster_charge", get_parent(), "gaster_blaster_charge")
+		var _time = connect("gaster_blaster_time", get_parent(), "gaster_blaster_time")
 		$AnimationPlayer.play("laser")
 
 func _on_Timer_timeout():

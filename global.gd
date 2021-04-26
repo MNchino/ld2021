@@ -11,6 +11,7 @@ var hard_mode = false
 
 func ready():
 	randomize()
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear2db(0.8))
 
 func reset_stats():
 	points = 0

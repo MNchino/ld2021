@@ -152,4 +152,7 @@ func player_damaged():
 	emit_signal("life_changed", global.life)
 	if (global.life <= 0):
 		$Player.visible = false
+		$Player.can_input = false
+		$Player.velocity = Vector2.ZERO
+		$Player/AudioGameOver.play()
 		emit_signal("game_over")

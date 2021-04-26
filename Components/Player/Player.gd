@@ -34,8 +34,12 @@ var is_grabbing_debris = false
 	
 func _process(_delta):
 	#Play sprite animation on state change
-	if is_diving:
+	if not player_has_initial_touch:
+		cur_state = "default"
+	elif is_diving:
 		cur_state = "dive"
+	elif grapple_started:
+		cur_state = "aim"
 	elif can_grapple:
 		cur_state = "air"
 	elif velocity.y > 0:
@@ -91,7 +95,7 @@ func _physics_process(delta):
 		$AimLine.points[0] = $AimLine.points[0]
 		$GrappleLine.points[1] = $GrappleLine.points[0]
 	
-	if can_input:
+	if can_input and player_has_initial_touch:
 		#Moving left/right
 		var dir = Vector2()
 		dir.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
@@ -175,6 +179,9 @@ func _on_GrappleDetector_area_entered(area):
 			$Particles/Splash.restart()
 			$Particles/Splash.emitting = true
 			$Particles/Bubbles.emitting = false
+			$AudioSplash.play()
+			$AudioSplash.pitch_scale = rand_range(0.9,1)
+			
 
 func _on_GrappleDetector_area_exited(area):
 	if area.name == "CanGrappleArea":
@@ -182,11 +189,11 @@ func _on_GrappleDetector_area_exited(area):
 		$Particles/Splash.restart()
 		$Particles/Splash.emitting = true
 		$Particles/Bubbles.emitting = true
+		$AudioSplash.play()
+		$AudioSplash.pitch_scale = rand_range(1,1.1)
 
 func _on_ItemCollector_area_entered(item : Grabber):
 	var collected_item = item.collect()
-	emit_signal("score_changed", collected_item.points)
-	emit_signal("power_changed", collected_item.power)
 	if collected_item.life != 0:
 		emit_signal("life_changed", collected_item.life)
 		$Particles/Hearts.emitting = true
@@ -194,6 +201,13 @@ func _on_ItemCollector_area_entered(item : Grabber):
 	else:
 		$AudioCollect.pitch_scale = rand_range(0.8,0.9) + (collected_item.power * 0.2)
 		$AudioCollect.play()
+		
+		if global.power < global.max_power:
+			if global.power + collected_item.power >= global.max_power:
+				$AudioCollectMax.play()
+	
+	emit_signal("score_changed", collected_item.points)
+	emit_signal("power_changed", collected_item.power)
 
 func _on_Playspace_game_over():
 	can_input = false

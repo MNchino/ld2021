@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=8 format=2]
+[gd_resource type="Theme" load_steps=12 format=2]
 
 [ext_resource path="res://Sprites/font-dogicapixel.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Sprites/Theme/theme-stylebox-empty.tres" type="StyleBox" id=2]
@@ -7,6 +7,10 @@
 [ext_resource path="res://Sprites/Theme/theme-stylebox-bg.tres" type="StyleBox" id=5]
 [ext_resource path="res://Sprites/Theme/theme-stylebox-fg.tres" type="StyleBox" id=6]
 [ext_resource path="res://Sprites/Theme/theme-button-pressed.tres" type="StyleBox" id=7]
+[ext_resource path="res://Sprites/Theme/theme-slider-grabber.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Theme/theme-stylebox-fgglow.tres" type="StyleBox" id=9]
+[ext_resource path="res://Sprites/Theme/theme-checkbox-on.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/Theme/theme-checkbox-off.png" type="Texture" id=11]
 
 [resource]
 default_font = ExtResource( 1 )
@@ -21,8 +25,33 @@ Button/styles/focus = ExtResource( 4 )
 Button/styles/hover = ExtResource( 4 )
 Button/styles/normal = ExtResource( 3 )
 Button/styles/pressed = ExtResource( 7 )
+CheckBox/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+CheckBox/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+CheckBox/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+CheckBox/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+CheckBox/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+CheckBox/constants/check_vadjust = 0
+CheckBox/constants/hseparation = 4
+CheckBox/fonts/font = null
+CheckBox/icons/checked = ExtResource( 10 )
+CheckBox/icons/radio_checked = ExtResource( 10 )
+CheckBox/icons/radio_unchecked = ExtResource( 11 )
+CheckBox/icons/unchecked = ExtResource( 11 )
+CheckBox/styles/disabled = ExtResource( 5 )
+CheckBox/styles/focus = ExtResource( 5 )
+CheckBox/styles/hover = ExtResource( 5 )
+CheckBox/styles/hover_pressed = ExtResource( 5 )
+CheckBox/styles/normal = ExtResource( 5 )
+CheckBox/styles/pressed = ExtResource( 5 )
 HSeparator/constants/separation = 4
 HSeparator/styles/separator = ExtResource( 2 )
+HSlider/icons/grabber = ExtResource( 8 )
+HSlider/icons/grabber_disabled = null
+HSlider/icons/grabber_highlight = ExtResource( 8 )
+HSlider/icons/tick = null
+HSlider/styles/grabber_area = ExtResource( 6 )
+HSlider/styles/grabber_area_highlight = ExtResource( 9 )
+HSlider/styles/slider = ExtResource( 5 )
 Label/colors/font_color = Color( 1, 1, 1, 1 )
 Label/colors/font_color_shadow = Color( 0, 0, 0, 0 )
 Label/colors/font_outline_modulate = Color( 1, 1, 1, 1 )
