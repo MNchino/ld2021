@@ -12,6 +12,10 @@ func reset_stats():
 	depth = 0
 	power = 2
 	life = 3
+	
+#It's 2 AM ok I'm allowed to be inconsistent
+func reset_depth():
+	depth = 0
 
 #totally not copied pls dont' call the police kai
 func gaussian(mean, deviation):
