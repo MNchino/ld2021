@@ -25,7 +25,7 @@ offset = Vector2( -4, 4 )
 shape = SubResource( 1 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.15
 one_shot = true
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]

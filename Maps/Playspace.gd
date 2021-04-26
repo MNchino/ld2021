@@ -38,7 +38,9 @@ func _physics_process(delta):
 	if $Grapple.is_thrown:
 		$Player/GrappleLine.points[1] = $Player/GrappleLine.to_local($Grapple.position)
 		# Not at all efficient way to disable grabbing debris
-		$Grapple.set_collision_mask_bit(2, $Player.can_grapple)
+		$Grapple.set_collision_mask_bit(2, $Player.is_grabbing_debris)
+		$Grapple.set_collision_mask_bit(1, not $Player.is_grabbing_debris)
+		$Grapple.set_collision_mask_bit(3, not $Player.is_grabbing_debris)
 		
 	if $Grapple.is_retracting:
 		$Grapple.position = $Grapple.position.move_toward($Player.position, delta * $Grapple.EXPECTED_FPS * $Grapple.GRAPPLE_SPEED)

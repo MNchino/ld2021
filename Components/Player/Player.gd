@@ -84,8 +84,6 @@ func _physics_process(delta):
 			velocity.x = velocity.x + (dir.x * (move_incr * delta_move))
 			velocity.x = clamp(velocity.x, -delta_move_speed, delta_move_speed)
 		if dir.y != 0:
-			is_grabbing_debris = false
-			
 			if not is_diving:
 				if dir.y < 0:
 					if velocity.y > (delta_move * velocity_grappling_mult) and can_grapple:
@@ -93,6 +91,8 @@ func _physics_process(delta):
 						is_grabbing_debris = true
 				else:
 					velocity.y = velocity.y + (move_incr * delta_move)
+		else:
+			is_grabbing_debris = false
 			
 	#Apply gravity
 	#no gravity if player hasn't touched the char just yet
