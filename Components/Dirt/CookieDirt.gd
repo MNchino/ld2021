@@ -91,6 +91,16 @@ func get_cells_in_region(start,end):
 			cells.push_back(Vector2(start.x + x,start.y + y))
 	return cells
 	
+func clear_excess_tiles_on_top():
+	var last_tiles_floor = tiles_floor - TILES_TALL_PER_ITERATION 
+	for i in range(TILES_WIDE):
+		for j in range(TILES_TALL_PER_ITERATION):
+			# Wipe on top
+			var pos = Vector2(i,j+last_tiles_floor-TILES_TOP_WIPE)
+			if $CookieTiles.get_cellv(pos) != -1:
+				$CookieTiles.set_cellv(pos, -1)
+				
+	
 func generate_tiles():
 	var count = 0
 	for i in range(TILES_WIDE):
@@ -101,7 +111,7 @@ func generate_tiles():
 			# Wipe on top
 			var pos = Vector2(i,j+tiles_floor-TILES_TOP_WIPE)
 			if $CookieTiles.get_cellv(pos) != -1:
-				$CookieTiles.set_cellv(pos, -1)
+				#$CookieTiles.set_cellv(pos, -1) #Deprecated, moved to separate func
 				tiles_remaining -= 1
 	
 	var start = Vector2(0, tiles_floor)

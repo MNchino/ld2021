@@ -170,11 +170,8 @@ func _on_ItemCollector_area_entered(item : Grabber):
 	var collected_item = item.collect()
 	emit_signal("score_changed", collected_item.points)
 	emit_signal("power_changed", collected_item.power)
-<<<<<<< HEAD
 	if collected_item.life != 0:
 		emit_signal("life_changed", collected_item.life)
-=======
->>>>>>> ae0635ef295d93cf183d1421c8bf8d7c10ac0869
 
 func _on_Playspace_game_over():
 	can_input = false
