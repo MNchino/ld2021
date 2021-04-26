@@ -7,6 +7,7 @@ const max_power : int = 10
 var life : int = 3
 const max_life : int = 5
 var best : int = 0
+var hard_mode = false
 
 func ready():
 	randomize()
