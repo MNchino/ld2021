@@ -58,6 +58,10 @@ func _on_Player_power_changed(new_power : int):
 	global.power = global.power + new_power
 	emit_signal("power_changed", global.power)
 
+func _on_Player_life_changed(new_life : int):
+	global.life = min(global.life + new_life, global.max_life)
+	emit_signal("life_changed", global.life)
+
 func _on_CookieDirt_next_count(new_next : int):
 	emit_signal("next_changed", new_next)
 

@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 signal score_changed
 signal power_changed
+signal life_changed
 signal power_reset
 signal grapple_called
 signal player_damaged
@@ -160,10 +161,11 @@ func _on_GrappleDetector_area_exited(area):
 		can_grapple = false
 
 func _on_ItemCollector_area_entered(item : Grabber):
-	if cur_state == "dive" || cur_state == "air" || cur_state == "down":
-		var collected_item = item.collect()
-		emit_signal("score_changed", collected_item.points)
-		emit_signal("power_changed", collected_item.power)
+	var collected_item = item.collect()
+	emit_signal("score_changed", collected_item.points)
+	emit_signal("power_changed", collected_item.power)
+	if collected_item.life != 0:
+		emit_signal("life_changed", collected_item.life)
 
 func _on_Playspace_game_over():
 	can_input = false
