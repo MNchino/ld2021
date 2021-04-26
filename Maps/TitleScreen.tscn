@@ -1,9 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Sprites/Theme/theme.tres" type="Theme" id=1]
 [ext_resource path="res://Maps/TitleScreenInterface.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/blank-white.png" type="Texture" id=3]
-[ext_resource path="res://Sound/throw-wall.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sound/item-cookie.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sprites/Theme/theme-button-ld48-pressed.tres" type="StyleBox" id=5]
+[ext_resource path="res://Sprites/parallax-1.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/parallax-2.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Theme/theme-button-ld48-normal.tres" type="StyleBox" id=8]
+[ext_resource path="res://Sprites/Theme/theme-button-ld48-hover.tres" type="StyleBox" id=9]
 
 [sub_resource type="Animation" id=1]
 resource_name = "DisplayOptions"
@@ -164,6 +169,28 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Background" type="Node2D" parent="Interface"]
+
+[node name="parallax-1" type="Sprite" parent="Interface/Background"]
+position = Vector2( 80, 92 )
+texture = ExtResource( 6 )
+
+[node name="parallax-2" type="Sprite" parent="Interface/Background"]
+position = Vector2( 240, 92 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
+texture = ExtResource( 6 )
+
+[node name="parallax-3" type="Sprite" parent="Interface/Background"]
+position = Vector2( 80, 52 )
+texture = ExtResource( 7 )
+
+[node name="parallax-4" type="Sprite" parent="Interface/Background"]
+position = Vector2( 240, 52 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
+texture = ExtResource( 7 )
+
 [node name="Menu" type="VBoxContainer" parent="Interface"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -173,6 +200,7 @@ margin_left = -60.0
 margin_top = -34.0
 margin_right = 60.0
 margin_bottom = 62.0
+theme = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -181,7 +209,6 @@ __meta__ = {
 margin_right = 120.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 0, 16 )
-theme = ExtResource( 1 )
 text = "How to Play"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -192,7 +219,6 @@ margin_top = 20.0
 margin_right = 120.0
 margin_bottom = 36.0
 rect_min_size = Vector2( 0, 16 )
-theme = ExtResource( 1 )
 text = "New Game"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -203,7 +229,6 @@ margin_top = 40.0
 margin_right = 120.0
 margin_bottom = 56.0
 rect_min_size = Vector2( 0, 16 )
-theme = ExtResource( 1 )
 text = "Options"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -266,6 +291,8 @@ valign = 2
 margin_top = 10.0
 margin_right = 64.0
 margin_bottom = 26.0
+step = 10.0
+value = 100.0
 
 [node name="PanelContainer2" type="PanelContainer" parent="Interface/Menu/Options/OptionsPanel/VBoxContainer"]
 margin_top = 56.0
@@ -307,7 +334,6 @@ margin_top = 60.0
 margin_right = 120.0
 margin_bottom = 76.0
 rect_min_size = Vector2( 0, 16 )
-theme = ExtResource( 1 )
 text = "Exit"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -318,7 +344,10 @@ margin_top = 80.0
 margin_right = 120.0
 margin_bottom = 96.0
 rect_min_size = Vector2( 0, 16 )
-theme = ExtResource( 1 )
+custom_styles/hover = ExtResource( 9 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = ExtResource( 9 )
+custom_styles/normal = ExtResource( 8 )
 text = "Ludum Dare Entry"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -336,7 +365,7 @@ margin_right = 99.0
 margin_bottom = 2.0
 rect_scale = Vector2( 0.5, 0.5 )
 theme = ExtResource( 1 )
-text = "by @fiaKaiera & @chinoki346 2021"
+text = "by @fiaKaiera & @MNChino 2021"
 align = 2
 valign = 2
 __meta__ = {
