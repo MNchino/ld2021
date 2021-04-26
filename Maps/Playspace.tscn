@@ -10,13 +10,13 @@
 [ext_resource path="res://Components/Player/Grapple.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Maps/Camera.gd" type="Script" id=9]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 84, 32 )
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 64, 4.86322 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 16, 15.8055 )
 
 [sub_resource type="Animation" id=4]
@@ -40,6 +40,20 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "points": PoolRealArray( 0, -0.92, -2, 0.92, 2, 48, -0.6, -16, 0.6, 16 ),
 "times": PoolRealArray( 0, 1 )
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("CookieDirt")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "clear_excess_tiles_on_top"
+} ]
 }
 
 [node name="Playspace" type="Node"]
@@ -88,7 +102,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/CanGrappleArea"]
 position = Vector2( 156, -120 )
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -114,13 +128,13 @@ offset = Vector2( 4, 4 )
 visible = false
 position = Vector2( 160, -32 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 1 )
+shape = SubResource( 6 )
 
 [node name="CollisionGround" type="CollisionShape2D" parent="Walls"]
 visible = false
 position = Vector2( 160, 216 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 1 )
+shape = SubResource( 6 )
 
 [node name="WallLeft" type="Sprite" parent="Walls"]
 position = Vector2( 40, 96 )
@@ -133,7 +147,7 @@ offset = Vector2( 0, -4 )
 visible = false
 position = Vector2( 40, 104 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 2 )
+shape = SubResource( 7 )
 
 [node name="WallRight" type="Sprite" parent="Walls"]
 position = Vector2( 280, 96 )
@@ -147,7 +161,7 @@ flip_h = true
 visible = false
 position = Vector2( 280, 104 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 2 )
+shape = SubResource( 7 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 144, 24 )

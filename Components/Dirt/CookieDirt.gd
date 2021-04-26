@@ -14,6 +14,7 @@ var tiles_remaining = 0
 var min_cookie_until_next = 50
 var total_tile_num
 var tiles_floor = 15
+var next_floor_to_clear = []
 const TILES_WIDE = 20
 const TILES_TALL_PER_ITERATION = 6
 const TILES_TOP_WIPE = 23
@@ -21,10 +22,28 @@ var noise = OpenSimplexNoise.new() # For generating candy spawns
 const NOISE_PERIOD = 4
 #The amount between -1 to -1 of noise we want to keep
 #Note any noise > .5 is very rare
-const NOISE_THRESHOLD = 0.4
-const MAX_ITEMS_PER_LEVEL = 15 # The amount of candy we spawn at a time
+var INIT_NOISE_THRESHOLD = 0.4
+var noise_threshold = INIT_NOISE_THRESHOLD
+var max_items_per_level = 15 # The amount of candy we spawn at a time
 #Set the number above to a really big num to spawn for all the noise coords
-const MIN_ITEMS_PER_LEVEL = 10
+var min_items_per_level = 10
+const LEVEL_RARITIES = [
+	#Candy, health, bomb
+	#Shufflebag
+	#UNCOMMENT to use levels
+#	[100,3,0],
+#	[110,3,0],
+#	[110,3,2],
+#	[110,3,6],
+	[120,3,16],
+#	[120,3,32],
+#	[120,3,64],
+#	[120,6,128],
+#	[120,6,256],
+#	[120,6,512],
+#	[120,36,1024],
+#	[0,0,1],
+]
 
 func _ready():
 	total_tile_num = TILES_WIDE*TILES_TALL_PER_ITERATION
@@ -34,19 +53,25 @@ func _ready():
 	#Configure item spawning mechanics
 	noise.seed = randi()
 	noise.period = NOISE_PERIOD
+	global.reset_depth()
 	spawn_items_over_tiles($CookieTiles.get_used_cells())
 
 func spawn_items_over_tiles(tiles : Array):
+	
+	#Adjust difficulty based on depth
+	var level = (global.depth%12)
+	#noise_threshold = max(-1, INIT_NOISE_THRESHOLD - level*0.02)
+	
 	var item_targets = []
 	for tile in tiles:
-		if noise.get_noise_2dv(tile) > NOISE_THRESHOLD:
+		if noise.get_noise_2dv(tile) > noise_threshold:
 			item_targets.push_back(tile)
 	
-	for i in MIN_ITEMS_PER_LEVEL + randi()%(MAX_ITEMS_PER_LEVEL - MIN_ITEMS_PER_LEVEL):
+	for i in min_items_per_level + level*10 + randi()%(max_items_per_level - min_items_per_level):
 		var num_potential_targets = item_targets.size()
 		if !!num_potential_targets:
 			var target_tile = item_targets[randi()%num_potential_targets]
-			var target_resource = item_resources[randi()%item_resources.size()]
+			var target_resource = get_rand_resource_by_level(level)
 			var new_item = target_resource.instance()
 			call_deferred("add_child_at_location", new_item, $CookieTiles.map_to_world(target_tile) + Vector2(4,4))
 			item_targets.erase(target_tile)
@@ -56,6 +81,26 @@ func spawn_items_over_tiles(tiles : Array):
 #			$CookieTiles.update_bitmask_area(target_tile)
 		else:
 			break
+
+func arr_sum(arr : Array):
+	var sum = 0
+	for el in arr:
+		sum += el
+	return sum
+	
+func find_cont_index_in_arr(arr : Array, point : float):
+	var cur_sum = 0
+	for i in range(arr.size()):
+		if clamp(point, cur_sum, cur_sum + arr[i]) == point:
+			return i
+		cur_sum = cur_sum + arr[i]
+	return arr.size() - 1
+			
+func get_rand_resource_by_level(level : int):
+	var actual_level = clamp(level,0,LEVEL_RARITIES.size() - 1)
+	var choice = randf()*arr_sum(LEVEL_RARITIES[actual_level])
+	var choice_index = find_cont_index_in_arr(LEVEL_RARITIES[actual_level], choice)
+	return item_resources[choice_index]
 			
 func add_child_at_location(child, location):
 	add_child(child)
@@ -98,16 +143,18 @@ func get_cells_in_region(start,end):
 	return cells
 	
 func clear_excess_tiles_on_top():
-	var last_tiles_floor = tiles_floor - TILES_TALL_PER_ITERATION 
-	for i in range(TILES_WIDE):
-		for j in range(TILES_TALL_PER_ITERATION):
-			# Wipe on top
-			var pos = Vector2(i,j+last_tiles_floor-TILES_TOP_WIPE)
-			if $CookieTiles.get_cellv(pos) != -1:
-				$CookieTiles.set_cellv(pos, -1)
+	var cur_floor_to_cleanup = next_floor_to_clear.pop_front()
+	if cur_floor_to_cleanup:
+		for i in range(TILES_WIDE):
+			for j in range(TILES_TALL_PER_ITERATION):
+				# Wipe on top
+				var pos = Vector2(i,j+cur_floor_to_cleanup)
+				if $CookieTiles.get_cellv(pos) != -1:
+					$CookieTiles.set_cellv(pos, -1)
 				
 	
 func generate_tiles():
+	next_floor_to_clear.push_back(tiles_floor-TILES_TOP_WIPE)
 	var count = 0
 	for i in range(TILES_WIDE):
 		for j in range(TILES_TALL_PER_ITERATION):
