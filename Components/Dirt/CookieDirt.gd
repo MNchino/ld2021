@@ -10,7 +10,7 @@ var cross_bomb_resource = preload("res://Components/Items/CrossBombItem.tscn")
 var item_resources = [item_candy_resource, cross_bomb_resource]
 var percent_remaining = 100
 var tiles_remaining = 0
-var min_cookie_until_next = 40
+var min_cookie_until_next = 50
 var total_tile_num
 var tiles_floor = 15
 const TILES_WIDE = 20
@@ -98,13 +98,18 @@ func generate_tiles():
 			$CookieTiles.set_cellv(Vector2(i,j+tiles_floor), 0)
 			count += 1
 			# Wipe on top
-			$CookieTiles.set_cellv(Vector2(i,j+tiles_floor-TILES_TOP_WIPE), -1)
+			var pos = Vector2(i,j+tiles_floor-TILES_TOP_WIPE)
+			if $CookieTiles.get_cellv(pos) != -1:
+				$CookieTiles.set_cellv(pos, -1)
+				tiles_remaining -= 1
 	
 	var start = Vector2(0, tiles_floor)
 	var end = Vector2(TILES_WIDE-1, tiles_floor + TILES_TALL_PER_ITERATION)
 	
 	percent_remaining = 100
 	total_tile_num = tiles_remaining + count
+	#print(count, " | ", tiles_remaining, " | ", count + tiles_remaining)
+	
 	tiles_remaining = total_tile_num
 	
 	spawn_items_over_tiles(get_cells_in_region(start,end))

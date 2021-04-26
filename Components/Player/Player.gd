@@ -53,26 +53,25 @@ func _physics_process(delta):
 	if can_input:
 		if Input.is_action_pressed("aim"):
 			#$GrappleLine.points[1] = $GrappleLine.points[0]
-			if can_grapple && Input.is_action_just_pressed("aim"):
+			#if can_grapple && Input.is_action_just_pressed("aim"):
+			if cur_state != "up" && Input.is_action_just_pressed("aim"):
 				grapple_started = true
-				velocity = velocity*velocity_grappling_mult
+				if can_grapple:
+					velocity = velocity*velocity_grappling_mult
 			if grapple_started:
 				$AimLine.points[1] = get_local_mouse_position()
 		else:
 			$AimLine.points[1] = $AimLine.points[0]
 			if Input.is_action_just_released("aim"):
 				if grapple_started:
-					
 					is_grabbing_debris = Input.is_action_just_released("aim_left")
-					
-					player_has_initial_touch = true
-					#is_diving = true
+					if Input.is_action_just_released("aim_right"):
+						player_has_initial_touch = true
 					
 					emit_signal("grapple_called")
 					$GrappleLine.points[1] = $GrappleLine.points[0]
 					
 				grapple_started = false
-			#$GrappleLine.points[1] = to_local(grapple_target_pos)
 	else:
 		$AimLine.points[0] = $AimLine.points[0]
 		$GrappleLine.points[1] = $GrappleLine.points[0]

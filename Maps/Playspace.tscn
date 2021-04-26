@@ -16,10 +16,15 @@ extents = Vector2( 64, 4.86322 )
 extents = Vector2( 16, 15.8055 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 96, 40 )
+extents = Vector2( 84, 32 )
 
 [node name="Playspace" type="Node"]
 script = ExtResource( 5 )
+
+[node name="Camera" type="Camera2D" parent="."]
+visible = false
+anchor_mode = 0
+current = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -108,7 +113,7 @@ position = Vector2( 80, 64 )
 position = Vector2( 0, 152 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CanGrappleArea"]
-position = Vector2( 160, -128 )
+position = Vector2( 156, -120 )
 shape = SubResource( 3 )
 
 [node name="Background" type="CanvasLayer" parent="."]
@@ -125,8 +130,8 @@ __meta__ = {
 }
 
 [connection signal="depth_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_depth_changed"]
-[connection signal="game_over" from="." to="Player" method="_on_Playspace_game_over"]
 [connection signal="game_over" from="." to="CanvasLayer/Interface" method="_on_Playspace_game_over"]
+[connection signal="game_over" from="." to="Player" method="_on_Playspace_game_over"]
 [connection signal="grapple_called" from="." to="Grapple" method="_on_Playspace_grapple_called"]
 [connection signal="life_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_life_changed"]
 [connection signal="next_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_next_changed"]

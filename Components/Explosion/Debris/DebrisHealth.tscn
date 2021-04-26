@@ -1,34 +1,31 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Sprites/debris-candy.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/debris-cookie.png" type="Texture" id=1]
 [ext_resource path="res://Components/Explosion/Debris/Debris.gd" type="Script" id=2]
 [ext_resource path="res://Components/Explosion/Debris/Grabber.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 4 )
 
-[node name="DebrisCandy" type="KinematicBody2D"]
+[node name="DebrisHealth" type="KinematicBody2D"]
 collision_layer = 4
-collision_mask = 1030
+collision_mask = 1038
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
-active = false
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
-hframes = 3
+hframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource( 1 )
-disabled = true
 
 [node name="Grabber" parent="." instance=ExtResource( 3 )]
 visible = false
-num_points = 300
-num_power = 5
+num_points = 500
 
 [node name="Despawn" type="Timer" parent="."]
 wait_time = 4.0

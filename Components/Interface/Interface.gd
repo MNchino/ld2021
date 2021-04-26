@@ -3,6 +3,7 @@ extends Control
 signal game_restart
 signal game_quit
 const life_width = 13
+const glow = preload("res://Sprites/Theme/theme-stylebox-fgglow.tres")
 
 func _ready():
 	_on_Playspace_score_changed(global.points)
@@ -18,6 +19,10 @@ func _on_Playspace_depth_changed(new_depth : int):
 
 func _on_Playspace_power_changed(new_power : int):
 	$TopLeft/PowerBar.value = new_power
+	if $TopLeft/PowerBar.value >= $TopLeft/PowerBar.max_value:
+		$TopLeft/PowerBar.set("custom_styles/fg", glow)
+	else:
+		$TopLeft/PowerBar.set("custom_styles/fg", null)
 
 func _on_Playspace_life_changed(new_life : int):
 	var has_life = new_life > 0

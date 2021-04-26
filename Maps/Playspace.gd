@@ -17,6 +17,7 @@ func _ready():
 	emit_signal("power_changed", global.power)
 	emit_signal("score_changed", global.points)
 	emit_signal("depth_changed", global.depth)
+	emit_signal("next_changed", 0)
 
 func _on_Player_score_changed(new_score : int):
 	global.points = new_score + global.points

@@ -20,9 +20,11 @@ texture = ExtResource( 1 )
 hframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 
 [node name="Grabber" parent="." instance=ExtResource( 3 )]
+visible = false
 num_power = 2
 
 [node name="Despawn" type="Timer" parent="."]
