@@ -162,10 +162,20 @@ func _on_GrappleDetector_area_entered(area):
 	if area.name == "CanGrappleArea":
 		can_grapple = true
 		invulnerable = false
+		emit_signal("splashing", position)
+		
+		if player_has_initial_touch:
+			$Particles/Splash.restart()
+			$Particles/Splash.emitting = true
+			$Particles/Bubbles.emitting = false
 
 func _on_GrappleDetector_area_exited(area):
 	if area.name == "CanGrappleArea":
 		can_grapple = false
+		emit_signal("splashing", position)
+		$Particles/Splash.restart()
+		$Particles/Splash.emitting = true
+		$Particles/Bubbles.emitting = true
 
 func _on_ItemCollector_area_entered(item : Grabber):
 	var collected_item = item.collect()

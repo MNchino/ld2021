@@ -4,6 +4,7 @@ signal depth_changed
 signal power_changed
 signal life_changed
 signal next_changed
+signal best_changed
 signal grapple_called
 signal game_over
 
@@ -16,12 +17,17 @@ func _ready():
 	emit_signal("life_changed", global.life)
 	emit_signal("power_changed", global.power)
 	emit_signal("score_changed", global.points)
+	emit_signal("best_changed", global.best)
 	emit_signal("depth_changed", global.depth)
 	emit_signal("next_changed", 0)
 
 func _on_Player_score_changed(new_score : int):
 	global.points = new_score + global.points
 	emit_signal("score_changed", global.points)
+	
+	if global.points > global.best:
+		global.best = global.points
+		emit_signal("best_changed", global.best)
 
 func _input(_event):
 	if Input.is_key_pressed(KEY_F5):
@@ -55,11 +61,11 @@ func _physics_process(delta):
 			grapple_item_object.position = grapple_item_object.get_parent().to_local($Grapple.position)
 
 func _on_Player_power_changed(new_power : int):
-	global.power = min(global.power + new_power, global.max_power)
+	global.power = int(min(global.power + new_power, global.max_power))
 	emit_signal("power_changed", global.power)
 
 func _on_Player_life_changed(new_life : int):
-	global.life = min(global.life + new_life, global.max_life)
+	global.life = int(min(global.life + new_life, global.max_life))
 	emit_signal("life_changed", global.life)
 
 func _on_CookieDirt_next_count(new_next : int):

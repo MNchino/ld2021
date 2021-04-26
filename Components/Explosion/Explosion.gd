@@ -5,13 +5,19 @@ func _ready():
 	scale = 3.0*(float(global.power)/global.max_power)*Vector2(1,1)
 	#scale = 4*Vector2(1,1)
 	
+	$Bubbles.amount = global.power * $Bubbles.amount
+	$Debris.amount = global.power * $Debris.amount
+	$Bubbles.emitting = true
+	$Debris.emitting = true
+	$Bubbles.scale = $Bubbles.scale / scale.x
+	$Debris.scale = $Debris.scale / scale.x
+	$Debris.emission_sphere_radius = $Debris.emission_sphere_radius * scale.x
+	
 	$AnimationPlayer.play("Explode")
-	pass # Replace with function body.
 
 
 func _on_AnimationPlayer_animation_finished(_anim_name):
 	queue_free()
-	pass # Replace with function body.
 
 
 #This is when the explosion circle overlaps a cluster of tiles

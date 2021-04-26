@@ -162,6 +162,7 @@ position = Vector2( 80, 64 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/MoveCameraDown = SubResource( 4 )
 
+[connection signal="best_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_best_changed"]
 [connection signal="depth_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_depth_changed"]
 [connection signal="game_over" from="." to="Player" method="_on_Playspace_game_over"]
 [connection signal="game_over" from="." to="CanvasLayer/Interface" method="_on_Playspace_game_over"]

@@ -153,6 +153,29 @@ margin_right = 63.0
 margin_bottom = 16.0
 text = "19216801"
 
+[node name="BottomLeft" type="VBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = -28.0
+margin_right = 64.0
+margin_bottom = -8.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BestLabel" type="Label" parent="BottomLeft"]
+margin_right = 60.0
+margin_bottom = 6.0
+custom_fonts/font = ExtResource( 2 )
+text = "hi-score"
+
+[node name="BestCount" type="Label" parent="BottomLeft"]
+margin_top = 10.0
+margin_right = 60.0
+margin_bottom = 16.0
+text = "19216801"
+
 [node name="GameOver" type="Control" parent="."]
 visible = false
 anchor_right = 1.0

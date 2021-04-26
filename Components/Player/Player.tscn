@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Sprites/chara-pal.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Components/Player/Player.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/Particle/part-bubble.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -11,6 +12,14 @@ extents = Vector2( 8, 8 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 8, 8 )
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0.556738, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="Gradient" id=5]
+offsets = PoolRealArray( 0, 0.996454 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -54,6 +63,38 @@ collision_mask = 4096
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="DamageDetector"]
 shape = SubResource( 3 )
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="Bubbles" type="CPUParticles2D" parent="Particles"]
+z_index = -1
+emitting = false
+lifetime = 0.5
+randomness = 1.0
+local_coords = false
+texture = ExtResource( 3 )
+direction = Vector2( 0, -1 )
+spread = 25.0
+gravity = Vector2( 0, -98 )
+initial_velocity = 10.0
+scale_amount = 0.7
+color_ramp = SubResource( 4 )
+
+[node name="Splash" type="CPUParticles2D" parent="Particles"]
+emitting = false
+amount = 30
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 1.0
+local_coords = false
+emission_shape = 1
+emission_sphere_radius = 4.0
+direction = Vector2( 0, -1 )
+initial_velocity = 100.0
+initial_velocity_random = 0.5
+scale_amount = 2.0
+scale_amount_random = 0.5
+color_ramp = SubResource( 5 )
 
 [connection signal="area_entered" from="GrappleDetector" to="." method="_on_GrappleDetector_area_entered"]
 [connection signal="area_exited" from="GrappleDetector" to="." method="_on_GrappleDetector_area_exited"]

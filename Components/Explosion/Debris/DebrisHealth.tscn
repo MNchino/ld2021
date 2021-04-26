@@ -29,6 +29,7 @@ num_points = 500
 num_life = 1
 
 [node name="Despawn" type="Timer" parent="."]
+wait_time = 4.0
 
 [connection signal="collected" from="Grabber" to="." method="_on_Grabber_collected"]
 [connection signal="timeout" from="Despawn" to="." method="_on_Despawn_timeout"]

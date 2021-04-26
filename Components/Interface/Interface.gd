@@ -10,9 +10,13 @@ func _ready():
 	_on_Playspace_depth_changed(global.depth)
 	_on_Playspace_power_changed(global.power)
 	_on_Playspace_life_changed(global.life)
+	_on_Playspace_best_changed(global.best)
 	
 func _on_Playspace_score_changed(new_score : int):
 	$BottomRight/PointsCount.text = String(new_score)
+
+func _on_Playspace_best_changed(new_score : int):
+	$BottomLeft/BestCount.text = String(new_score)
 
 func _on_Playspace_depth_changed(new_depth : int):
 	$TopRight/DepthCount.text = String(new_depth) + " m"
