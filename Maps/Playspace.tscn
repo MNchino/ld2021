@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Components/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Components/Dirt/CookieDirt.tscn" type="PackedScene" id=2]
@@ -18,11 +18,33 @@ extents = Vector2( 16, 15.8055 )
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 84, 32 )
 
+[sub_resource type="Animation" id=4]
+resource_name = "MoveCameraDown"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Camera:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.92, -2, 0.92, 2, 48, -0.6, -16, 0.6, 16 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Walls:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.92, -2, 0.92, 2, 48, -0.6, -16, 0.6, 16 ),
+"times": PoolRealArray( 0, 1 )
+}
+
 [node name="Playspace" type="Node"]
 script = ExtResource( 5 )
 
 [node name="Camera" type="Camera2D" parent="."]
-visible = false
 anchor_mode = 0
 current = true
 
@@ -36,7 +58,14 @@ position = Vector2( 0, 152 )
 points = PoolVector2Array( 72, -88, 248, -88 )
 default_color = Color( 1, 0.4, 0.4, 1 )
 
-[node name="Water" type="Sprite" parent="."]
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 8
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Water" type="Sprite" parent="Walls"]
 position = Vector2( 160, 72 )
 scale = Vector2( 20, 1 )
 z_index = -1
@@ -46,19 +75,12 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Liquid" type="Sprite" parent="Water"]
+[node name="Liquid" type="Sprite" parent="Walls/Water"]
 self_modulate = Color( 0.980392, 0.956863, 0.772549, 1 )
 position = Vector2( -4, 8 )
 scale = Vector2( 1, 13 )
 texture = ExtResource( 7 )
 offset = Vector2( 4, 4 )
-
-[node name="Walls" type="StaticBody2D" parent="."]
-collision_layer = 8
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
-}
 
 [node name="CollisionCeiling" type="CollisionShape2D" parent="Walls"]
 visible = false
@@ -115,19 +137,12 @@ position = Vector2( 0, 152 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CanGrappleArea"]
 position = Vector2( 156, -120 )
 shape = SubResource( 3 )
-
-[node name="Background" type="CanvasLayer" parent="."]
-layer = -1
-
-[node name="ColorRect" type="ColorRect" parent="Background"]
-margin_right = 320.0
-margin_bottom = 184.0
-color = Color( 1, 0.792157, 0.988235, 1 )
 __meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true,
-"_edit_use_anchors_": false
+"_edit_lock_": true
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/MoveCameraDown = SubResource( 4 )
 
 [connection signal="depth_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_depth_changed"]
 [connection signal="game_over" from="." to="Player" method="_on_Playspace_game_over"]
