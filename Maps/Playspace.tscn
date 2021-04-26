@@ -10,14 +10,14 @@
 [ext_resource path="res://Components/Player/Grapple.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Maps/Camera.gd" type="Script" id=9]
 
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 84, 32 )
+
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 64, 4.86322 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 16, 15.8055 )
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 84, 32 )
 
 [sub_resource type="Animation" id=4]
 resource_name = "MoveCameraDown"
@@ -46,7 +46,12 @@ tracks/1/keys = {
 script = ExtResource( 5 )
 
 [node name="Camera" type="Node2D" parent="."]
+visible = false
 script = ExtResource( 9 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="Viewpoint" type="Camera2D" parent="Camera"]
 anchor_mode = 0
@@ -70,6 +75,21 @@ default_color = Color( 1, 0.4, 0.4, 1 )
 collision_layer = 8
 __meta__ = {
 "_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CanGrappleArea" type="Area2D" parent="Walls"]
+visible = false
+position = Vector2( 0, 152 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/CanGrappleArea"]
+position = Vector2( 156, -120 )
+shape = SubResource( 3 )
+__meta__ = {
 "_edit_lock_": true
 }
 
@@ -138,21 +158,6 @@ position = Vector2( 208, -32 )
 
 [node name="CookieDirt" parent="." instance=ExtResource( 2 )]
 position = Vector2( 80, 64 )
-
-[node name="CanGrappleArea" type="Area2D" parent="."]
-visible = false
-position = Vector2( 0, 152 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanGrappleArea"]
-position = Vector2( 156, -120 )
-shape = SubResource( 3 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/MoveCameraDown = SubResource( 4 )

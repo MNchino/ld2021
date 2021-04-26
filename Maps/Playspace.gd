@@ -83,12 +83,6 @@ func _on_CookieDirt_next_dirt():
 	anim.bezier_track_set_key_value(trackId2,1, $Walls.position.y + $CookieDirt.TILES_TALL_PER_ITERATION * 8)
 	$AnimationPlayer.play("MoveCameraDown")
 	
-#	$CookieDirt.position.y -= $CookieDirt.TILES_TALL_PER_ITERATION * 8
-#	for node in get_tree().get_nodes_in_group("Movable"):
-#		node.position.y -= $CookieDirt.TILES_TALL_PER_ITERATION * 8
-#	$Player.position.y -= $CookieDirt.TILES_TALL_PER_ITERATION * 8
-#	$Grapple.position.y -= $CookieDirt.TILES_TALL_PER_ITERATION * 8
-
 func _on_Player_grapple_called():
 	emit_signal("grapple_called", $Player.position)
 	$Player/GrappleLine.visible = true
