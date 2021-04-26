@@ -21,6 +21,7 @@ texture = ExtResource( 1 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource( 1 )
+disabled = true
 
 [node name="Grabber" parent="." instance=ExtResource( 3 )]
 visible = false
