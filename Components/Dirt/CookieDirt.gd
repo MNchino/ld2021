@@ -6,8 +6,9 @@ signal next_count
 var explosionResource = preload("res://Components/Explosion/Explosion.tscn")
 var debrisCookieResource = preload("res://Components/Explosion/Debris/DebrisCookie.tscn")
 var item_candy_resource = preload("res://Components/Items/CandyItem.tscn")
+var item_health_resource = preload("res://Components/Items/HealthItem.tscn")
 var cross_bomb_resource = preload("res://Components/Items/CrossBombItem.tscn")
-var item_resources = [item_candy_resource, cross_bomb_resource]
+var item_resources = [item_candy_resource, item_health_resource, cross_bomb_resource]
 var percent_remaining = 100
 var tiles_remaining = 0
 var min_cookie_until_next = 50

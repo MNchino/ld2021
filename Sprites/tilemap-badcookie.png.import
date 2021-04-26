@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/debris-health-embed.png-3666ef43e48edb4494bc20934320b364.stex"
+path="res://.import/tilemap-badcookie.png-c742e2a4bf732dc5f42922deeafd989e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/debris-health-embed.png"
-dest_files=[ "res://.import/debris-health-embed.png-3666ef43e48edb4494bc20934320b364.stex" ]
+source_file="res://Sprites/tilemap-badcookie.png"
+dest_files=[ "res://.import/tilemap-badcookie.png-c742e2a4bf732dc5f42922deeafd989e.stex" ]
 
 [params]
 

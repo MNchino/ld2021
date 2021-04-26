@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Sprites/debris-cookie.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/debris-health.png" type="Texture" id=1]
 [ext_resource path="res://Components/Explosion/Debris/Debris.gd" type="Script" id=2]
 [ext_resource path="res://Components/Explosion/Debris/Grabber.tscn" type="PackedScene" id=3]
 
@@ -17,7 +17,6 @@ __meta__ = {
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
-hframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -28,7 +27,6 @@ visible = false
 num_points = 500
 
 [node name="Despawn" type="Timer" parent="."]
-wait_time = 4.0
 
 [connection signal="collected" from="Grabber" to="." method="_on_Grabber_collected"]
 [connection signal="timeout" from="Despawn" to="." method="_on_Despawn_timeout"]
