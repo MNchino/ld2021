@@ -74,14 +74,27 @@ func _on_Player_power_reset():
 func _on_CookieDirt_next_dirt():
 	$CookieDirt.generate_tiles()
 	
-	var anim = $AnimationPlayer.get_animation("MoveCameraDown")
-	var trackId = anim.find_track("Camera:position:y")
-	anim.bezier_track_set_key_value(trackId,0, $Camera.position.y)
-	anim.bezier_track_set_key_value(trackId,1, $Camera.position.y + $CookieDirt.TILES_TALL_PER_ITERATION * 8)
-	var trackId2 = anim.find_track("Walls:position:y")
-	anim.bezier_track_set_key_value(trackId2,0, $Walls.position.y)
-	anim.bezier_track_set_key_value(trackId2,1, $Walls.position.y + $CookieDirt.TILES_TALL_PER_ITERATION * 8)
-	$AnimationPlayer.play("MoveCameraDown")
+	if !$AnimationPlayer.is_playing():
+		var anim = $AnimationPlayer.get_animation("MoveCameraDown")
+		var trackId = anim.find_track("Camera:position:y")
+		anim.bezier_track_set_key_value(trackId,0, $Camera.position.y)
+		anim.bezier_track_set_key_value(trackId,1, $Camera.position.y + $CookieDirt.TILES_TALL_PER_ITERATION * 8)
+		var trackId2 = anim.find_track("Walls:position:y")
+		anim.bezier_track_set_key_value(trackId2,0, $Walls.position.y)
+		anim.bezier_track_set_key_value(trackId2,1, $Walls.position.y + $CookieDirt.TILES_TALL_PER_ITERATION * 8)
+		$AnimationPlayer.play("MoveCameraDown")
+	else:
+		var anim = $AnimationPlayer.get_animation("MoveCameraDown")
+		var trackId = anim.find_track("Camera:position:y")
+		anim.bezier_track_set_key_value(trackId,0, $Camera.position.y)
+		var lastDest = anim.bezier_track_get_key_value(trackId,1)
+		anim.bezier_track_set_key_value(trackId,1, lastDest + $CookieDirt.TILES_TALL_PER_ITERATION * 8)
+		var trackId2 = anim.find_track("Walls:position:y")
+		anim.bezier_track_set_key_value(trackId2,0, $Walls.position.y)
+		var lastDest2 = anim.bezier_track_get_key_value(trackId2,1)
+		anim.bezier_track_set_key_value(trackId2,1, lastDest2 + $CookieDirt.TILES_TALL_PER_ITERATION * 8)
+		$AnimationPlayer.stop()
+		$AnimationPlayer.play("MoveCameraDown")
 	
 func _on_Player_grapple_called():
 	emit_signal("grapple_called", $Player.position)

@@ -14,6 +14,7 @@ var tiles_remaining = 0
 var min_cookie_until_next = 50
 var total_tile_num
 var tiles_floor = 15
+var next_floor_to_clear = []
 const TILES_WIDE = 20
 const TILES_TALL_PER_ITERATION = 6
 const TILES_TOP_WIPE = 23
@@ -56,8 +57,6 @@ func _ready():
 	spawn_items_over_tiles($CookieTiles.get_used_cells())
 
 func spawn_items_over_tiles(tiles : Array):
-	
-	print("here is cur depth", global.depth)
 	
 	#Adjust difficulty based on depth
 	var level = (global.depth%12)
@@ -144,16 +143,18 @@ func get_cells_in_region(start,end):
 	return cells
 	
 func clear_excess_tiles_on_top():
-	var last_tiles_floor = tiles_floor - TILES_TALL_PER_ITERATION 
-	for i in range(TILES_WIDE):
-		for j in range(TILES_TALL_PER_ITERATION):
-			# Wipe on top
-			var pos = Vector2(i,j+last_tiles_floor-TILES_TOP_WIPE)
-			if $CookieTiles.get_cellv(pos) != -1:
-				$CookieTiles.set_cellv(pos, -1)
+	var cur_floor_to_cleanup = next_floor_to_clear.pop_front()
+	if cur_floor_to_cleanup:
+		for i in range(TILES_WIDE):
+			for j in range(TILES_TALL_PER_ITERATION):
+				# Wipe on top
+				var pos = Vector2(i,j+cur_floor_to_cleanup)
+				if $CookieTiles.get_cellv(pos) != -1:
+					$CookieTiles.set_cellv(pos, -1)
 				
 	
 func generate_tiles():
+	next_floor_to_clear.push_back(tiles_floor-TILES_TOP_WIPE)
 	var count = 0
 	for i in range(TILES_WIDE):
 		for j in range(TILES_TALL_PER_ITERATION):
