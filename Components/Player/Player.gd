@@ -13,8 +13,9 @@ const move_speed = 3
 const LAUNCH_SPEED = 10
 const gravity_in_grapple_mult = 0.25
 const velocity_grappling_mult = 0.1
-const AIM_COLOR = "6680ff"
-const COLLECT_COLOR = "66ff70"
+const AIM_COLOR = "66ff70"
+const AIM_BAD_COLOR = "ff6666"
+const COLLECT_COLOR = "6680ff"
 var velocity = Vector2(0,0)
 var gravity = .1
 var friction_divider = 5
@@ -47,9 +48,9 @@ func _process(_delta):
 		
 	#Change color of line depending on mode
 	if Input.is_action_pressed("aim_left"):
-		$AimLine.default_color = AIM_COLOR
-	elif Input.is_action_pressed("aim_right"):
 		$AimLine.default_color = COLLECT_COLOR
+	elif Input.is_action_pressed("aim_right"):
+		$AimLine.default_color = AIM_COLOR if global.power > 0 else AIM_BAD_COLOR
 	
 func _physics_process(delta):
 	var delta_move = EXPECTED_FPS * delta
@@ -170,11 +171,8 @@ func _on_ItemCollector_area_entered(item : Grabber):
 	var collected_item = item.collect()
 	emit_signal("score_changed", collected_item.points)
 	emit_signal("power_changed", collected_item.power)
-<<<<<<< HEAD
 	if collected_item.life != 0:
 		emit_signal("life_changed", collected_item.life)
-=======
->>>>>>> ae0635ef295d93cf183d1421c8bf8d7c10ac0869
 
 func _on_Playspace_game_over():
 	can_input = false

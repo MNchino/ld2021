@@ -55,7 +55,7 @@ func _physics_process(delta):
 			grapple_item_object.position = grapple_item_object.get_parent().to_local($Grapple.position)
 
 func _on_Player_power_changed(new_power : int):
-	global.power = global.power + new_power
+	global.power = min(global.power + new_power, global.max_power)
 	emit_signal("power_changed", global.power)
 
 func _on_Player_life_changed(new_life : int):
@@ -72,7 +72,7 @@ func _on_Player_power_reset():
 	emit_signal("power_changed", global.power)
 
 func _on_CookieDirt_next_dirt():
-	$CookieDirt.generate_tiles()\
+	$CookieDirt.generate_tiles()
 	
 	var anim = $AnimationPlayer.get_animation("MoveCameraDown")
 	var trackId = anim.find_track("Camera:position:y")
@@ -82,6 +82,7 @@ func _on_CookieDirt_next_dirt():
 	anim.bezier_track_set_key_value(trackId2,0, $Walls.position.y)
 	anim.bezier_track_set_key_value(trackId2,1, $Walls.position.y + $CookieDirt.TILES_TALL_PER_ITERATION * 8)
 	$AnimationPlayer.play("MoveCameraDown")
+	
 #	$CookieDirt.position.y -= $CookieDirt.TILES_TALL_PER_ITERATION * 8
 #	for node in get_tree().get_nodes_in_group("Movable"):
 #		node.position.y -= $CookieDirt.TILES_TALL_PER_ITERATION * 8
@@ -126,6 +127,7 @@ func _on_Player_player_damaged():
 	
 func player_damaged():
 	global.life -= 1
+	$Camera.shake_start()
 	emit_signal("life_changed", global.life)
 	if (global.life <= 0):
 		emit_signal("game_over")

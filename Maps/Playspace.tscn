@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Components/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Components/Dirt/CookieDirt.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Sprites/tilemap-water.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/blank-white.png" type="Texture" id=7]
 [ext_resource path="res://Components/Player/Grapple.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Maps/Camera.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 64, 4.86322 )
@@ -44,9 +45,16 @@ tracks/1/keys = {
 [node name="Playspace" type="Node"]
 script = ExtResource( 5 )
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Camera" type="Node2D" parent="."]
+script = ExtResource( 9 )
+
+[node name="Viewpoint" type="Camera2D" parent="Camera"]
 anchor_mode = 0
 current = true
+
+[node name="Timer" type="Timer" parent="Camera"]
+wait_time = 0.2
+one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -132,7 +140,12 @@ position = Vector2( 208, -32 )
 position = Vector2( 80, 64 )
 
 [node name="CanGrappleArea" type="Area2D" parent="."]
+visible = false
 position = Vector2( 0, 152 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CanGrappleArea"]
 position = Vector2( 156, -120 )
@@ -152,6 +165,7 @@ anims/MoveCameraDown = SubResource( 4 )
 [connection signal="next_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_next_changed"]
 [connection signal="power_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_power_changed"]
 [connection signal="score_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_score_changed"]
+[connection signal="timeout" from="Camera/Timer" to="Camera" method="_on_Timer_timeout"]
 [connection signal="game_quit" from="CanvasLayer/Interface" to="." method="_on_Interface_game_quit"]
 [connection signal="game_restart" from="CanvasLayer/Interface" to="." method="_on_Interface_game_restart"]
 [connection signal="grapple_called" from="Player" to="." method="_on_Player_grapple_called"]

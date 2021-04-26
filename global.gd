@@ -7,6 +7,9 @@ const max_power : int = 10
 var life : int = 3
 const max_life : int = 5
 
+func ready():
+	randomize()
+
 func reset_stats():
 	points = 0
 	depth = 0
