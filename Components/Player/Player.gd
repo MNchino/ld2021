@@ -179,7 +179,6 @@ func _on_GrappleDetector_area_entered(area):
 func _on_GrappleDetector_area_exited(area):
 	if area.name == "CanGrappleArea":
 		can_grapple = false
-		emit_signal("splashing", position)
 		$Particles/Splash.restart()
 		$Particles/Splash.emitting = true
 		$Particles/Bubbles.emitting = true
@@ -191,6 +190,10 @@ func _on_ItemCollector_area_entered(item : Grabber):
 	if collected_item.life != 0:
 		emit_signal("life_changed", collected_item.life)
 		$Particles/Hearts.emitting = true
+		$AudioHeal.play()
+	else:
+		$AudioCollect.pitch_scale = rand_range(0.8,0.9) + (collected_item.power * 0.2)
+		$AudioCollect.play()
 
 func _on_Playspace_game_over():
 	can_input = false

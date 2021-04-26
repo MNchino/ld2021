@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/throw-wall.wav-7fc4f5024d0dbe366d6a3c5ea848aac4.sample"
+
+[deps]
+
+source_file="res://Sound/throw-wall.wav"
+dest_files=[ "res://.import/throw-wall.wav-7fc4f5024d0dbe366d6a3c5ea848aac4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -12,7 +12,7 @@
 [ext_resource path="res://Sprites/parallax-2.png" type="Texture" id=10]
 [ext_resource path="res://Sprites/parallax-1.png" type="Texture" id=11]
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=1]
 resource_name = "damage"
 length = 0.3
 tracks/0/type = "value"
@@ -28,7 +28,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 0.301961, 0.301961, 0.501961 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 resource_name = "heal"
 length = 0.3
 tracks/0/type = "value"
@@ -44,20 +44,19 @@ tracks/0/keys = {
 "values": [ Color( 0.964706, 0.666667, 1, 0.392157 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 84, 32 )
 
-[sub_resource type="Gradient" id=7]
+[sub_resource type="Gradient" id=4]
 colors = PoolColorArray( 1, 1, 1, 0.392157, 1, 1, 1, 0 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 64, 4.86322 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 16, 15.8055 )
 
-[sub_resource type="Animation" id=4]
-resource_name = "MoveCameraDown"
+[sub_resource type="Animation" id=7]
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("Camera:position:y")
 tracks/0/interp = 1
@@ -126,8 +125,8 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/ColorOverlay"]
-anims/damage = SubResource( 6 )
-anims/heal = SubResource( 5 )
+anims/damage = SubResource( 1 )
+anims/heal = SubResource( 2 )
 
 [node name="Interface" parent="CanvasLayer" instance=ExtResource( 4 )]
 
@@ -155,7 +154,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/CanGrappleArea"]
 position = Vector2( 156, -120 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -176,7 +175,7 @@ gravity = Vector2( 0, 0 )
 initial_velocity = 100.0
 scale_amount = 3.0
 scale_amount_random = 0.5
-color_ramp = SubResource( 7 )
+color_ramp = SubResource( 4 )
 
 [node name="Water" type="Sprite" parent="Walls"]
 position = Vector2( 160, 72 )
@@ -202,13 +201,13 @@ __meta__ = {
 visible = false
 position = Vector2( 160, -32 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 2 )
+shape = SubResource( 5 )
 
 [node name="CollisionGround" type="CollisionShape2D" parent="Walls"]
 visible = false
 position = Vector2( 160, 216 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 2 )
+shape = SubResource( 5 )
 
 [node name="WallLeft" type="Sprite" parent="Walls"]
 position = Vector2( 40, 96 )
@@ -221,7 +220,7 @@ offset = Vector2( 0, -4 )
 visible = false
 position = Vector2( 40, 104 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 3 )
+shape = SubResource( 6 )
 
 [node name="WallRight" type="Sprite" parent="Walls"]
 position = Vector2( 280, 96 )
@@ -235,7 +234,7 @@ flip_h = true
 visible = false
 position = Vector2( 280, 104 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 3 )
+shape = SubResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 144, 24 )
@@ -248,7 +247,7 @@ position = Vector2( 208, -32 )
 position = Vector2( 80, 64 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/MoveCameraDown = SubResource( 4 )
+anims/MoveCameraDown = SubResource( 7 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -269,6 +268,19 @@ motion_scale = Vector2( 1, 0.25 )
 
 [node name="Sprite2" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
 texture = ExtResource( 10 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 160, 10000 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 80, 0 )
+motion_scale = Vector2( 1, 0.35 )
+
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+modulate = Color( 1, 1, 1, 0.52549 )
+position = Vector2( 200, 344 )
+scale = Vector2( -1.5, -1.5 )
+texture = ExtResource( 11 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 160, 10000 )

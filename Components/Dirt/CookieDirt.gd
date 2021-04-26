@@ -63,6 +63,8 @@ const LEVEL_RARITIES = [
 	[80,30,1000],
 	[50,12,1000],
 ]
+const snd_blow = preload("res://Sound/beam-blow.wav")
+const snd_charge = preload("res://Sound/beam-charge.wav")
 
 func _ready():
 	total_tile_num = TILES_WIDE*TILES_TALL_PER_ITERATION
@@ -145,10 +147,9 @@ func remove_tile():
 	percent_remaining = 100 * tiles_remaining / total_tile_num
 	
 	var min_percent = 0.01 * min_cookie_until_next
-	var tiles_until_next = total_tile_num * min_percent
-	var tiles_left_until_next = tiles_remaining - tiles_until_next
+	var tiles_until_next = floor(total_tile_num * min_percent)
+	var tiles_left_until_next = tiles_remaining - (total_tile_num - tiles_until_next)
 	var percent_needed = 100 - ceil(100 * tiles_left_until_next / tiles_until_next)
-	
 	emit_signal("next_count", percent_needed)
 	
 	if percent_remaining <= min_cookie_until_next:
@@ -199,3 +200,13 @@ func generate_tiles():
 	spawn_items_over_tiles(get_cells_in_region(start,end))
 	$CookieTiles.update_bitmask_region(start, end)
 	tiles_floor += TILES_TALL_PER_ITERATION
+
+func gaster_blaster_charge():
+	$GasterBlaster.stream = snd_charge
+	$GasterBlaster.volume_db = 0
+	$GasterBlaster.play()
+
+func gaster_blaster_time():
+	$GasterBlaster.stream = snd_blow
+	$GasterBlaster.volume_db = -10
+	$GasterBlaster.play()

@@ -7,8 +7,9 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 4 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 resource_name = "default"
+length = 0.001
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Laser:region_rect")
@@ -106,23 +107,8 @@ tracks/7/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
-tracks/8/type = "method"
-tracks/8/path = NodePath(".")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
-"times": PoolRealArray( 1 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "queue_free"
-} ]
-}
 
-[sub_resource type="Animation" id=2]
-resource_name = "laser"
+[sub_resource type="Animation" id=3]
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Laser:region_rect")
@@ -227,16 +213,22 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 1 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.65, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "values": [ {
 "args": [  ],
-"method": "queue_free"
+"method": "emit_charge"
+}, {
+"args": [  ],
+"method": "emit_time"
+}, {
+"args": [  ],
+"method": "goodbye"
 } ]
 }
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 4, 82.5 )
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 4, 40 )
 
 [node name="Bomb" type="Node2D"]
 script = ExtResource( 2 )
@@ -273,8 +265,8 @@ region_rect = Rect2( 0, 0, 8, 320 )
 texture = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/default = SubResource( 4 )
-anims/laser = SubResource( 2 )
+anims/default = SubResource( 2 )
+anims/laser = SubResource( 3 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
 visible = false
@@ -283,8 +275,8 @@ collision_layer = 4096
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2( 0, 80 )
-shape = SubResource( 3 )
+position = Vector2( 0, 120 )
+shape = SubResource( 4 )
 disabled = true
 
 [node name="Timer" type="Timer" parent="."]

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/item-cookie.wav-6b9c4e5beb3a02fa598df3b88926cf0b.sample"
+
+[deps]
+
+source_file="res://Sound/item-cookie.wav"
+dest_files=[ "res://.import/item-cookie.wav-6b9c4e5beb3a02fa598df3b88926cf0b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

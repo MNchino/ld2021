@@ -36,6 +36,10 @@ func _on_Playspace_life_changed(new_life : int):
 		
 func _on_Playspace_next_changed(new_next : int):
 	$TopRight/NextBar.value = new_next
+	if $TopRight/NextBar.value >= ($TopRight/NextBar.max_value * .5):
+		$TopRight/NextBar.set("custom_styles/fg", glow)
+	else:
+		$TopRight/NextBar.set("custom_styles/fg", null)
 
 func _on_Playspace_game_over():
 	$GameOver.visible = true

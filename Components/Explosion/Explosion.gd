@@ -5,13 +5,17 @@ var tiles_to_remove = []
 var tiles_to_process = 0
 var target_body = null
 
+const snd_explode_low = preload("res://Sound/explosion-low.wav")
+const snd_explode_hi = preload("res://Sound/explosion-high.wav")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	scale = 3.0*(float(global.power)/global.max_power)*Vector2(1,1)
 	#scale = 4*Vector2(1,1)
 	
-	$Bubbles.amount = global.power * $Bubbles.amount
-	$Debris.amount = global.power * $Debris.amount
+	var amount = max(global.power, 1)
+	$Bubbles.amount = amount * $Bubbles.amount
+	$Debris.amount = amount * $Debris.amount
 	$Bubbles.emitting = true
 	$Debris.emitting = true
 	$Bubbles.scale = $Bubbles.scale / scale.x
@@ -19,6 +23,11 @@ func _ready():
 	$Debris.emission_sphere_radius = $Debris.emission_sphere_radius * scale.x
 	
 	$AnimationPlayer.play("Explode")
+	
+	if global.power > 0:
+		$AudioExplode.stream = snd_explode_low if global.power < 8 else snd_explode_hi
+		$AudioExplode.volume_db = -9 + (scale.x * 3)
+		$AudioExplode.play()
 
 
 func _on_AnimationPlayer_animation_finished(_anim_name):

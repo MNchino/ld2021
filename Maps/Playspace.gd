@@ -59,6 +59,8 @@ func _physics_process(delta):
 	if grapple_item:
 		if is_instance_valid(grapple_item_object):
 			grapple_item_object.position = grapple_item_object.get_parent().to_local($Grapple.position)
+			
+	$ParallaxBackground/ParallaxLayer3/Sprite2.position.y += 10 * delta
 
 func _on_Player_power_changed(new_power : int):
 	global.power = int(min(global.power + new_power, global.max_power))
@@ -92,6 +94,7 @@ func _on_CookieDirt_next_dirt():
 		anim.bezier_track_set_key_value(trackId2,0, $Walls.position.y)
 		anim.bezier_track_set_key_value(trackId2,1, $Walls.position.y + $CookieDirt.TILES_TALL_PER_ITERATION * 8)
 		$AnimationPlayer.play("MoveCameraDown")
+		$CookieDirt/AudioShift.play()
 	else:
 		var anim = $AnimationPlayer.get_animation("MoveCameraDown")
 		var trackId = anim.find_track("Camera:position:y")
@@ -142,6 +145,7 @@ func _on_Player_player_damaged():
 	player_damaged()
 	
 func player_damaged():
+	$Player/AudioDamage.play()
 	$CanvasLayer/ColorOverlay/AnimationPlayer.play("damage")
 	global.life -= 1
 	$Camera.shake_start_damage()
