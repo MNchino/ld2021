@@ -170,6 +170,9 @@ __meta__ = {
 }
 
 [node name="Background" type="Node2D" parent="Interface"]
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="parallax-1" type="Sprite" parent="Interface/Background"]
 position = Vector2( 80, 92 )
@@ -359,13 +362,12 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -108.0
-margin_top = -12.0
-margin_right = 99.0
-margin_bottom = 2.0
+margin_left = -128.0
+margin_top = -14.0
+margin_right = 117.0
 rect_scale = Vector2( 0.5, 0.5 )
 theme = ExtResource( 1 )
-text = "by @fiaKaiera & @MNChino 2021"
+text = "by fiaKaiera + MNChino + Deffynite 2021"
 align = 2
 valign = 2
 __meta__ = {
