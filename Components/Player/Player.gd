@@ -12,6 +12,8 @@ const move_speed = 3
 const LAUNCH_SPEED = 10
 const gravity_in_grapple_mult = 0.25
 const velocity_grappling_mult = 0.1
+const AIM_COLOR = "6680ff"
+const COLLECT_COLOR = "66ff70"
 var velocity = Vector2(0,0)
 var gravity = .1
 var friction_divider = 5
@@ -41,6 +43,12 @@ func _process(_delta):
 	#Flip the sprite for direction moved
 	if sign(velocity.x) != 0:
 		$AnimatedSprite.flip_h = velocity.x > 0
+		
+	#Change color of line depending on mode
+	if Input.is_action_pressed("aim_left"):
+		$AimLine.default_color = AIM_COLOR
+	elif Input.is_action_pressed("aim_right"):
+		$AimLine.default_color = COLLECT_COLOR
 	
 func _physics_process(delta):
 	var delta_move = EXPECTED_FPS * delta
@@ -73,6 +81,7 @@ func _physics_process(delta):
 					
 				grapple_started = false
 	else:
+		#No line drawing
 		$AimLine.points[0] = $AimLine.points[0]
 		$GrappleLine.points[1] = $GrappleLine.points[0]
 	

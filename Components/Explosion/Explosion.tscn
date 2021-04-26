@@ -21,7 +21,9 @@ tracks/0/keys = {
 [sub_resource type="CircleShape2D" id=2]
 radius = 16.0
 
-[node name="Explosion" type="Node2D"]
+[node name="Explosion" type="Node2D" groups=[
+"Movable",
+]]
 z_index = 100
 z_as_relative = false
 script = ExtResource( 2 )

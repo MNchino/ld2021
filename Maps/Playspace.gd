@@ -70,6 +70,8 @@ func _on_Player_power_reset():
 func _on_CookieDirt_next_dirt():
 	$CookieDirt.generate_tiles()
 	$CookieDirt.position.y -= $CookieDirt.TILES_TALL_PER_ITERATION * 8
+	for node in get_tree().get_nodes_in_group("Movable"):
+		node.position.y -= $CookieDirt.TILES_TALL_PER_ITERATION * 8
 	$Player.position.y -= $CookieDirt.TILES_TALL_PER_ITERATION * 8
 	$Grapple.position.y -= $CookieDirt.TILES_TALL_PER_ITERATION * 8
 
