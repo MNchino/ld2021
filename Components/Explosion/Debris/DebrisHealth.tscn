@@ -26,6 +26,7 @@ disabled = true
 [node name="Grabber" parent="." instance=ExtResource( 3 )]
 visible = false
 num_points = 500
+num_life = 1
 
 [node name="Despawn" type="Timer" parent="."]
 

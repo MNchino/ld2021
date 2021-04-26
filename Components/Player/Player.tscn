@@ -16,6 +16,7 @@ extents = Vector2( 8, 8 )
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 
 [node name="GrappleLine" type="Line2D" parent="."]

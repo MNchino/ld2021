@@ -155,6 +155,7 @@ anims/MoveCameraDown = SubResource( 4 )
 [connection signal="game_quit" from="CanvasLayer/Interface" to="." method="_on_Interface_game_quit"]
 [connection signal="game_restart" from="CanvasLayer/Interface" to="." method="_on_Interface_game_restart"]
 [connection signal="grapple_called" from="Player" to="." method="_on_Player_grapple_called"]
+[connection signal="life_changed" from="Player" to="." method="_on_Player_life_changed"]
 [connection signal="player_damaged" from="Player" to="." method="_on_Player_player_damaged"]
 [connection signal="power_changed" from="Player" to="." method="_on_Player_power_changed"]
 [connection signal="power_reset" from="Player" to="." method="_on_Player_power_reset"]
