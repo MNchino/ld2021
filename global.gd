@@ -9,8 +9,9 @@ const max_life : int = 5
 var best : int = 0
 var hard_mode = false
 
-func ready():
+func _ready():
 	randomize()
+	OS.min_window_size = Vector2(320, 180)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear2db(0.8))
 
 func reset_stats():
