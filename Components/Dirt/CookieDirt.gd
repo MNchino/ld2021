@@ -79,9 +79,6 @@ func remove_tile():
 	
 	if percent_remaining <= min_cookie_until_next:
 		emit_signal("next_dirt")
-		percent_remaining = 100
-		total_tile_num = tiles_remaining + (TILES_WIDE * TILES_TALL_PER_ITERATION)
-		tiles_remaining = total_tile_num
 
 #Assumes there are cells defined at every integer coord in between
 func get_cells_in_region(start,end):
@@ -92,13 +89,21 @@ func get_cells_in_region(start,end):
 	return cells
 	
 func generate_tiles():
+	var count = 0
 	for i in range(TILES_WIDE):
 		for j in range(TILES_TALL_PER_ITERATION):
+			# Generate floor
 			$CookieTiles.set_cellv(Vector2(i,j+tiles_floor), 0)
+			count += 1
+			# Wipe on top
 			$CookieTiles.set_cellv(Vector2(i,j+tiles_floor-TILES_TOP_WIPE), -1)
 	
 	var start = Vector2(0, tiles_floor)
 	var end = Vector2(TILES_WIDE-1, tiles_floor + TILES_TALL_PER_ITERATION)
+	
+	percent_remaining = 100
+	total_tile_num = tiles_remaining + count
+	tiles_remaining = total_tile_num
 	
 	spawn_items_over_tiles(get_cells_in_region(start,end))
 	$CookieTiles.update_bitmask_region(start, end)

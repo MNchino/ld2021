@@ -4,7 +4,7 @@ export(PackedScene) var debris
 export(Texture) var item_texture
 
 func _ready():
-	$DebrisCandy.connect("debris_deleted", self, "queue_free")
+	var _c = $DebrisCandy.connect("debris_deleted", self, "queue_free")
 
-func _on_ExplosionSensor_area_entered(area):
+func _on_ExplosionSensor_area_entered(_area):
 	$DebrisCandy.activate()

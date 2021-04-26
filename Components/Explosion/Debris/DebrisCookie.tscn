@@ -23,6 +23,7 @@ hframes = 5
 shape = SubResource( 1 )
 
 [node name="Grabber" parent="." instance=ExtResource( 3 )]
+num_power = 2
 
 [node name="Despawn" type="Timer" parent="."]
 wait_time = 2.0

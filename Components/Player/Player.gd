@@ -4,6 +4,7 @@ signal score_changed
 signal power_changed
 signal power_reset
 signal grapple_called
+signal player_damaged
 
 const EXPECTED_FPS = 60
 const move_incr = 0.2
@@ -22,8 +23,10 @@ var grapple_started = false
 var grapple_target_pos : Vector2
 var is_diving = false
 var can_input = true
+var invulnerable = false
+var is_grabbing_debris = false
 	
-func _process(delta):
+func _process(_delta):
 	#Play sprite animation on state change
 	if is_diving:
 		cur_state = "dive"
@@ -36,19 +39,15 @@ func _process(delta):
 	$AnimatedSprite.play(cur_state)
 		
 	#Flip the sprite for direction moved
-	# if sign(velocity.x) != 0:
-	#	$AnimatedSprite.flip_h = velocity.x > 0
-	if sign(velocity.x) > 0:
-		$AnimatedSprite.flip_h = true
-	elif sign(velocity.x) < 0:
-		$AnimatedSprite.flip_h = false
+	if sign(velocity.x) != 0:
+		$AnimatedSprite.flip_h = velocity.x > 0
 	
 func _physics_process(delta):
 	var delta_move = EXPECTED_FPS * delta
 	var delta_move_speed = move_speed*delta_move 
 	#UNCOMMENT this out if you want to slow movement speed in air while grappling
 	#*(velocity_grappling_mult if grapple_started else 1)
-	var gravity_speed = gravity * delta_move
+	#var gravity_speed = gravity * delta_move
 	
 	# Show Aiming line while launching downwards
 	if can_input:
@@ -68,14 +67,7 @@ func _physics_process(delta):
 					
 					emit_signal("grapple_called")
 					$GrappleLine.points[1] = $GrappleLine.points[0]
-	#				var line = get_local_mouse_position()
-	#				grapple_target_pos = get_global_mouse_position()
-	#				$GrappleLine.visible = true
-	#				#print("mouse", get_local_mouse_position(), position, line)
-	#				var line_dir = line.normalized()
-	#				var line_length = line.length()
-	#				velocity += LAUNCH_SPEED*delta_move*(line_dir)
-
+					
 				grapple_started = false
 			#$GrappleLine.points[1] = to_local(grapple_target_pos)
 	else:
@@ -84,10 +76,23 @@ func _physics_process(delta):
 	
 	if can_input:
 		#Moving left/right
-		if Input.is_action_pressed("ui_left"):
-				velocity.x = max(velocity.x - move_incr*delta_move, -delta_move_speed)
-		elif Input.is_action_pressed("ui_right"):
-				velocity.x = min(velocity.x + move_incr*delta_move, delta_move_speed)
+		var dir = Vector2()
+		dir.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
+		dir.y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))
+		
+		if dir.x != 0:
+			velocity.x = velocity.x + (dir.x * (move_incr * delta_move))
+			velocity.x = clamp(velocity.x, -delta_move_speed, delta_move_speed)
+		if dir.y != 0:
+			is_grabbing_debris = false
+			
+			if not is_diving:
+				if dir.y < 0:
+					if velocity.y > (delta_move * velocity_grappling_mult) and can_grapple:
+						velocity.y = velocity.y - (move_incr * delta_move)
+						is_grabbing_debris = true
+				else:
+					velocity.y = velocity.y + (move_incr * delta_move)
 			
 	#Apply gravity
 	#no gravity if player hasn't touched the char just yet
@@ -119,12 +124,11 @@ func _physics_process(delta):
 			if velocity.y < 0:
 				velocity.y -= LAUNCH_SPEED
 			
+			#Release key
+			Input.action_release("ui_down")
+			
 			#Explosition should propulse char in opposite direction
 			#velocity = 2*velocity
-			
-			#Erase Grapple target pos
-#			grapple_target_pos = $GrappleLine.points[0]
-#			$GrappleLine.points[1] = $GrappleLine.points[0]
 	
 	#Clamp velocity
 	velocity = Vector2(clamp(velocity.x, -delta_move_speed, delta_move_speed), 
@@ -133,10 +137,10 @@ func _physics_process(delta):
 	#Apply friction
 	#velocity = velocity - delta_move*velocity/friction_divider
 
-
 func _on_GrappleDetector_area_entered(area):
 	if area.name == "CanGrappleArea":
 		can_grapple = true
+		invulnerable = false
 
 func _on_GrappleDetector_area_exited(area):
 	if area.name == "CanGrappleArea":
@@ -151,6 +155,9 @@ func _on_ItemCollector_area_entered(item : Grabber):
 func _on_Playspace_game_over():
 	can_input = false
 
-func _on_DamageDetector_area_entered(area):
-	print("PLAYER DAMAGED")
+func _on_DamageDetector_area_entered(_area):
+	if not invulnerable:
+		invulnerable = true
+		emit_signal("player_damaged")
+	#print("PLAYER DAMAGED ", area.name)
 	#TODO: PUT DEBUFFS HERE

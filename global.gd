@@ -9,7 +9,7 @@ var life : int = 3
 func reset_stats():
 	points = 0
 	depth = 0
-	power = 1
+	power = 2
 	life = 3
 
 #totally not copied pls dont' call the police kai

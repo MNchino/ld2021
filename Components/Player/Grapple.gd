@@ -22,21 +22,28 @@ func _process(delta):
 				emit_signal("collided", collision.collider)
 
 func throw(from : Vector2 , to : Vector2):
+	$Timer.start()
 	is_thrown = true
 	position = from
 	var direction = position.direction_to(to)
 	$Spoon.rotation = direction.angle() + deg2rad(45)
 	velocity = direction * GRAPPLE_SPEED
 
-func _on_PlayerDetector_body_entered(body):
+func _on_PlayerDetector_body_entered(_body):
 	if has_collided:
-		has_collided = false
-		is_retracting = false
-		is_thrown = false
-		visible = false
-		emit_signal("obtained")
+		obtain()
 
 func _on_Playspace_grapple_called(from):
 	if not is_thrown:
 		visible = true
 		throw(from, get_global_mouse_position())
+
+func _on_Timer_timeout():
+	obtain()
+
+func obtain():
+	has_collided = false
+	is_retracting = false
+	is_thrown = false
+	visible = false
+	emit_signal("obtained")

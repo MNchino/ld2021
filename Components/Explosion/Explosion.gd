@@ -9,13 +9,13 @@ func _ready():
 	pass # Replace with function body.
 
 
-func _on_AnimationPlayer_animation_finished(anim_name):
+func _on_AnimationPlayer_animation_finished(_anim_name):
 	queue_free()
 	pass # Replace with function body.
 
 
 #This is when the explosion circle overlaps a cluster of tiles
-func _on_Area2D_body_shape_entered(body_id, body, body_shape, local_shape):
+func _on_Area2D_body_shape_entered(_body_id, body, body_shape, _local_shape):
 	if !body.has_node("CookieTiles"):
 		return
 	
