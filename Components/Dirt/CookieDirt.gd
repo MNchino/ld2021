@@ -24,6 +24,7 @@ const NOISE_PERIOD = 4
 #The amount between -1 to -1 of noise we want to keep
 #Note any noise > .5 is very rare
 var INIT_NOISE_THRESHOLD = .3
+var HARD_NOISE_THRESHOLD = .2
 var noise_threshold = INIT_NOISE_THRESHOLD
 var max_items_per_level = 20 # The amount of candy we spawn at a time
 #Set the number above to a really big num to spawn for all the noise coords
@@ -82,6 +83,8 @@ func spawn_items_over_tiles(tiles : Array):
 	#Adjust difficulty based on depth
 	#var level = (global.depth%12)
 	var level = int(global.depth / TILES_TO_NEXT_LEVEL)
+	if global.hard_mode:
+		noise_threshold = HARD_NOISE_THRESHOLD
 	#noise_threshold = max(-1, INIT_NOISE_THRESHOLD - level*0.02)
 	
 	var item_targets = []
@@ -119,6 +122,8 @@ func find_cont_index_in_arr(arr : Array, point : float):
 	return arr.size() - 1
 			
 func get_rand_resource_by_level(level : int):
+	if global.hard_mode:
+		return cross_bomb_resource
 	var actual_level = clamp(level,0,LEVEL_RARITIES.size() - 1)
 	var choice = randf()*arr_sum(LEVEL_RARITIES[actual_level])
 	var choice_index = find_cont_index_in_arr(LEVEL_RARITIES[actual_level], choice)
