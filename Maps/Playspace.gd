@@ -116,6 +116,7 @@ func _on_Grapple_collided(collider : Node2D):
 		grapple_item_object = collider
 		grapple_item = true
 		$Grapple.is_retracting = true
+		grapple_item_object.get_node("Grabber").set_collision_layer_bit(10, false)
 	else:
 		grapple_wall = true
 		if collider.has_node("CookieTiles"):
