@@ -37,6 +37,7 @@ config/description="The cat is hungry in their dreams..."
 run/main_scene="res://Maps/Intro.tscn"
 config/custom_user_dir_name="puddingbutminecraft"
 config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
