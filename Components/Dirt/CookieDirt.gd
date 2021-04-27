@@ -133,14 +133,11 @@ func find_cont_index_in_arr(arr : Array, point : float):
 	return arr.size() - 1
 			
 func get_rand_resource_by_level(level : int):
-	print("here is level", level)
 	if global.hard_mode:
 		return cross_bomb_resource
 	var actual_level = global.custom_clamp(level,0,LEVEL_RARITIES.size() - 1)
 	var choice = randf()*arr_sum(LEVEL_RARITIES[actual_level])
-	print("here is asdf", choice, LEVEL_RARITIES[actual_level])
 	var choice_index = find_cont_index_in_arr(LEVEL_RARITIES[actual_level], choice)
-	print("here is chpoce", choice_index)
 	return item_resources[choice_index]
 			
 func add_child_at_location(child, location):

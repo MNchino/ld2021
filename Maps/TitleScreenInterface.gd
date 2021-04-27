@@ -34,4 +34,3 @@ func _on_VolumeSlider_value_changed(value):
 
 func _on_CheckBox_toggled(button_pressed):
 	global.hard_mode = button_pressed
-	print("hard is ", global.hard_mode)

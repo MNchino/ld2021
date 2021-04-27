@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Sprites/Theme/theme.tres" type="Theme" id=1]
 [ext_resource path="res://Maps/TitleScreenInterface.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/blank-white.png" type="Texture" id=3]
+[ext_resource path="res://Sound/item-cookie.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sprites/Theme/theme-button-ld48-pressed.tres" type="StyleBox" id=5]
 [ext_resource path="res://Sprites/parallax-1.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/parallax-2.png" type="Texture" id=7]
@@ -243,6 +244,7 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 grow_horizontal = 0
 grow_vertical = 2
+mouse_filter = 1
 size_flags_vertical = 9
 __meta__ = {
 "_edit_use_anchors_": false
@@ -291,8 +293,9 @@ valign = 2
 margin_top = 10.0
 margin_right = 64.0
 margin_bottom = 26.0
-step = 10.0
-value = 100.0
+max_value = 1.0
+step = 0.001
+value = 1.0
 
 [node name="PanelContainer2" type="PanelContainer" parent="Interface/Menu/Options/OptionsPanel/VBoxContainer"]
 margin_top = 56.0
@@ -404,6 +407,9 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Interface"]
 anims/DisplayOptions = SubResource( 1 )
 anims/DisplayOptionsReverse = SubResource( 2 )
+
+[node name="TestAudio" type="AudioStreamPlayer" parent="Interface"]
+stream = ExtResource( 4 )
 [connection signal="pressed" from="Interface/Menu/HowToPlay" to="Interface" method="_on_HowToPlay_pressed"]
 [connection signal="pressed" from="Interface/Menu/NewGame" to="Interface" method="_on_NewGame_pressed"]
 [connection signal="pressed" from="Interface/Menu/Options" to="Interface" method="_on_Options_pressed"]
