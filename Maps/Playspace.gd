@@ -130,7 +130,10 @@ func _on_Grapple_obtained():
 	if grapple_item:
 		grapple_item = false
 		if is_instance_valid(grapple_item_object):
-			grapple_item_object.position = grapple_item_object.get_parent().to_local($Player.position)
+			$Player.item_collected(grapple_item_object.get_node("Grabber"))
+			
+			#.collect()
+			#grapple_item_object.position = grapple_item_object.get_parent().to_local($Player.position)
 
 func _on_Interface_game_quit():
 	#global.reset_stats()

@@ -31,6 +31,7 @@ var is_diving = false
 var can_input = true
 var invulnerable = false
 var is_grabbing_debris = false
+var spontaneously_explode_when_stuck = false
 	
 func _process(_delta):
 	#Play sprite animation on state change
@@ -137,13 +138,19 @@ func _physics_process(delta):
 		did_bounce = abs(last_vel.x - velocity.x) > abs(last_vel.y - velocity.y)
 
 		if collision.collider.has_node("CookieTiles"):
-			if is_diving:
-				collision.collider.get_node("CookieTiles").explode(collision.position)
+			
+			if is_diving or spontaneously_explode_when_stuck:
+				if spontaneously_explode_when_stuck:
+					var temp_power = global.power
+					global.power = -1
+					collision.collider.get_node("CookieTiles").explode(collision.position)
+					global.power = temp_power
+				else:	
+					collision.collider.get_node("CookieTiles").explode(collision.position)
+					emit_signal("power_reset")
 				
 				#End of dive
 				is_diving = false
-				#Reset power
-				emit_signal("power_reset")
 				
 				#Launch up
 				velocity.y -= LAUNCH_SPEED
@@ -182,6 +189,8 @@ func _on_GrappleDetector_area_entered(area):
 			$AudioSplash.play()
 			$AudioSplash.pitch_scale = rand_range(0.9,1)
 			
+	if area.name == "CanSpontaneouslyExplodeArea":
+		spontaneously_explode_when_stuck = true
 
 func _on_GrappleDetector_area_exited(area):
 	if area.name == "CanGrappleArea":
@@ -191,8 +200,14 @@ func _on_GrappleDetector_area_exited(area):
 		$Particles/Bubbles.emitting = true
 		$AudioSplash.play()
 		$AudioSplash.pitch_scale = rand_range(1,1.1)
+		
+	if area.name == "CanSpontaneouslyExplodeArea":
+		spontaneously_explode_when_stuck = false
 
 func _on_ItemCollector_area_entered(item : Grabber):
+	item_collected(item)
+
+func item_collected(item : Grabber):
 	var collected_item = item.collect()
 	if collected_item.life != 0:
 		emit_signal("life_changed", collected_item.life)

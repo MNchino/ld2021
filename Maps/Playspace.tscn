@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Components/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Components/Dirt/CookieDirt.tscn" type="PackedScene" id=2]
@@ -88,16 +88,19 @@ tracks/2/keys = {
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 84, 32 )
 
-[sub_resource type="Gradient" id=5]
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 80, 2 )
+
+[sub_resource type="Gradient" id=6]
 colors = PoolColorArray( 1, 1, 1, 0.392157, 1, 1, 1, 0 )
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 64, 4.86322 )
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 16, 15.8055 )
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("Camera:position:y")
 tracks/0/interp = 1
@@ -138,7 +141,6 @@ script = ExtResource( 5 )
 
 [node name="Camera" type="Node2D" parent="."]
 visible = false
-position = Vector2( 0, 2.23504 )
 script = ExtResource( 9 )
 __meta__ = {
 "_edit_group_": true,
@@ -220,7 +222,6 @@ points = PoolVector2Array( 72, -88, 248, -88 )
 default_color = Color( 1, 0.4, 0.4, 1 )
 
 [node name="Walls" type="StaticBody2D" parent="."]
-position = Vector2( 0, 2.23504 )
 collision_layer = 8
 __meta__ = {
 "_edit_group_": true,
@@ -242,6 +243,17 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="CanSpontaneouslyExplodeArea" type="Area2D" parent="Walls"]
+position = Vector2( 0, -2.23504 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/CanSpontaneouslyExplodeArea"]
+position = Vector2( 160, 4.23504 )
+shape = SubResource( 5 )
+
 [node name="Fizz" type="CPUParticles2D" parent="Walls"]
 position = Vector2( 160, 177.765 )
 z_index = 1
@@ -258,7 +270,7 @@ gravity = Vector2( 0, 0 )
 initial_velocity = 100.0
 scale_amount = 3.0
 scale_amount_random = 0.5
-color_ramp = SubResource( 5 )
+color_ramp = SubResource( 6 )
 
 [node name="Water" type="Sprite" parent="Walls"]
 position = Vector2( 160, 72 )
@@ -284,13 +296,13 @@ __meta__ = {
 visible = false
 position = Vector2( 160, -32 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="CollisionGround" type="CollisionShape2D" parent="Walls"]
 visible = false
 position = Vector2( 160, 216 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="WallLeft" type="Sprite" parent="Walls"]
 position = Vector2( 40, 96 )
@@ -303,7 +315,7 @@ offset = Vector2( 0, -4 )
 visible = false
 position = Vector2( 40, 104 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [node name="WallRight" type="Sprite" parent="Walls"]
 position = Vector2( 280, 96 )
@@ -317,7 +329,7 @@ flip_h = true
 visible = false
 position = Vector2( 280, 104 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 160, 24 )
@@ -330,7 +342,7 @@ position = Vector2( 208, -32 )
 position = Vector2( 80, 64 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/MoveCameraDown = SubResource( 8 )
+anims/MoveCameraDown = SubResource( 9 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

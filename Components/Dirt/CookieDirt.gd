@@ -81,7 +81,7 @@ func _ready():
 	spawn_items_over_tiles($CookieTiles.get_used_cells())
 
 func get_level_string(thign):
-	if thign == LEVEL_RARITIES.size() - 1:
+	if thign >= LEVEL_RARITIES.size() - 1:
 		return "MAX"
 	else:
 		return str(thign)
@@ -92,7 +92,8 @@ func spawn_items_over_tiles(tiles : Array):
 	#var level = (global.depth%12)
 	var level = int(global.depth / TILES_TO_NEXT_LEVEL)
 	if level != cur_level:
-		emit_signal("level_changed", get_level_string(level))
+		if level < LEVEL_RARITIES.size():
+			emit_signal("level_changed", get_level_string(level))
 		cur_level = level
 	if global.hard_mode:
 		noise_threshold = HARD_NOISE_THRESHOLD
@@ -150,13 +151,14 @@ func _on_CookieTiles_exploded(pos : Vector2):
 	add_child(explode)
 	explode.global_position = pos
 	
-	#Create debris
-	#Don't question it, it just works
-	var num_debris = 2 + abs(global.gaussian(0, 3.3))
-	for i in num_debris:
-		var debris = debrisCookieResource.instance()
-		add_child(debris)
-		debris.global_position = pos
+	if global.power >= 0:
+		#Create debris
+		#Don't question it, it just works
+		var num_debris = 2 + abs(global.gaussian(0, 3.3))
+		for i in num_debris:
+			var debris = debrisCookieResource.instance()
+			add_child(debris)
+			debris.global_position = pos
 	
 func remove_tile():
 	tiles_remaining -= 1
