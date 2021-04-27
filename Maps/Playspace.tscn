@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Components/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Components/Dirt/CookieDirt.tscn" type="PackedScene" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://Sprites/parallax-2.png" type="Texture" id=10]
 [ext_resource path="res://Sprites/parallax-1.png" type="Texture" id=11]
 [ext_resource path="res://Sprites/Theme/theme-button-ld48-pressed.tres" type="StyleBox" id=12]
-[ext_resource path="res://Sound/Sugar_Rush.ogg" type="AudioStream" id=13]
 
 [sub_resource type="Animation" id=1]
 resource_name = "damage"
@@ -46,7 +45,7 @@ tracks/0/keys = {
 "values": [ Color( 0.964706, 0.666667, 1, 0.392157 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=3]
 resource_name = "ShowLevel"
 length = 1.6
 tracks/0/type = "value"
@@ -86,19 +85,19 @@ tracks/2/keys = {
 "values": [ Vector2( 140, 8 ), Vector2( 140, 8 ), Vector2( 140, -32 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 84, 32 )
 
-[sub_resource type="Gradient" id=4]
+[sub_resource type="Gradient" id=5]
 colors = PoolColorArray( 1, 1, 1, 0.392157, 1, 1, 1, 0 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 64, 4.86322 )
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 16, 15.8055 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("Camera:position:y")
 tracks/0/interp = 1
@@ -161,7 +160,6 @@ self_modulate = Color( 1, 1, 1, 0 )
 margin_left = 80.0
 margin_right = 240.0
 margin_bottom = 184.0
-input_pass_on_modal_close_click = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -181,7 +179,6 @@ margin_top = -32.0
 margin_right = 20.0
 margin_bottom = -3.99999
 rect_pivot_offset = Vector2( 20, 14 )
-input_pass_on_modal_close_click = false
 custom_styles/panel = ExtResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -214,7 +211,7 @@ text = "5
 align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
-anims/ShowLevel = SubResource( 8 )
+anims/ShowLevel = SubResource( 3 )
 
 [node name="Line2D" type="Line2D" parent="."]
 visible = false
@@ -240,7 +237,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/CanGrappleArea"]
 position = Vector2( 156, -120 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -261,7 +258,7 @@ gravity = Vector2( 0, 0 )
 initial_velocity = 100.0
 scale_amount = 3.0
 scale_amount_random = 0.5
-color_ramp = SubResource( 4 )
+color_ramp = SubResource( 5 )
 
 [node name="Water" type="Sprite" parent="Walls"]
 position = Vector2( 160, 72 )
@@ -287,13 +284,13 @@ __meta__ = {
 visible = false
 position = Vector2( 160, -32 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="CollisionGround" type="CollisionShape2D" parent="Walls"]
 visible = false
 position = Vector2( 160, 216 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="WallLeft" type="Sprite" parent="Walls"]
 position = Vector2( 40, 96 )
@@ -306,7 +303,7 @@ offset = Vector2( 0, -4 )
 visible = false
 position = Vector2( 40, 104 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="WallRight" type="Sprite" parent="Walls"]
 position = Vector2( 280, 96 )
@@ -320,7 +317,7 @@ flip_h = true
 visible = false
 position = Vector2( 280, 104 )
 scale = Vector2( 2.5, 6.58 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 160, 24 )
@@ -333,7 +330,7 @@ position = Vector2( 208, -32 )
 position = Vector2( 80, 64 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/MoveCameraDown = SubResource( 7 )
+anims/MoveCameraDown = SubResource( 8 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -370,12 +367,6 @@ texture = ExtResource( 11 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 160, 10000 )
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 13 )
-volume_db = -12.0
-autoplay = true
-
 [connection signal="best_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_best_changed"]
 [connection signal="depth_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_depth_changed"]
 [connection signal="game_over" from="." to="Player" method="_on_Playspace_game_over"]

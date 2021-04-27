@@ -103,7 +103,7 @@ func _physics_process(delta):
 		
 		if dir.x != 0:
 			velocity.x = velocity.x + (dir.x * (move_incr * delta_move))
-			velocity.x = clamp(velocity.x, -delta_move_speed, delta_move_speed)
+			velocity.x = global.custom_clamp(velocity.x, -delta_move_speed, delta_move_speed)
 		if dir.y != 0:
 			if not is_diving:
 				if dir.y < 0:
@@ -160,8 +160,8 @@ func _physics_process(delta):
 			velocity.x = 0.25*velocity.x
 	
 	#Clamp velocity
-	velocity = Vector2(clamp(velocity.x, -delta_move_speed, delta_move_speed), 
-		clamp(velocity.y, -delta_move_speed, delta_move_speed * 2))
+	velocity = Vector2(global.custom_clamp(velocity.x, -delta_move_speed, delta_move_speed), 
+		global.custom_clamp(velocity.y, -delta_move_speed, delta_move_speed * 2))
 
 	#Apply friction
 	#velocity = velocity - delta_move*velocity/friction_divider

@@ -20,6 +20,8 @@ func _ready():
 	emit_signal("best_changed", global.best)
 	emit_signal("depth_changed", global.depth)
 	emit_signal("next_changed", 0)
+	if MusicController.cur_playing != "game":
+		MusicController.switch_music("game")
 
 func _on_Player_score_changed(new_score : int):
 	global.points = new_score + global.points

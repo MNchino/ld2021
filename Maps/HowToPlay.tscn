@@ -608,7 +608,6 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
 [connection signal="pressed" from="GUI/NextButton" to="." method="_on_NextButton_pressed"]
 [connection signal="pressed" from="GUI/PrevButton" to="." method="_on_PrevButton_pressed"]
 [connection signal="pressed" from="GUI/SkipButton" to="." method="_on_SkipButton_pressed"]

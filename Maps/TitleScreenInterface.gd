@@ -5,6 +5,8 @@ var options_pressed = false
 func _ready():
 	$Menu/HowToPlay.grab_focus()
 	$Menu/Options/OptionsPanel/VBoxContainer/PanelContainer2/HBoxContainer/HardMode.pressed = global.hard_mode
+	if MusicController.cur_playing != "lobby":
+		MusicController.switch_music("lobby")
 
 func _on_Options_pressed():
 	if !$AnimationPlayer.is_playing():
