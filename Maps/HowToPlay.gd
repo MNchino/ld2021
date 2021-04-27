@@ -5,7 +5,7 @@ var page_num = 0
 var page_max = 0
 
 func _ready():
-	pages = [$Page1, $Page2, $Page3, $Page4, $Page5, $Page6]
+	pages = [$Page1, $Page2, $Page3, $Page4, $Page5, $Page7, $Page6]
 	page_max = pages.size() - 1
 	update_pages()
 

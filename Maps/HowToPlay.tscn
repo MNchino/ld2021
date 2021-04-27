@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Sprites/parallax-1.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/parallax-2.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Sprites/explosion.png" type="Texture" id=11]
 [ext_resource path="res://Sprites/debris-health.png" type="Texture" id=12]
 [ext_resource path="res://Sprites/tilemap-badcookie.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/tilemap-water.png" type="Texture" id=14]
 
 [node name="HowToPlay" type="Node"]
 script = ExtResource( 3 )
@@ -431,6 +432,7 @@ hframes = 3
 frame = 2
 
 [node name="Page5" type="Node2D" parent="."]
+visible = false
 position = Vector2( 8, 0 )
 __meta__ = {
 "_edit_group_": true,
@@ -506,6 +508,60 @@ tile_set = ExtResource( 7 )
 cell_size = Vector2( 8, 8 )
 format = 1
 tile_data = PoolIntArray( 589839, 0, 8, 589840, 0, 9, 589841, 0, 11, 655375, 0, 65544, 655376, 0, 65546, 655377, 0, 131083, 720911, 0, 65544, 720912, 0, 65548, 720913, 0, 131083, 786447, 0, 65544, 786448, 0, 65546, 786449, 0, 131083, 851982, 0, 8, 851983, 0, 65541, 851984, 0, 65546, 851985, 0, 131083, 917518, 0, 65544, 917519, 0, 65548, 917520, 0, 65546, 917521, 0, 131083, 983053, 0, 8, 983054, 0, 65541, 983055, 0, 12, 983056, 0, 65546, 983057, 0, 131083, 1048589, 0, 65544, 1048590, 0, 12, 1048591, 0, 65546, 1048592, 0, 131078, 1048593, 0, 196619, 1114123, 0, 8, 1114124, 0, 9, 1114125, 0, 65541, 1114126, 0, 12, 1114127, 0, 131078, 1114128, 0, 196619, 1179659, 0, 196616, 1179660, 0, 196618, 1179661, 0, 196618, 1179662, 0, 196618, 1179663, 0, 196619 )
+
+[node name="Page7" type="Node2D" parent="."]
+position = Vector2( 8, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Label" type="Label" parent="Page7"]
+margin_left = 16.0
+margin_top = 28.0
+margin_right = 198.0
+margin_bottom = 79.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.231373, 0.298039, 0.52549, 1 )
+text = "If you need to,
+you can use the directional keys to re-adjust!"
+align = 1
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Page7"]
+margin_left = 52.0
+margin_top = 136.0
+margin_right = 251.0
+margin_bottom = 187.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.231373, 0.298039, 0.52549, 1 )
+text = "You can even hover over the fizz
+if you hold up!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="chara-pal" type="Sprite" parent="Page7"]
+position = Vector2( 152, 65 )
+scale = Vector2( -1, 1 )
+texture = ExtResource( 8 )
+hframes = 6
+frame = 1
+
+[node name="Water" type="Sprite" parent="Page7"]
+position = Vector2( 152, 117.25 )
+scale = Vector2( 20, 1 )
+z_index = 10
+z_as_relative = false
+texture = ExtResource( 14 )
+
+[node name="info-keys" type="Sprite" parent="Page7"]
+position = Vector2( 152, 91 )
+texture = ExtResource( 4 )
+hframes = 2
 
 [node name="Page6" type="Node2D" parent="."]
 visible = false

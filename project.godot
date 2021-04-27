@@ -34,7 +34,7 @@ _global_script_class_icons={
 
 config/name="Sleepie Cookie Eatie"
 config/description="The cat is hungry in their dreams..."
-run/main_scene="res://Maps/Playspace.tscn"
+run/main_scene="res://Maps/Intro.tscn"
 config/custom_user_dir_name="puddingbutminecraft"
 config/icon="res://icon.png"
 
