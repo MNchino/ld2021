@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Sugar_Rush.ogg-8dd8cbd75a719ad76c712e9a2d49ac45.oggstr"
+
+[deps]
+
+source_file="res://Sound/Sugar_Rush.ogg"
+dest_files=[ "res://.import/Sugar_Rush.ogg-8dd8cbd75a719ad76c712e9a2d49ac45.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

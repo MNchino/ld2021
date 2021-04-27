@@ -3,7 +3,7 @@
 [ext_resource path="res://Sprites/Theme/theme.tres" type="Theme" id=1]
 [ext_resource path="res://Maps/TitleScreenInterface.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/blank-white.png" type="Texture" id=3]
-[ext_resource path="res://Sound/item-cookie.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sound/Sugar_Rush_Menu.ogg" type="AudioStream" id=4]
 [ext_resource path="res://Sprites/Theme/theme-button-ld48-pressed.tres" type="StyleBox" id=5]
 [ext_resource path="res://Sprites/parallax-1.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/parallax-2.png" type="Texture" id=7]
@@ -410,6 +410,7 @@ anims/DisplayOptionsReverse = SubResource( 2 )
 
 [node name="TestAudio" type="AudioStreamPlayer" parent="Interface"]
 stream = ExtResource( 4 )
+autoplay = true
 
 [connection signal="pressed" from="Interface/Menu/HowToPlay" to="Interface" method="_on_HowToPlay_pressed"]
 [connection signal="pressed" from="Interface/Menu/NewGame" to="Interface" method="_on_NewGame_pressed"]

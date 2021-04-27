@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Components/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Components/Dirt/CookieDirt.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Sprites/parallax-2.png" type="Texture" id=10]
 [ext_resource path="res://Sprites/parallax-1.png" type="Texture" id=11]
 [ext_resource path="res://Sprites/Theme/theme-button-ld48-pressed.tres" type="StyleBox" id=12]
+[ext_resource path="res://Sound/Sugar_Rush.ogg" type="AudioStream" id=13]
 
 [sub_resource type="Animation" id=1]
 resource_name = "damage"
@@ -369,6 +370,11 @@ texture = ExtResource( 11 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 160, 10000 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+volume_db = -12.0
+autoplay = true
 
 [connection signal="best_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_best_changed"]
 [connection signal="depth_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_depth_changed"]
