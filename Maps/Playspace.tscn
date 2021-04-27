@@ -367,6 +367,7 @@ texture = ExtResource( 11 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 160, 10000 )
+
 [connection signal="best_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_best_changed"]
 [connection signal="depth_changed" from="." to="CanvasLayer/Interface" method="_on_Playspace_depth_changed"]
 [connection signal="game_over" from="." to="Player" method="_on_Playspace_game_over"]

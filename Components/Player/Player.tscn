@@ -18,7 +18,7 @@ extents = Vector2( 8, 8 )
 extents = Vector2( 8, 8 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 8, 8 )
+extents = Vector2( 12, 12 )
 
 [sub_resource type="Gradient" id=4]
 offsets = PoolRealArray( 0.556738, 1 )
@@ -56,7 +56,6 @@ visible = false
 shape = SubResource( 2 )
 
 [node name="ItemCollector" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 1024
 
@@ -122,25 +121,23 @@ color_ramp = SubResource( 5 )
 
 [node name="AudioDamage" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
-volume_db = -5.0
 
 [node name="AudioGameOver" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
 
 [node name="AudioCollect" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
-volume_db = -15.0
+volume_db = -10.0
 
 [node name="AudioCollectMax" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
-volume_db = -5.0
 
 [node name="AudioHeal" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 
 [node name="AudioSplash" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
-volume_db = -30.0
+volume_db = -20.0
 
 [connection signal="area_entered" from="GrappleDetector" to="." method="_on_GrappleDetector_area_entered"]
 [connection signal="area_exited" from="GrappleDetector" to="." method="_on_GrappleDetector_area_exited"]

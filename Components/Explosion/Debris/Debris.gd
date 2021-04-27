@@ -41,6 +41,7 @@ func activate():
 	
 func enable_collision():
 	$CollisionShape2D.disabled = false
+	#$Grabber.monitorable = true
 	
 func start():
 	modulate.a = .5

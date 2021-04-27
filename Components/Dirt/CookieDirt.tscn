@@ -21,7 +21,7 @@ script = ExtResource( 2 )
 
 [node name="AudioShift" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
-volume_db = -20.0
+volume_db = -5.0
 
 [node name="GasterBlaster" type="AudioStreamPlayer" parent="."]
 

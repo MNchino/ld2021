@@ -34,11 +34,11 @@ tracks/1/keys = {
 [sub_resource type="CircleShape2D" id=2]
 radius = 16.0
 
-[sub_resource type="Gradient" id=4]
+[sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0.328859, 1 )
 colors = PoolColorArray( 1, 1, 1, 0.501961, 1, 1, 1, 0 )
 
-[sub_resource type="Gradient" id=3]
+[sub_resource type="Gradient" id=4]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [node name="Explosion" type="Node2D" groups=[
@@ -88,7 +88,7 @@ angle = 360.0
 angle_random = 1.0
 scale_amount = 1.25
 scale_amount_random = 1.0
-color_ramp = SubResource( 4 )
+color_ramp = SubResource( 3 )
 
 [node name="Bubbles" type="CPUParticles2D" parent="."]
 z_index = -1
@@ -107,10 +107,9 @@ gravity = Vector2( 0, -100 )
 initial_velocity = 50.0
 damping = 50.0
 scale_amount_random = 1.0
-color_ramp = SubResource( 3 )
+color_ramp = SubResource( 4 )
 
 [node name="AudioExplode" type="AudioStreamPlayer" parent="."]
-volume_db = -5.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_shape_entered" from="Area2D" to="." method="_on_Area2D_body_shape_entered"]

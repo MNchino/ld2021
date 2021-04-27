@@ -17,7 +17,7 @@ func _ready():
 func reset_stats():
 	points = 0
 	depth = 0
-	power = 2
+	power = 6
 	life = 3
 	
 #It's 2 AM ok I'm allowed to be inconsistent
