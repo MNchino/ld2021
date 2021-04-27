@@ -3,6 +3,7 @@ class_name Dirt
 
 signal next_dirt
 signal next_count
+signal level_changed
 var explosionResource = preload("res://Components/Explosion/Explosion.tscn")
 var debrisCookieResource = preload("res://Components/Explosion/Debris/DebrisCookie.tscn")
 var item_candy_resource = preload("res://Components/Items/CandyItem.tscn")
@@ -66,6 +67,7 @@ const LEVEL_RARITIES = [
 ]
 const snd_blow = preload("res://Sound/beam-blow.wav")
 const snd_charge = preload("res://Sound/beam-charge.wav")
+var cur_level = 0
 
 func _ready():
 	total_tile_num = TILES_WIDE*TILES_TALL_PER_ITERATION
@@ -78,11 +80,20 @@ func _ready():
 	global.reset_depth()
 	spawn_items_over_tiles($CookieTiles.get_used_cells())
 
+func get_level_string(thign):
+	if thign == LEVEL_RARITIES.size() - 1:
+		return "MAX"
+	else:
+		return str(thign)
+
 func spawn_items_over_tiles(tiles : Array):
 	
 	#Adjust difficulty based on depth
 	#var level = (global.depth%12)
 	var level = int(global.depth / TILES_TO_NEXT_LEVEL)
+	if level != cur_level:
+		emit_signal("level_changed", get_level_string(level))
+		cur_level = level
 	if global.hard_mode:
 		noise_threshold = HARD_NOISE_THRESHOLD
 	#noise_threshold = max(-1, INIT_NOISE_THRESHOLD - level*0.02)

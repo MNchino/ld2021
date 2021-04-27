@@ -156,3 +156,8 @@ func player_damaged():
 		$Player.velocity = Vector2.ZERO
 		$Player/AudioGameOver.play()
 		emit_signal("game_over")
+
+
+func _on_CookieDirt_level_changed( level : String):
+	$CanvasLayer/Panel/VBoxContainer/LevelNum.text = level
+	$CanvasLayer/AnimationPlayer.play("ShowLevel")
