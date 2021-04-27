@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Components/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Components/Dirt/CookieDirt.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Maps/Camera.gd" type="Script" id=9]
 [ext_resource path="res://Sprites/parallax-2.png" type="Texture" id=10]
 [ext_resource path="res://Sprites/parallax-1.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/Theme/theme-button-ld48-pressed.tres" type="StyleBox" id=12]
 
 [sub_resource type="Animation" id=1]
 resource_name = "damage"
@@ -42,6 +43,46 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 0.964706, 0.666667, 1, 0.392157 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "ShowLevel"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Panel:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.5 ),
+"transitions": PoolRealArray( 0.287175, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2, 2 ), Vector2( 0.8, 0.8 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Panel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Panel:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.2, 1.6 ),
+"transitions": PoolRealArray( 1, 0.329877, 1 ),
+"update": 0,
+"values": [ Vector2( 140, 8 ), Vector2( 140, 8 ), Vector2( 140, -32 ) ]
 }
 
 [sub_resource type="RectangleShape2D" id=3]
@@ -129,6 +170,50 @@ anims/damage = SubResource( 1 )
 anims/heal = SubResource( 2 )
 
 [node name="Interface" parent="CanvasLayer" instance=ExtResource( 4 )]
+rect_pivot_offset = Vector2( 160, 22 )
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -20.0
+margin_top = -32.0
+margin_right = 20.0
+margin_bottom = -3.99999
+rect_pivot_offset = Vector2( 20, 14 )
+input_pass_on_modal_close_click = false
+custom_styles/panel = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -4.0
+custom_constants/separation = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
+margin_right = 32.0
+margin_bottom = 6.0
+text = "level"
+align = 1
+valign = 1
+
+[node name="LevelNum" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
+margin_top = 11.0
+margin_right = 32.0
+margin_bottom = 26.0
+text = "5
+"
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+anims/ShowLevel = SubResource( 8 )
 
 [node name="Line2D" type="Line2D" parent="."]
 visible = false
@@ -305,5 +390,6 @@ region_rect = Rect2( 0, 0, 160, 10000 )
 [connection signal="score_changed" from="Player" to="." method="_on_Player_score_changed"]
 [connection signal="collided" from="Grapple" to="." method="_on_Grapple_collided"]
 [connection signal="obtained" from="Grapple" to="." method="_on_Grapple_obtained"]
+[connection signal="level_changed" from="CookieDirt" to="." method="_on_CookieDirt_level_changed"]
 [connection signal="next_count" from="CookieDirt" to="." method="_on_CookieDirt_next_count"]
 [connection signal="next_dirt" from="CookieDirt" to="." method="_on_CookieDirt_next_dirt"]
