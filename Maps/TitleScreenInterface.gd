@@ -18,7 +18,7 @@ func _on_Exit_pressed():
 	get_tree().quit()
 
 func _on_HowToPlay_pressed():
-	$Menu/HowToPlay.text = "Check LD48 Entry"
+	assert(get_tree().change_scene("res://Maps/HowToPlay.tscn") == OK)
 
 func _on_NewGame_pressed():
 	assert(get_tree().change_scene("res://Maps/Playspace.tscn") == OK)

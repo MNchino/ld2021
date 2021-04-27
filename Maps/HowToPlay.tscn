@@ -1,0 +1,561 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Sprites/parallax-1.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/parallax-2.png" type="Texture" id=2]
+[ext_resource path="res://Maps/HowToPlay.gd" type="Script" id=3]
+[ext_resource path="res://Sprites/info-keys.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/info-mouse.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/font-dogicapixel-tuto.tres" type="DynamicFont" id=6]
+[ext_resource path="res://Sprites/tilemap-base.tres" type="TileSet" id=7]
+[ext_resource path="res://Sprites/chara-pal.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/debris-cookie.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/debris-candy.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/explosion.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/debris-health.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/tilemap-badcookie.png" type="Texture" id=13]
+
+[node name="HowToPlay" type="Node"]
+script = ExtResource( 3 )
+
+[node name="Background" type="Node2D" parent="."]
+position = Vector2( 0, 88 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="parallax-1" type="Sprite" parent="Background"]
+position = Vector2( 80, 92 )
+texture = ExtResource( 1 )
+
+[node name="parallax-2" type="Sprite" parent="Background"]
+position = Vector2( 240, 92 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
+texture = ExtResource( 1 )
+
+[node name="parallax-3" type="Sprite" parent="Background"]
+position = Vector2( 80, 52 )
+texture = ExtResource( 2 )
+
+[node name="parallax-4" type="Sprite" parent="Background"]
+position = Vector2( 240, 52 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
+texture = ExtResource( 2 )
+
+[node name="GUI" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="NextButton" type="Button" parent="GUI"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -58.0
+margin_top = -22.0
+margin_right = -8.0
+margin_bottom = -8.0
+text = "Next >"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PrevButton" type="Button" parent="GUI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = -22.0
+margin_right = 58.0
+margin_bottom = -8.0
+disabled = true
+text = "< Prev"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SkipButton" type="Button" parent="GUI"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -58.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = 22.0
+text = "Skip"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="GUI/SkipButton"]
+
+[node name="HomeButton" type="Button" parent="GUI"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 58.0
+margin_bottom = 22.0
+text = "Home"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayButton" type="Button" parent="GUI"]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -32.0
+margin_top = -30.0
+margin_right = 32.0
+margin_bottom = -8.0
+text = "Play"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Page1" type="Node2D" parent="."]
+visible = false
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="info-keys" type="Sprite" parent="Page1"]
+position = Vector2( 88, 96 )
+texture = ExtResource( 4 )
+hframes = 2
+frame = 1
+
+[node name="info-keys2" type="Sprite" parent="Page1"]
+position = Vector2( 160, 96 )
+texture = ExtResource( 4 )
+hframes = 2
+
+[node name="info-mouse" type="Sprite" parent="Page1"]
+position = Vector2( 232, 88 )
+texture = ExtResource( 5 )
+centered = false
+hframes = 3
+
+[node name="Label" type="Label" parent="Page1"]
+margin_left = 72.0
+margin_top = 40.0
+margin_right = 238.0
+margin_bottom = 55.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.231373, 0.298039, 0.52549, 1 )
+text = "This game uses the
+directional keys and mouse!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Page1"]
+margin_left = 112.0
+margin_top = 96.0
+margin_right = 136.0
+margin_bottom = 111.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.231373, 0.298039, 0.52549, 1 )
+text = "or"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Page1"]
+margin_left = 216.0
+margin_top = 111.0
+margin_right = 304.0
+margin_bottom = 126.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.231373, 0.298039, 0.52549, 1 )
+text = "Depicted:
+A teeny mouse!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Page2" type="Node2D" parent="."]
+visible = false
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="info-mouse" type="Sprite" parent="Page2"]
+position = Vector2( 78, 63 )
+texture = ExtResource( 5 )
+hframes = 3
+frame = 1
+
+[node name="Label" type="Label" parent="Page2"]
+margin_left = 24.0
+margin_top = 32.0
+margin_right = 299.0
+margin_bottom = 65.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.231373, 0.298039, 0.52549, 1 )
+text = "Pal is dreaming... and they are hungry!
+Pal wants to eat down a treasure of cookies!!
+
+Using    you can dig into the cookie mine!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AimLine" type="Line2D" parent="Page2"]
+points = PoolVector2Array( 152, 144, 192, 104 )
+width = 3.0
+default_color = Color( 0.568627, 0.352941, 0.835294, 1 )
+
+[node name="chara-pal" type="Sprite" parent="Page2"]
+position = Vector2( 192, 100 )
+texture = ExtResource( 8 )
+hframes = 6
+frame = 4
+
+[node name="TileMap" type="TileMap" parent="Page2"]
+tile_set = ExtResource( 7 )
+cell_size = Vector2( 8, 8 )
+format = 1
+tile_data = PoolIntArray( 1048589, 0, 8, 1048590, 0, 9, 1048591, 0, 9, 1048592, 0, 11, 1114125, 0, 65544, 1114126, 0, 12, 1114127, 0, 65546, 1114128, 0, 65542, 1114129, 0, 9, 1114130, 0, 9, 1114131, 0, 9, 1114132, 0, 9, 1114133, 0, 9, 1114134, 0, 9, 1114135, 0, 9, 1114136, 0, 9, 1114137, 0, 9, 1114138, 0, 9, 1114139, 0, 11, 1179661, 0, 196616, 1179662, 0, 131077, 1179663, 0, 196620, 1179664, 0, 65546, 1179665, 0, 65546, 1179666, 0, 12, 1179667, 0, 65546, 1179668, 0, 12, 1179669, 0, 131084, 1179670, 0, 65546, 1179671, 0, 12, 1179672, 0, 65548, 1179673, 0, 65546, 1179674, 0, 131078, 1179675, 0, 196619, 1245198, 0, 196616, 1245199, 0, 196618, 1245200, 0, 196618, 1245201, 0, 196618, 1245202, 0, 196618, 1245203, 0, 196618, 1245204, 0, 196618, 1245205, 0, 196618, 1245206, 0, 196618, 1245207, 0, 196618, 1245208, 0, 196618, 1245209, 0, 196618, 1245210, 0, 196619 )
+
+[node name="Page3" type="Node2D" parent="."]
+visible = false
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="info-mouse" type="Sprite" parent="Page3"]
+position = Vector2( 111, 54 )
+texture = ExtResource( 5 )
+hframes = 3
+frame = 2
+
+[node name="Label" type="Label" parent="Page3"]
+margin_left = 24.0
+margin_top = 32.0
+margin_right = 299.0
+margin_bottom = 65.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.231373, 0.298039, 0.52549, 1 )
+text = "You can't continue digging without food!
+
+Use     to grab the cookies!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AimLine" type="Line2D" parent="Page3"]
+points = PoolVector2Array( 200, 120, 152, 96 )
+width = 1.0
+default_color = Color( 0.4, 0.501961, 1, 1 )
+
+[node name="chara-pal" type="Sprite" parent="Page3"]
+position = Vector2( 152, 96 )
+scale = Vector2( -1, 1 )
+texture = ExtResource( 8 )
+hframes = 6
+frame = 4
+
+[node name="debris-cookie" type="Sprite" parent="Page3"]
+position = Vector2( 224, 100 )
+rotation = 0.954695
+texture = ExtResource( 9 )
+hframes = 5
+frame = 4
+
+[node name="debris-cookie2" type="Sprite" parent="Page3"]
+position = Vector2( 142, 122.5 )
+rotation = 1.75755
+texture = ExtResource( 9 )
+hframes = 5
+frame = 2
+
+[node name="debris-cookie3" type="Sprite" parent="Page3"]
+position = Vector2( 176, 136 )
+rotation = -5.00909
+texture = ExtResource( 9 )
+hframes = 5
+frame = 3
+
+[node name="debris-cookie4" type="Sprite" parent="Page3"]
+position = Vector2( 200, 118.5 )
+texture = ExtResource( 9 )
+hframes = 5
+
+[node name="TileMap" type="TileMap" parent="Page3"]
+tile_set = ExtResource( 7 )
+cell_size = Vector2( 8, 8 )
+format = 1
+tile_data = PoolIntArray( 1048589, 0, 8, 1048590, 0, 9, 1048591, 0, 11, 1114125, 0, 65544, 1114126, 0, 12, 1114127, 0, 65542, 1114128, 0, 11, 1114136, 0, 8, 1114137, 0, 9, 1114138, 0, 9, 1114139, 0, 11, 1179661, 0, 196616, 1179662, 0, 131077, 1179663, 0, 196620, 1179664, 0, 65542, 1179665, 0, 11, 1179671, 0, 8, 1179672, 0, 65541, 1179673, 0, 65546, 1179674, 0, 131078, 1179675, 0, 196619, 1245198, 0, 196616, 1245199, 0, 196618, 1245200, 0, 196618, 1245201, 0, 196614, 1245202, 0, 196610, 1245203, 0, 196610, 1245204, 0, 196610, 1245205, 0, 196610, 1245206, 0, 196610, 1245207, 0, 196613, 1245208, 0, 196618, 1245209, 0, 196618, 1245210, 0, 196619 )
+
+[node name="Page4" type="Node2D" parent="."]
+visible = false
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Label" type="Label" parent="Page4"]
+margin_left = 24.0
+margin_top = 32.0
+margin_right = 187.0
+margin_bottom = 65.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.231373, 0.298039, 0.52549, 1 )
+text = "The more cookies Pal eats,
+the larger you can dig!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="Page4"]
+margin_left = 160.0
+margin_top = 111.0
+margin_right = 323.0
+margin_bottom = 144.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.231373, 0.298039, 0.52549, 1 )
+text = "Watch out for
+these too!
+
+They give more!!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Page4"]
+margin_left = 32.0
+margin_top = 80.0
+margin_right = 80.0
+margin_bottom = 113.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.231373, 0.298039, 0.52549, 1 )
+text = "|
+v"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Page4"]
+margin_left = 101.076
+margin_top = 80.0
+margin_right = 149.076
+margin_bottom = 113.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.231373, 0.298039, 0.52549, 1 )
+text = "|
+v"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="debris-cookie4" type="Sprite" parent="Page4"]
+position = Vector2( 56, 72 )
+texture = ExtResource( 9 )
+hframes = 5
+
+[node name="debris-cookie5" type="Sprite" parent="Page4"]
+position = Vector2( 113.076, 70.576 )
+rotation = 0.954695
+texture = ExtResource( 9 )
+hframes = 5
+frame = 4
+
+[node name="debris-cookie6" type="Sprite" parent="Page4"]
+position = Vector2( 139.576, 70.576 )
+rotation = 1.75755
+texture = ExtResource( 9 )
+hframes = 5
+frame = 2
+
+[node name="debris-cookie7" type="Sprite" parent="Page4"]
+position = Vector2( 130.576, 70.576 )
+rotation = -5.00909
+texture = ExtResource( 9 )
+hframes = 5
+frame = 3
+
+[node name="debris-cookie8" type="Sprite" parent="Page4"]
+position = Vector2( 121.076, 70.576 )
+texture = ExtResource( 9 )
+hframes = 5
+
+[node name="explosion" type="Sprite" parent="Page4"]
+position = Vector2( 56, 122.5 )
+scale = Vector2( 0.4495, 0.447917 )
+texture = ExtResource( 11 )
+
+[node name="explosion2" type="Sprite" parent="Page4"]
+position = Vector2( 125.076, 128 )
+texture = ExtResource( 11 )
+
+[node name="debris-candy" type="Sprite" parent="Page4"]
+position = Vector2( 208, 80 )
+scale = Vector2( 2.25, 2.25 )
+texture = ExtResource( 10 )
+hframes = 3
+
+[node name="debris-candy2" type="Sprite" parent="Page4"]
+position = Vector2( 240, 80 )
+rotation = -0.392699
+scale = Vector2( 2.25, 2.25 )
+texture = ExtResource( 10 )
+hframes = 3
+frame = 1
+
+[node name="debris-candy3" type="Sprite" parent="Page4"]
+position = Vector2( 272, 80 )
+rotation = -2.3719
+scale = Vector2( 2.25, 2.25 )
+texture = ExtResource( 10 )
+hframes = 3
+frame = 2
+
+[node name="Page5" type="Node2D" parent="."]
+position = Vector2( 8, 0 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Label" type="Label" parent="Page5"]
+margin_left = 16.0
+margin_top = 28.0
+margin_right = 198.0
+margin_bottom = 79.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.231373, 0.298039, 0.52549, 1 )
+text = "But don't get too careless!
+
+You will hurt yourself
+if you haven't eaten anything!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="debris-health" type="Sprite" parent="Page5"]
+position = Vector2( 240, 100 )
+scale = Vector2( 2.1, 2 )
+texture = ExtResource( 12 )
+
+[node name="Label3" type="Label" parent="Page5"]
+margin_left = 192.0
+margin_top = 126.0
+margin_right = 291.0
+margin_bottom = 141.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.231373, 0.298039, 0.52549, 1 )
+text = "Take these
+to heal back up!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Page5"]
+margin_left = 24.0
+margin_top = 118.5
+margin_right = 100.0
+margin_bottom = 133.5
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.231373, 0.298039, 0.52549, 1 )
+text = "It's red
+when aiming!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AimLine" type="Line2D" parent="Page5"]
+position = Vector2( 13.3475, 0 )
+scale = Vector2( 0.70339, 1 )
+points = PoolVector2Array( 160, 104, 48, 96 )
+width = 3.0
+default_color = Color( 1, 0.4, 0.4, 1 )
+
+[node name="chara-pal" type="Sprite" parent="Page5"]
+position = Vector2( 45.212, 95 )
+scale = Vector2( -1, 1 )
+texture = ExtResource( 8 )
+hframes = 6
+frame = 4
+
+[node name="TileMap" type="TileMap" parent="Page5"]
+tile_set = ExtResource( 7 )
+cell_size = Vector2( 8, 8 )
+format = 1
+tile_data = PoolIntArray( 589839, 0, 8, 589840, 0, 9, 589841, 0, 11, 655375, 0, 65544, 655376, 0, 65546, 655377, 0, 131083, 720911, 0, 65544, 720912, 0, 65548, 720913, 0, 131083, 786447, 0, 65544, 786448, 0, 65546, 786449, 0, 131083, 851982, 0, 8, 851983, 0, 65541, 851984, 0, 65546, 851985, 0, 131083, 917518, 0, 65544, 917519, 0, 65548, 917520, 0, 65546, 917521, 0, 131083, 983053, 0, 8, 983054, 0, 65541, 983055, 0, 12, 983056, 0, 65546, 983057, 0, 131083, 1048589, 0, 65544, 1048590, 0, 12, 1048591, 0, 65546, 1048592, 0, 131078, 1048593, 0, 196619, 1114123, 0, 8, 1114124, 0, 9, 1114125, 0, 65541, 1114126, 0, 12, 1114127, 0, 131078, 1114128, 0, 196619, 1179659, 0, 196616, 1179660, 0, 196618, 1179661, 0, 196618, 1179662, 0, 196618, 1179663, 0, 196619 )
+
+[node name="Page6" type="Node2D" parent="."]
+visible = false
+position = Vector2( 32, 8 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Label" type="Label" parent="Page6"]
+margin_left = 24.0
+margin_top = 8.0
+margin_right = 225.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.231373, 0.298039, 0.52549, 1 )
+text = "How long will the dream go on?
+How much will you eat?
+How low will you go?
+
+Why not find it out yourself, Pal!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tilemap-badcookie" type="Sprite" parent="Page6"]
+position = Vector2( 128, 76 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 13 )
+
+[node name="Label2" type="Label" parent="Page6"]
+margin_left = 34.788
+margin_top = 97.0
+margin_right = 220.788
+margin_bottom = 130.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.231373, 0.298039, 0.52549, 1 )
+text = "Sometimes your hunger
+may try to keep you awake.
+
+.. in somewhat intersting ways."
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="GUI/NextButton" to="." method="_on_NextButton_pressed"]
+[connection signal="pressed" from="GUI/PrevButton" to="." method="_on_PrevButton_pressed"]
+[connection signal="pressed" from="GUI/SkipButton" to="." method="_on_SkipButton_pressed"]
+[connection signal="timeout" from="GUI/SkipButton/Timer" to="." method="_on_Timer_timeout"]
+[connection signal="pressed" from="GUI/HomeButton" to="." method="_on_HomeButton_pressed"]
+[connection signal="pressed" from="GUI/PlayButton" to="." method="_on_PlayButton_pressed"]

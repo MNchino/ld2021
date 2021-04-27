@@ -29,9 +29,6 @@ func _on_Player_score_changed(new_score : int):
 		global.best = global.points
 		emit_signal("best_changed", global.best)
 
-func _input(_event):
-	if Input.is_key_pressed(KEY_F5):
-		var _reload = get_tree().reload_current_scene()
 
 func _physics_process(delta):
 	#Update Depth as we reach it
