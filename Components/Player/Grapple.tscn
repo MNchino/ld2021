@@ -17,6 +17,7 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
 shape = SubResource( 1 )
+disabled = true
 
 [node name="Spoon" type="Sprite" parent="."]
 texture = ExtResource( 2 )

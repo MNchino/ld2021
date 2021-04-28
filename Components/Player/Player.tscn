@@ -12,7 +12,7 @@
 [ext_resource path="res://Sound/game-over.wav" type="AudioStream" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 8 )
+extents = Vector2( 7, 7 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 8 )
@@ -32,7 +32,6 @@ colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 1 )
 
 [node name="GrappleLine" type="Line2D" parent="."]

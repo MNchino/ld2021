@@ -27,6 +27,7 @@ func _ready():
 	if global.power > 0:
 		$AudioExplode.stream = snd_explode_low if global.power < 8 else snd_explode_hi
 		$AudioExplode.volume_db = -3 + scale.x
+		$AudioExplode.pitch_scale = rand_range(0.9, 1.2)
 		$AudioExplode.play()
 
 

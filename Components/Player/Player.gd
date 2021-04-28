@@ -165,6 +165,7 @@ func _physics_process(delta):
 		#Damp the x value
 		if did_bounce:
 			velocity.x = 0.25*velocity.x
+		
 	
 	#Clamp velocity
 	velocity = Vector2(global.custom_clamp(velocity.x, -delta_move_speed, delta_move_speed), 

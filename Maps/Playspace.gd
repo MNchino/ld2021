@@ -110,6 +110,7 @@ func _on_CookieDirt_next_dirt():
 func _on_Player_grapple_called():
 	emit_signal("grapple_called", $Player.position)
 	$Player/GrappleLine.visible = true
+	$Grapple/PlayerDetector/CollisionShape2D.disabled = false
 
 func _on_Grapple_collided(collider : Node2D):
 	if collider.has_node("Grabber"):
@@ -121,6 +122,7 @@ func _on_Grapple_collided(collider : Node2D):
 		grapple_wall = true
 		if collider.has_node("CookieTiles"):
 			$Player.is_diving = true
+			$Grapple/PlayerDetector/CollisionShape2D.disabled = true
 
 func _on_Grapple_obtained():
 	$Player/GrappleLine.visible = false
