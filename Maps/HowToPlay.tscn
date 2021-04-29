@@ -510,6 +510,7 @@ format = 1
 tile_data = PoolIntArray( 589839, 0, 8, 589840, 0, 9, 589841, 0, 11, 655375, 0, 65544, 655376, 0, 65546, 655377, 0, 131083, 720911, 0, 65544, 720912, 0, 65548, 720913, 0, 131083, 786447, 0, 65544, 786448, 0, 65546, 786449, 0, 131083, 851982, 0, 8, 851983, 0, 65541, 851984, 0, 65546, 851985, 0, 131083, 917518, 0, 65544, 917519, 0, 65548, 917520, 0, 65546, 917521, 0, 131083, 983053, 0, 8, 983054, 0, 65541, 983055, 0, 12, 983056, 0, 65546, 983057, 0, 131083, 1048589, 0, 65544, 1048590, 0, 12, 1048591, 0, 65546, 1048592, 0, 131078, 1048593, 0, 196619, 1114123, 0, 8, 1114124, 0, 9, 1114125, 0, 65541, 1114126, 0, 12, 1114127, 0, 131078, 1114128, 0, 196619, 1179659, 0, 196616, 1179660, 0, 196618, 1179661, 0, 196618, 1179662, 0, 196618, 1179663, 0, 196619 )
 
 [node name="Page7" type="Node2D" parent="."]
+visible = false
 position = Vector2( 8, 0 )
 __meta__ = {
 "_edit_lock_": true
@@ -564,11 +565,9 @@ texture = ExtResource( 4 )
 hframes = 2
 
 [node name="Page6" type="Node2D" parent="."]
-visible = false
 position = Vector2( 32, 8 )
 __meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
+"_edit_group_": true
 }
 
 [node name="Label" type="Label" parent="Page6"]
@@ -603,11 +602,12 @@ custom_colors/font_color = Color( 0.231373, 0.298039, 0.52549, 1 )
 text = "Sometimes your hunger
 may try to keep you awake.
 
-.. in somewhat intersting ways."
+.. in somewhat interesting ways."
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="pressed" from="GUI/NextButton" to="." method="_on_NextButton_pressed"]
 [connection signal="pressed" from="GUI/PrevButton" to="." method="_on_PrevButton_pressed"]
 [connection signal="pressed" from="GUI/SkipButton" to="." method="_on_SkipButton_pressed"]
