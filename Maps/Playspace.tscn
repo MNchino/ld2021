@@ -89,7 +89,7 @@ tracks/2/keys = {
 extents = Vector2( 84, 32 )
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 80, 2 )
+extents = Vector2( 80, 96 )
 
 [sub_resource type="Gradient" id=6]
 colors = PoolColorArray( 1, 1, 1, 0.392157, 1, 1, 1, 0 )
@@ -244,7 +244,7 @@ __meta__ = {
 }
 
 [node name="CanSpontaneouslyExplodeArea" type="Area2D" parent="Walls"]
-position = Vector2( 0, -2.23504 )
+position = Vector2( 0, -96 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
